@@ -1,0 +1,16 @@
+@import "fragments/footer";
+@import "fragments/header";
+@import "fragments/login-window";
+@import "fragments/main";
+
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
+  .body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+}

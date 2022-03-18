@@ -1,11 +1,22 @@
-import React from 'react';
+import React, {useState} from 'react';
+import EnterWindow from "./enterWindow/EnterWindow";
+import MainWindow from "./mainWindow/MainWindow";
 
-function App() {
-  return (
-    <div className="App">
-      kek
-    </div>
-  );
+interface DataInput {
+    name : string
+}
+
+const App : React.FC = () => {
+    const [isOpen, setIsOpen] = useState<boolean>(false)
+    const [dataInput, setDataInput] = useState<DataInput>({ name : ""})
+
+
+    return (
+        <>
+            {isOpen && <EnterWindow/>}
+            {!isOpen && <MainWindow name={dataInput.name}/>}
+        </>
+    )
 }
 
 export default App;
