@@ -1,7 +1,7 @@
-@import "fragments/enterWindow/footer";
-@import "fragments/enterWindow/header";
-@import "fragments/login-window";
-@import "fragments/enterWindow/content/content";
+@import "fragments/mainWindow/footer";
+@import "fragments/mainWindow/header";
+@import "fragments/loginWindow/login-window";
+@import "fragments/mainWindow/content/content";
 
 html {
   height: 100%;

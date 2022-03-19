@@ -1,9 +1,12 @@
 import React from "react";
+import Enter from "./Enter";
+import Info from "./Info";
 
-const EnterWindow : React.FC = () => {
+function EnterWindow({setOpen}: propsEnterWindow){
     return (
         <div>
-
+            <Enter setOpen={setOpen}/>
+            <Info/>
         </div>
     )
 }
