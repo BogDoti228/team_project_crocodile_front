@@ -10,7 +10,7 @@ interface MainWindowProps {
 const MainWindow : React.FC<MainWindowProps> = ({name}) => {
     return (
         <>
-            <Header/>
+            <Header name={name}/>
             <Content/>
             <Footer/>
         </>

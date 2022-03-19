@@ -1,16 +1,40 @@
-@import "fragments/footer";
-@import "fragments/header";
+@import "fragments/enterWindow/footer";
+@import "fragments/enterWindow/header";
 @import "fragments/login-window";
-@import "fragments/main";
+@import "fragments/enterWindow/content/content";
 
 html {
   height: 100%;
   margin: 0;
   padding: 0;
+  font-family: "Geometria Regular", sans-serif;
+  background-color: #7cffcb;
+  background-image: linear-gradient(315deg, #7cffcb 0%, #74f2ce 74%);
+
 
   .body {
     height: 100%;
     margin: 0;
     padding: 0;
+
+    .root {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
   }
 }
+
+@font-face {
+  font-family: 'Geometria Regular';
+  src: url('../resources/fonts/Geometria.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.unselectable {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+

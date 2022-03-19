@@ -1,0 +1,9 @@
+@import "../interactive/chat/chat";
+@import "../interactive/roomInfo/room-info";
+
+.interactive {
+  height: 100%;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+}

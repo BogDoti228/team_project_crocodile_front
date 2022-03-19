@@ -1,10 +1,29 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import logo from "../../../resources/images/logo.svg"
 
-const Header : React.FC = () => {
+type HeaderType = {
+    name : string
+}
+
+const Header : React.FC<HeaderType> = ({name }) => {
+    const [nameDefault, setNameDefault] = useState<string>("")
+
+    useEffect(() => {
+        if (!name) {
+            setNameDefault("Akame228")
+        }
+    })
+
     return (
-        <div>
-
-        </div>
+        <header className={"header"}>
+            <div className={"header__title-box"}>
+                <img className={"header__title-box__logo"} src={logo} alt="crocodile"/>
+                <h1 className={"header__title-box__title"}>AlligatorZ</h1>
+            </div>
+            <div className={"header__profile"}>
+                {nameDefault}
+            </div>
+        </header>
     )
 }
 
