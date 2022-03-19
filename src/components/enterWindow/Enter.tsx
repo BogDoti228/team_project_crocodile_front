@@ -24,6 +24,11 @@ function Enter({setOpen, setDataInput}: propsEnterWindow){
         setOpen(v => !v );
     }
 
+    const handlePressEnter = (e:  React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter")
+            handleClickBtn();
+    }
+
     return (
         <div className="enter-window__enter">
             {isErrorMaxLen && <div className="enter-window__error-message">Слишком длинный ник</div>}
@@ -32,7 +37,9 @@ function Enter({setOpen, setDataInput}: propsEnterWindow){
                    className="enter-window__input"
                    type="text"
                    value={nick}
-                   onChange={(e) => {onChangeInput(e.target.value)}}/>
+                   onChange={(e) => {onChangeInput(e.target.value)}}
+                   onKeyPress={e => {handlePressEnter(e)}}
+            />
             <button className="enter-window__btn btn" onClick={handleClickBtn}>Войти</button>
         </div>
     )
