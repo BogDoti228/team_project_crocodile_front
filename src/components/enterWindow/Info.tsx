@@ -2,9 +2,10 @@ import React from "react";
 
 const Info : React.FC = () => {
     return (
-        <div>
+        <div className="enter-window__info">
             Тут можно рассказать про игру,
-            правила, про проект, ченить такое
+            правила, про проект, ченить такое,
+            <span>Вот так можно помечать важное</span>
         </div>
     )
 }

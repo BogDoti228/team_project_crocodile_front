@@ -10,7 +10,7 @@ const App : React.FC = () => {
 
     return (
         <>
-            {isOpen && <EnterWindow setOpen={setIsOpen}/>}
+            {isOpen && <EnterWindow setOpen={setIsOpen} setDataInput={setDataInput}/>}
             {!isOpen && <MainWindow name={dataInput.name}/>}
         </>
     )
