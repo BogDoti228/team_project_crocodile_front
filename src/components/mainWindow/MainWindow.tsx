@@ -11,7 +11,7 @@ const MainWindow : React.FC<MainWindowProps> = ({name}) => {
     return (
         <>
             <Header name={name}/>
-            <Content/>
+            <Content name={name}/>
             <Footer/>
         </>
     )
