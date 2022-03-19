@@ -1,7 +1,9 @@
-@import "fragments/enterWindow/footer";
-@import "fragments/enterWindow/header";
-@import "fragments/login-window";
-@import "fragments/enterWindow/content/content";
+@import "zeroing.css";
+@import "ui";
+@import "fragments/mainWindow/footer";
+@import "fragments/mainWindow/header";
+@import "fragments/mainWindow/content/content";
+@import "fragments/enterWindow/enter-window";
 
 html {
   height: 100%;

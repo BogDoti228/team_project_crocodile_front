@@ -21,7 +21,7 @@ const Header : React.FC<HeaderType> = ({name }) => {
                 <h1 className={"header__title-box__title"}>AlligatorZ</h1>
             </div>
             <div className={"header__profile"}>
-                {nameDefault}
+                {name || nameDefault}
             </div>
         </header>
     )

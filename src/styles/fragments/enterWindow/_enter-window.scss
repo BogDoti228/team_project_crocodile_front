@@ -1,0 +1,79 @@
+.enter-window{
+  margin: 0 20px 0 20px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $background-color;
+
+
+  &__content{
+    height: 92.2vh;
+    max-width: 880px;
+    background-color: $background-color-light;
+    border-radius: $medium-border-radius;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+
+  &__info{
+    background-color: $grey-light;
+    width: 50%;
+    border-bottom-left-radius: $medium-border-radius;
+    border-top-left-radius: $medium-border-radius;
+    font-size: 24px;
+    padding: 40px;
+    span{
+      color: $attention-color;
+    }
+  }
+
+  &__enter{
+    padding: 45px;
+    height: 348px;
+    max-width: 370px;
+    align-self: center;
+    flex-basis: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $grey-light;
+    border-radius: $medium-border-radius;
+    margin: 0 35px 0 35px;
+    position: relative;
+  }
+
+  &__error-message{
+    position: absolute;
+    top: 15px;
+    left: 27px;
+    padding: 0 5px 0 5px;
+    background-color: #ff3333;
+    height: 20px;
+    min-width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+  }
+
+  &__enter-content{
+  }
+
+  &__input{
+    padding: 10px;
+    background-color: $attention-color;
+    max-width: 318px;
+    height: 60px;
+    font-size: 24px;
+    border-radius: $little-border-radius;
+  }
+
+  &__btn{
+    align-self: flex-end;
+  }
+}
