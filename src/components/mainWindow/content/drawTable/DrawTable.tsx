@@ -1,4 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
+import {ImageData} from "canvas";
 
 interface Point {
     x : number,
@@ -6,22 +7,40 @@ interface Point {
 }
 
 const scale = 10
+let initImage : ImageData;
 
 const DrawTable : React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const [isDrawBegin, setIsDrawBegin] = useState<boolean>(false)
     const [prevPoint, setPrevPoint] = useState<Point>({x: 0, y: 0})
     const [ctx, setCtx] = useState<CanvasRenderingContext2D | null>(null)
+    const [prevSavedImages, setPrevSavedImages] = useState<Array<ImageData>>([])
 
     useEffect(() => {
         let canvas = canvasRef.current
         if (canvas) {
             const ctx = canvas?.getContext('2d') as CanvasRenderingContext2D
+
             canvas.width = canvas.width * scale
             canvas.height = canvas.height * scale
+            const startImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            setPrevSavedImages([startImage])
+            initImage = startImage;
             setCtx(ctx)
         }
+
+
     }, [])
+
+    useEffect(() => {
+        if (prevSavedImages.length === 0) {
+            setPrevSavedImages([initImage])
+        }
+        document.addEventListener('keydown', backChanges, false);
+        return () => {
+            document.removeEventListener('keydown', backChanges)
+        }
+    }, [prevSavedImages])
 
     const startDraw = (e : React.MouseEvent<HTMLCanvasElement>) =>  {
         setIsDrawBegin(true)
@@ -32,6 +51,25 @@ const DrawTable : React.FC = () => {
 
     const endDraw = () =>  {
         setIsDrawBegin(false)
+        if (canvasRef.current && ctx){
+            const imageData = ctx.getImageData(0,0, canvasRef.current.width,  canvasRef.current.height);
+            setPrevSavedImages([...prevSavedImages, imageData])
+            console.log(prevSavedImages.length)
+        }
+
+    }
+
+    const backChanges = (e: KeyboardEvent) => {
+        console.log(prevSavedImages.length)
+        if (e.ctrlKey && e.key === "z") {
+            if (ctx && prevSavedImages.length - 1 > 0) {
+                console.log("adsad")
+
+                const lastImage = prevSavedImages[prevSavedImages.length - 2] as ImageData
+                ctx.putImageData(lastImage, 0, 0);
+                setPrevSavedImages(prevSavedImages.slice(0, -1))
+            }
+        }
     }
 
     const getCurrentPoint = (e : React.MouseEvent<HTMLCanvasElement>) : Point | undefined => {
