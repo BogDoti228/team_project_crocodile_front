@@ -19,7 +19,9 @@ const Chat : React.FC<ProfileProps> = ({name}) => {
 
     const sendMessage = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
+            if (message.length === 0) return;
             setListMessage([...listMessage, message])
+            setMessage('');
             if (inputRef.current)
                 inputRef.current.value = ""
         }
