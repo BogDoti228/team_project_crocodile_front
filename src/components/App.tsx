@@ -5,13 +5,11 @@ import MainWindow from "./mainWindow/MainWindow";
 //Interface DataInput moved to d.ts
 const App : React.FC = () => {
     const [isOpen, setIsOpen] = useState<boolean>(true)
-    const [dataInput, setDataInput] = useState<DataInput>({ name : ""})
-
 
     return (
         <>
-            {isOpen && <EnterWindow setOpen={setIsOpen} setDataInput={setDataInput}/>}
-            {!isOpen && <MainWindow name={dataInput.name}/>}
+            {isOpen && <EnterWindow setOpen={setIsOpen}/>}
+            {!isOpen && <MainWindow />}
         </>
     )
 }

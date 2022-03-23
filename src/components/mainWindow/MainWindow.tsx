@@ -3,15 +3,11 @@ import Header from "./header/Header";
 import Content from "./content/Content";
 import Footer from "./footer/Footer";
 
-interface MainWindowProps {
-    name : string
-}
-
-const MainWindow : React.FC<MainWindowProps> = ({name}) => {
+const MainWindow : React.FC= () => {
     return (
         <>
-            <Header name={name}/>
-            <Content name={name}/>
+            <Header />
+            <Content />
             <Footer/>
         </>
     )

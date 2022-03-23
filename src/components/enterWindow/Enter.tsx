@@ -1,9 +1,12 @@
 import React, {useState} from "react";
+import {useTypeDispatch} from "../../store/store";
+import {setName} from "../../store/web-slices/profile_slice";
 
-function Enter({setOpen, setDataInput}: propsEnterWindow){
+function Enter({setOpen}: propsEnterWindow){
     const [nick, setNick] = useState('');
     const [isErrorMaxLen, setIsErrorMaxLenMaxLen] = useState(false);
     const [isErrorZeroInput, setIsErrorZeroInput] = useState(false);
+    const dispatch = useTypeDispatch();
 
     const onChangeInput = (value: string) => {
         setIsErrorZeroInput(false);
@@ -20,8 +23,8 @@ function Enter({setOpen, setDataInput}: propsEnterWindow){
             setIsErrorZeroInput(true);
             return;
         }
-        setDataInput({name: nick})
         setOpen(v => !v );
+        dispatch(setName(nick))
     }
 
     const handlePressEnter = (e:  React.KeyboardEvent<HTMLInputElement>) => {

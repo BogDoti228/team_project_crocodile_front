@@ -5,7 +5,6 @@ interface DataInput{
 
 type propsEnterWindow = {
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    setDataInput: React.Dispatch<React.SetStateAction<DataInput>>;
 }
 
 declare interface ProfileProps {
