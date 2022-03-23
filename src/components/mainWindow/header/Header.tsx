@@ -1,18 +1,12 @@
 import React, {useEffect, useState} from "react";
 import logo from "../../../resources/images/logo.svg"
+import {useSelector} from "react-redux";
+import {RootState} from "../../../store/store";
 
-type HeaderType = {
-    name : string
-}
 
-const Header : React.FC<HeaderType> = ({name }) => {
-    const [nameDefault, setNameDefault] = useState<string>("")
 
-    useEffect(() => {
-        if (!name) {
-            setNameDefault("Akame228")
-        }
-    })
+const Header : React.FC = () => {
+    const {name} = useSelector((state : RootState) => state.profileReducer)
 
     return (
         <header className={"header"}>
@@ -21,7 +15,7 @@ const Header : React.FC<HeaderType> = ({name }) => {
                 <h1 className={"header__title-box__title"}>AlligatorZ</h1>
             </div>
             <div className={"header__profile"}>
-                {name || nameDefault}
+                {name}
             </div>
         </header>
     )

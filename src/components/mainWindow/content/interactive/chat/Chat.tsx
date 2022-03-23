@@ -1,10 +1,13 @@
 import React, {useEffect, useRef, useState} from "react";
+import {useSelector} from "react-redux";
+import {RootState} from "../../../../../store/store";
 
-const Chat : React.FC<ProfileProps> = ({name}) => {
+const Chat : React.FC = () => {
     const [message, setMessage] = useState<string>("")
     const [listMessage, setListMessage] = useState<Array<string>>([])
     const inputRef = useRef<HTMLInputElement>(null)
     const ulRef = useRef<HTMLUListElement>(null)
+    const {name} = useSelector((state : RootState) => state.profileReducer)
 
     useEffect(() => {
         if (ulRef.current){

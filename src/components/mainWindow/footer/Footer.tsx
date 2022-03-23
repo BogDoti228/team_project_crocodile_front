@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 const Footer : React.FC = () => {
+
     return (
         <div>
         </div>
