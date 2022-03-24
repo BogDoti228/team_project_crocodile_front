@@ -39,6 +39,9 @@ export const profileSlice = createSlice({
         builder.addCase(getName.fulfilled, (state, action) => {
             state.name = action.payload.name
         })
+        builder.addCase(postName.fulfilled, (state, action) => {
+
+        })
     }
 })
 
