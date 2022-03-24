@@ -11,10 +11,20 @@ const initialState = {
 } as ProfileType
 
 export const getName = createAsyncThunk("getName", async () => {
-    const response : Promise<ProfileType> = fetch('http://localhost:8080/users/campaigns')
+    const response : Promise<ProfileType> = fetch('http://localhost:8080/user/profile')
         .then((x) => x.json())
         .catch(console.log)
     return await response
+})
+
+export const postName = createAsyncThunk("postName", async (name : string) => {
+    await fetch('http://localhost:8080/user/profile', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({name: name})
+    })
 })
 
 export const profileSlice = createSlice({
