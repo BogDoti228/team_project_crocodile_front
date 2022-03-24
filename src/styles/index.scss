@@ -3,7 +3,7 @@
 @import "fragments/mainWindow/footer";
 @import "fragments/mainWindow/header";
 @import "fragments/mainWindow/content/content";
-@import "fragments/enterWindow/enter-window";
+@import "../components/enterWindow/enter-window";
 
 html {
   height: 100%;
@@ -20,6 +20,7 @@ html {
     padding: 0;
 
     .root {
+      height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
