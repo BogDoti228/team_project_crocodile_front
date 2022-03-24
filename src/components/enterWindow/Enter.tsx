@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {useTypeDispatch} from "../../store/store";
-import {setName} from "../../store/web-slices/profile_slice";
+import {postName, setName} from "../../store/web-slices/profile_slice";
 
 function Enter({setOpen}: propsEnterWindow){
     const [nick, setNick] = useState('');
@@ -24,7 +24,7 @@ function Enter({setOpen}: propsEnterWindow){
             return;
         }
         setOpen(v => !v );
-        dispatch(setName(nick))
+        dispatch(postName(nick))
     }
 
     const handlePressEnter = (e:  React.KeyboardEvent<HTMLInputElement>) => {
