@@ -4,9 +4,13 @@ interface DataInput{
 }
 
 type propsEnterWindow = {
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setAuth: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 declare interface ProfileProps {
     name : string
+}
+
+type choiceRoomWindowProps = {
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }

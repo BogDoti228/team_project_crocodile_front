@@ -1,15 +1,18 @@
 import React, {useState} from 'react';
 import EnterWindow from "./enterWindow/EnterWindow";
 import MainWindow from "./mainWindow/MainWindow";
+import ChoiceRoomWindow from "./choiceRoomWindow/ChoiceRoomWindow";
 
-//Interface DataInput moved to d.ts
+
 const App : React.FC = () => {
-    const [isOpen, setIsOpen] = useState<boolean>(true)
+    const [isAuth, setIsAuth] = useState(false);
+    const [isOpenMain, setIsOpenMain] = useState(false);
 
     return (
         <>
-            {isOpen && <EnterWindow setOpen={setIsOpen}/>}
-            {!isOpen && <MainWindow />}
+            {!isAuth && <EnterWindow setAuth={setIsAuth}/>}
+            {!(!isAuth || isOpenMain) && <ChoiceRoomWindow setOpen={setIsOpenMain}/>}
+            {isOpenMain && <MainWindow />}
         </>
     )
 }
