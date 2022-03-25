@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {useTypeDispatch} from "../../store/store";
-import {setName} from "../../store/web-slices/profile_slice";
+import {postName, setName} from "../../store/web-slices/profile_slice";
 
 function Enter({setAuth}: propsEnterWindow){
     const [nick, setNick] = useState('');
