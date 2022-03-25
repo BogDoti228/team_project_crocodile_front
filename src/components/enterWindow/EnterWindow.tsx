@@ -2,11 +2,11 @@ import React from "react";
 import Enter from "./Enter";
 import Info from "./Info";
 
-function EnterWindow({setOpen}: propsEnterWindow){
+function EnterWindow({setAuth}: propsEnterWindow){
     return (
         <div className="enter-window">
             <div className="enter-window__content">
-                <Enter setOpen={setOpen} />
+                <Enter setAuth={setAuth} />
                 <Info/>
             </div>
 

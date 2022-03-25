@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {useTypeDispatch} from "../../store/store";
 import {setName} from "../../store/web-slices/profile_slice";
 
-function Enter({setOpen}: propsEnterWindow){
+function Enter({setAuth}: propsEnterWindow){
     const [nick, setNick] = useState('');
     const [isErrorMaxLen, setIsErrorMaxLenMaxLen] = useState(false);
     const [isErrorZeroInput, setIsErrorZeroInput] = useState(false);
@@ -23,7 +23,7 @@ function Enter({setOpen}: propsEnterWindow){
             setIsErrorZeroInput(true);
             return;
         }
-        setOpen(v => !v );
+        setAuth(v => !v );
         dispatch(setName(nick))
     }
 

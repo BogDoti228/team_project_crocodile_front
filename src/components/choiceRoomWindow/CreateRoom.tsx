@@ -1,11 +1,11 @@
 import {useState} from "react";
 
-function CreateRoom(){
+function CreateRoom({setOpen}: choiceRoomWindowProps){
 
     const [nameRoom, setNameRoom] = useState('');
 
     const handleCreateRoom = () =>{
-
+        setOpen(v => !v);
     }
 
     return (

@@ -1,10 +1,10 @@
 import {useState} from "react";
 
-function JoinRoom(){
+function JoinRoom({setOpen}: choiceRoomWindowProps){
     const [idRoom, setIdRoom] = useState('');
 
     const handleJoinRoom = () =>{
-
+        setOpen(v => !v);
     }
 
     return (
