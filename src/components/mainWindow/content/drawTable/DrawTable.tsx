@@ -96,14 +96,51 @@ const DrawTable : React.FC = () => {
         }
     }
 
-    return (
-        <canvas className={"canvas unselectable"} ref={canvasRef}
-                onMouseDown={startDraw}
-                onMouseMove={(e) => getMousePose(e)}
-                onMouseUp={endDraw}
-                onMouseLeave={endDraw}>
+    //метод пост, контет тайп - json
+    //он передает json объекта, на сервере имеется такой же тип объекта.
+    //в jsone отправляет base64 код картинки
+    const post = () => {
+        fetch('https://localhost:8080/canvas/post', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({canvas: ctx?.canvas.toDataURL()})
+        })
+    }
 
+    //просто получает данные и пихает их в ctx
+    const get = () => {
+        fetch('https://localhost:8080/canvas/get')
+            .then(x => x.json())
+            .then(x => {
+                let img = new Image();
+                img.src = x.canvas;
+                ctx?.drawImage(img, 0, 0, ctx?.canvas.width, ctx?.canvas.height);
+                console.log(img.x);
+            });
+    }
+    //каждые 25 мс происзодит пост
+    const setPost = () => {
+        setInterval(post, 25);
+    }
+
+    const setGet = () => {
+        setInterval(get, 25);
+    }
+
+    return (
+        <div><canvas className={"canvas unselectable"} ref={canvasRef}
+                     onMouseDown={startDraw}
+                     onMouseMove={(e) => getMousePose(e)}
+                     onMouseUp={endDraw}
+                     onMouseLeave={endDraw}>
         </canvas>
+            {/*эти кнопки нужны чтобы определить кто отправляет. а кто принимает. Что будет если нажать их одновременно я хз*/}
+            <button className="enter-window__btn btn" onClick={setPost}>POST</button>
+            <button className="enter-window__btn btn" onClick={setGet}>GET</button>
+        </div>
+
     )
 }
 
