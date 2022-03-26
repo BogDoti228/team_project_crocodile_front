@@ -1,5 +1,8 @@
 import React, {useEffect, useRef} from "react";
 import {ImageData} from "canvas";
+import {RootState, useTypeDispatch} from "../../../../store/store";
+import {getCanvasImage, postCanvasImage} from "../../../../store/web-slices/canvas_slice";
+import {useSelector} from "react-redux";
 
 interface Point {
     x: number,
@@ -15,6 +18,10 @@ const DrawTable: React.FC = () => {
     let ctx: CanvasRenderingContext2D | null = null;
     const historyStack: ImageData[] = [];
 
+    const {url} = useSelector((state : RootState) => state.canvasReducer)
+
+    const dispatch = useTypeDispatch();
+
     useEffect(() => {
         const canvas = canvasRef.current
         if (canvas) {
@@ -29,6 +36,26 @@ const DrawTable: React.FC = () => {
             document.removeEventListener('keydown', onKeyDown)
         }
     }, [canvasRef.current])
+
+    //ВОТ ТУТ (в компоненте где угодно) НАДО ЧЕТО СДЕЛАТЬ ЧТОБЫ ОНО ПЕРЕДАВАЛО ДРУГИМ, Я НЕ ЕБУ КАК ЭТО СДЕЛАТЬ))
+    /*useEffect(() => {
+            setInterval(async () => {
+                if (ctx) {
+                    await Promise.resolve().then(() => {
+                        if (ctx) {
+                            dispatch(postCanvasImage(ctx.canvas.toDataURL()))
+                        }
+                    }).then(() => {
+                        dispatch(getCanvasImage())
+                    })
+
+                    let img = new Image();
+                    img.src = url;
+                    ctx.drawImage(img, 0, 0)
+                }
+            }, 25)
+
+    }, [])*/
 
     const startDraw = (e: React.MouseEvent<HTMLCanvasElement>) => {
         isDraw = true;
@@ -67,6 +94,7 @@ const DrawTable: React.FC = () => {
         if (isDraw) {
             const point = getCurrentPoint(e)
             if (ctx && point) {
+                ctx.lineCap = "round"
                 ctx.lineWidth = 10
                 ctx.beginPath()
                 ctx.moveTo(prevPoint.x, prevPoint.y)
