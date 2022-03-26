@@ -25,6 +25,8 @@ function Enter({setAuth}: propsEnterWindow){
         }
         setAuth(v => !v );
         dispatch(setName(nick))
+        dispatch(postName(nick))
+        localStorage.setItem("name", nick)
     }
 
     const handlePressEnter = (e:  React.KeyboardEvent<HTMLInputElement>) => {

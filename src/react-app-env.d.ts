@@ -7,7 +7,7 @@ type propsEnterWindow = {
     setAuth: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-declare interface ProfileProps {
+declare interface Profile {
     name : string
 }
 
