@@ -52,12 +52,12 @@ const Chat : React.FC = () => {
         <div className={style.chat}>
             <ul className={style.window} ref={ulRef}>
                 {messages.map((message, index) => <li className={style.message} key={index}>
-                    <span className={"message__name"} style={{color : "red"}}>{message.Name}: </span>
+                    <span className={style.name}>{message.Name}: </span>
                     {message.Text}
                 </li>)}
             </ul>
             <div className={style.button}>
-                <input ref={inputRef} placeholder={"Написать сообщение..."} className={style.sender} type="text" onKeyPress={(e) => applyMessage(e)} onChange={(e) => getMessage(e)}/>
+                <input ref={inputRef} placeholder={"Написать сообщение..."} className={style.input} type="text" onKeyPress={(e) => applyMessage(e)} onChange={(e) => getMessage(e)}/>
             </div>
         </div>
     )
