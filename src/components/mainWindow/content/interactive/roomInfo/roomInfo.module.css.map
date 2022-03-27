@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["roomInfo.module.scss"],"names":[],"mappings":"AAAA;EACE;EACA;EACA;EACA;EACA;;;AAEF;EACE;EACA;EACA;EACA","file":"roomInfo.module.css"}
+{"version":3,"sourceRoot":"","sources":["roomInfo.module.scss","../../../../../styles/_variables.scss"],"names":[],"mappings":"AAEA;EACE,kBCCiB;EDAjB,eCCqB;EDArB;EACA;EACA;EACA;;;AAEF;EACE;EACA;EACA;EACA","file":"roomInfo.module.css"}

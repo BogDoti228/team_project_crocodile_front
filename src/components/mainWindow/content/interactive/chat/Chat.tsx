@@ -3,6 +3,7 @@ import {useSelector} from "react-redux";
 import {RootState, useTypeDispatch} from "../../../../../store/store";
 import {getStoryMessage, sendMessage} from "../../../../../store/web-slices/chat_slice";
 import style from "./chat.module.scss";
+import Message from "./Message";
 
 const Chat : React.FC = () => {
     const [message, setMessage] = useState<string>("")
@@ -51,13 +52,15 @@ const Chat : React.FC = () => {
     return (
         <div className={style.chat}>
             <ul className={style.window} ref={ulRef}>
-                {messages.map((message, index) => <li className={style.message} key={index}>
-                    <span className={style.name}>{message.Name}: </span>
-                    {message.Text}
-                </li>)}
+                {messages.map((message, index) =>
+                    <li key={index}>
+                    <Message name={message.Name} text={message.Text} />
+                    </li>
+                )}
             </ul>
-            <div className={style.button}>
+            <div className={style.inputBox}>
                 <input ref={inputRef} placeholder={"Написать сообщение..."} className={style.input} type="text" onKeyPress={(e) => applyMessage(e)} onChange={(e) => getMessage(e)}/>
+                <button className={style.button}>1</button>
             </div>
         </div>
     )
