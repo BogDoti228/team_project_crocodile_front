@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {useTypeDispatch} from "../../store/store";
 import {postName, setName} from "../../store/web-slices/profile_slice";
+import {json} from "stream/consumers";
 
 function Enter({setOpen}: propsEnterWindow){
     const [nick, setNick] = useState('');
@@ -32,6 +33,21 @@ function Enter({setOpen}: propsEnterWindow){
             handleClickBtn();
     }
 
+    let user = {
+        Name: "kek",
+    }
+
+    const post = () => {
+        fetch("https://localhost:8080/main/post",
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(user)
+            })
+    }
+
     return (
         <div className="enter-window__enter">
             {isErrorMaxLen && <div className="enter-window__error-message">Слишком длинный ник</div>}
@@ -44,6 +60,7 @@ function Enter({setOpen}: propsEnterWindow){
                    onKeyPress={e => {handlePressEnter(e)}}
             />
             <button className="enter-window__btn btn" onClick={handleClickBtn}>Войти</button>
+            <button className="enter-window__btn btn" onClick={post}>POST</button>
         </div>
     )
 }

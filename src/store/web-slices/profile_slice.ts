@@ -1,4 +1,5 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {useTypeDispatch} from "../store";
 
 interface ProfileType {
     name : string,
@@ -37,10 +38,11 @@ export const profileSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(getName.fulfilled, (state, action) => {
+            console.log('GET')
             state.name = action.payload.name
         })
         builder.addCase(postName.fulfilled, (state, action) => {
-
+            console.log('POST')
         })
     }
 })

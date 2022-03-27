@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useSelector} from "react-redux";
-import {RootState} from "../../../../../store/store";
+import {RootState, useTypeDispatch} from "../../../../../store/store";
+import {getName} from "../../../../../store/web-slices/profile_slice";
 
 const Chat : React.FC = () => {
     const [message, setMessage] = useState<string>("")
@@ -8,6 +9,10 @@ const Chat : React.FC = () => {
     const inputRef = useRef<HTMLInputElement>(null)
     const ulRef = useRef<HTMLUListElement>(null)
     const {name} = useSelector((state : RootState) => state.profileReducer)
+
+
+    const dispatch = useTypeDispatch();
+
 
     useEffect(() => {
         if (ulRef.current){
@@ -27,6 +32,7 @@ const Chat : React.FC = () => {
             setMessage('');
             if (inputRef.current)
                 inputRef.current.value = ""
+            dispatch(getName())
         }
     }
 

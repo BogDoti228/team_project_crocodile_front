@@ -8,9 +8,9 @@ import {getName} from "../../store/web-slices/profile_slice";
 const MainWindow : React.FC = () => {
     const dispatch = useTypeDispatch();
 
-    useEffect(() => {
+    /*useEffect(() => {
         dispatch(getName())
-    }, [])
+    }, [])*/
 
     return (
         <>
