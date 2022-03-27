@@ -1,4 +1,5 @@
 import {useState} from "react";
+import style from './choiceRoomWindow.module.scss';
 
 function CreateRoom({setOpen}: choiceRoomWindowProps){
 
@@ -9,11 +10,11 @@ function CreateRoom({setOpen}: choiceRoomWindowProps){
     }
 
     return (
-        <div className="choiceWindow__section createRoom">
-            <div className="window">
+        <div className={style.section + ' ' + style.createRoom}>
+            <div className={style.widget}>
                 <div>Название комнаты:</div>
-                <input type="text" value={nameRoom} onChange={e => setNameRoom(e.target.value)}/>
-                <button className="createRoom__btn btn" onClick={handleCreateRoom}>Создать комнату</button>
+                <input className={style.input + ' ' + 'input'} type="text" value={nameRoom} onChange={e => setNameRoom(e.target.value)}/>
+                <button className={style.button + ' ' + "btn"} onClick={handleCreateRoom}>Создать комнату</button>
             </div>
 
         </div>)

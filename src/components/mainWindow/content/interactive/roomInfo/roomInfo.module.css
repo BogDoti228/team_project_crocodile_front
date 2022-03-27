@@ -1,0 +1,17 @@
+.room_info {
+  background-color: #FBFBFB;
+  border-radius: 15px;
+  height: 20%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.box_word {
+  font-size: 30px;
+  font-weight: bold;
+  align-self: center;
+  margin: auto 0;
+}
+
+/*# sourceMappingURL=roomInfo.module.css.map */

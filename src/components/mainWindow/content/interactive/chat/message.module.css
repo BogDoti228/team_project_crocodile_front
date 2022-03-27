@@ -1,0 +1,55 @@
+.message {
+  margin: 10px 0 10px 0;
+  width: calc(100% - 20px);
+  white-space: initial;
+  overflow-wrap: anywhere;
+}
+
+.name {
+  color: #92B4F4;
+  font-size: 20px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  font-weight: 600;
+}
+
+.text {
+  background: #FBFBFB;
+  border: 5px solid #92B4F4;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 15px;
+  min-height: 47px;
+}
+
+.button {
+  margin-top: 7px;
+  width: 48%;
+  height: 20px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.buttonLike {
+  margin-left: 5px;
+  background: #4896F1;
+}
+
+.buttonLike:hover {
+  background: #6cafff;
+}
+
+.buttonDislike {
+  background: #FF0000;
+}
+
+.buttonDislike:hover {
+  background: #ff5858;
+}
+
+/*# sourceMappingURL=message.module.css.map */

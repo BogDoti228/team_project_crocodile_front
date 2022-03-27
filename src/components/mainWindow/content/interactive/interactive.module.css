@@ -1,9 +1,9 @@
-@import "../interactive/chat/chat";
-@import "../interactive/roomInfo/room-info";
-
 .interactive {
+  padding-left: 20px;
   height: 100%;
   width: 30%;
   display: flex;
   flex-direction: column;
 }
+
+/*# sourceMappingURL=interactive.module.css.map */

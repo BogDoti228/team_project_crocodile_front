@@ -1,4 +1,6 @@
 import {useState} from "react";
+import style from './choiceRoomWindow.module.scss';
+
 
 function JoinRoom({setOpen}: choiceRoomWindowProps){
     const [idRoom, setIdRoom] = useState('');
@@ -8,11 +10,11 @@ function JoinRoom({setOpen}: choiceRoomWindowProps){
     }
 
     return (
-        <div className="choiceWindow__section joinRoom">
-            <div className="window">
+        <div className={style.section + ' ' + style.joinRoom}>
+            <div className={style.widget}>
                 <div>Индефикатор комнаты:</div>
-                <input type="text" value={idRoom} onChange={e => setIdRoom(e.target.value)}/>
-                <button className="joinRoom__btn btn" onClick={handleJoinRoom}>Войти в комнату</button>
+                <input className={style.input + ' ' + 'input'} type="text" value={idRoom} onChange={e => setIdRoom(e.target.value)}/>
+                <button className={style.button + ' ' + "btn"} onClick={handleJoinRoom}>Войти в комнату</button>
             </div>
 
         </div>)
