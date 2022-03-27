@@ -1,5 +1,6 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import {ImageData} from "canvas";
+import {HubConnection, HubConnectionBuilder} from "@microsoft/signalr";
 
 interface Point {
     x : number,
@@ -15,6 +16,15 @@ const DrawTable : React.FC = () => {
     const [prevPoint, setPrevPoint] = useState<Point>({x: 0, y: 0})
     const [ctx, setCtx] = useState<CanvasRenderingContext2D | null>(null)
     const [prevSavedImages, setPrevSavedImages] = useState<Array<ImageData>>([])
+
+    const fun = useCallback( async (draw: boolean) => {
+        console.log(draw)
+            if (draw) {
+                await sendCanvas();
+            }
+        },
+        [isDrawBegin]
+    )
 
     useEffect(() => {
         let canvas = canvasRef.current
@@ -96,6 +106,15 @@ const DrawTable : React.FC = () => {
         }
     }
 
+
+
+    const startPushCanvas = async () => {
+        if (isDrawBegin) {
+            await sendCanvas();
+        }
+    }
+
+
     //метод пост, контет тайп - json
     //он передает json объекта, на сервере имеется такой же тип объекта.
     //в jsone отправляет base64 код картинки
@@ -129,14 +148,98 @@ const DrawTable : React.FC = () => {
         setInterval(get, 25);
     }
 
+    const [ connection, setConnection ] = useState<HubConnection | null>(null);
+
+    useEffect(() => {
+        const newConnection = new HubConnectionBuilder()
+            .withUrl('https://localhost:8080/canvasHub')
+            .withAutomaticReconnect()
+            .build();
+
+        setConnection(newConnection);
+    }, []);
+
+    useEffect(() => {
+        if (connection) {
+            connection.start()
+                .then(result => {
+                    console.log('Connected!');
+                })
+                .catch(e => console.log('Connection failed: ', e));
+        }
+    }, [connection]);
+
+    const conOn = () => {
+        connection?.on('ReceiveMessage', async x => {
+            console.log("ПРИШЛО");
+            //console.log(x.canvas);
+            //ctx?.clearRect(0, 0, ctx?.canvas.width, ctx?.canvas.height);
+            let img = new Image();
+            //img.src = x.canvas;
+            await new Promise(f => {
+                img.onload = f;
+                img.src = x.canvas;
+                ctx?.drawImage(img, 0, 0, ctx?.canvas.width, ctx?.canvas.height);
+            });
+
+            console.log(img.x);
+        });
+    }
+
+    const sendCanvas = async () => {
+        if (connection) {
+            try {
+                console.log('SEND')
+                await connection.send('SendMessage', {canvas: ctx?.canvas.toDataURL()});
+            }
+            catch(e) {
+                console.log(e);
+            }
+        }
+        else {
+            alert('No connection to server yet.');
+        }
+    }
+
+    const sendTwoCanvas = async () => {
+        console.log('push')
+        try {
+            await  fetch('https://localhost:8080/canvastwo/canvasPost', {
+                method: 'POST',
+                body: JSON.stringify({canvas: ctx?.canvas.toDataURL()}),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        }
+        catch(e) {
+            console.log('Sending message failed.', e);
+        }
+    }
+
+
+    const startSend = () => {
+        /*setInterval( () => {
+            fun(isDrawBegin);
+        }, 100);*/
+    }
+    const startPull = () => {
+        conOn();
+    }
+
     return (
-        <div><canvas className={"canvas unselectable"} ref={canvasRef}
+        <div onMouseMove={sendTwoCanvas}><canvas className={"canvas unselectable"} ref={canvasRef}
                      onMouseDown={startDraw}
-                     onMouseMove={(e) => getMousePose(e)}
+                     onMouseMove={(e) => {
+                         getMousePose(e)
+                     }}
                      onMouseUp={endDraw}
                      onMouseLeave={endDraw}>
         </canvas>
             {/*эти кнопки нужны чтобы определить кто отправляет. а кто принимает. Что будет если нажать их одновременно я хз*/}
+            <button className="enter-window__btn btn" onClick={startSend}>Start Send</button>
+            <button className="enter-window__btn btn" onClick={startPull}>Start Pull</button>
+
             <button className="enter-window__btn btn" onClick={setPost}>POST</button>
             <button className="enter-window__btn btn" onClick={setGet}>GET</button>
         </div>
