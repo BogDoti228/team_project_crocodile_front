@@ -1,13 +1,13 @@
 import CreateRoom from "./CreateRoom";
 import JoinRoom from "./JoinRoom";
-import "./choiceRoomWindow.css";
+import style from './choiceRoomWindow.module.scss';
 
 
 
 function ChoiceRoomWindow({setOpen}: choiceRoomWindowProps){
     return (
-        <div className="choiceWindow-container">
-            <div className="choiceWindow">
+        <div className={style.window_container}>
+            <div className={style.window}>
                 <JoinRoom setOpen={setOpen}/>
                 <CreateRoom setOpen={setOpen}/>
             </div>

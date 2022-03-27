@@ -3,6 +3,7 @@ import {ImageData} from "canvas";
 import {RootState, useTypeDispatch} from "../../../../store/store";
 import {getCanvasImage, postCanvasImage} from "../../../../store/web-slices/canvas_slice";
 import {useSelector} from "react-redux";
+import style from "./drawTable.module.scss";
 
 interface Point {
     x: number,
@@ -106,7 +107,7 @@ const DrawTable: React.FC = () => {
     }
 
     return (
-        <canvas className={"canvas unselectable"} ref={canvasRef}
+        <canvas className={style.canvas + ' ' + 'unselectable'} ref={canvasRef}
                 onMouseDown={startDraw}
                 onMouseMove={(e) => getMousePose(e)}
                 onMouseUp={endDraw}

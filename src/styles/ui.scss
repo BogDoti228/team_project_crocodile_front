@@ -1,3 +1,4 @@
+@import "variables";
 $background-color: #424F55;
 $background-color-light: #808080;
 $attention-color: #AEAFFF;
@@ -8,16 +9,24 @@ $background-color-blue: #92B4F4;
 
 .btn{
   width: 166px;
-  height: 35px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 18px;
   border-radius: $little-border-radius;
-  background-color: $attention-color;
+  background-color: $background-white-blue;
   transition: background-color 0.3s ease;
 }
 
 .btn:hover{
-  background-color: #6667ff;
+  background-color: $background-blue;
+}
+
+.input{
+    border: 5px solid $background-white-blue;
+    font-size: 24px;
+    padding: 5px;
+    height: 60px;
+    border-radius: $little-border-radius;
 }

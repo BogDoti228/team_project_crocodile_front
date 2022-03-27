@@ -1,18 +1,26 @@
 @import "zeroing.css";
 .btn {
   width: 166px;
-  height: 35px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 18px;
   border-radius: 10px;
-  background-color: #AEAFFF;
+  background-color: #92B4F4;
   transition: background-color 0.3s ease;
 }
 
 .btn:hover {
-  background-color: #6667ff;
+  background-color: #5E7CE2;
+}
+
+.input {
+  border: 5px solid #92B4F4;
+  font-size: 24px;
+  padding: 5px;
+  height: 60px;
+  border-radius: 10px;
 }
 
 .header {
@@ -121,76 +129,6 @@
   border-radius: 5px;
   display: flex;
   flex-direction: row;
-}
-
-.enter-window {
-  margin: 0 20px 0 20px;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #424F55;
-}
-.enter-window__content {
-  height: 92.2vh;
-  max-width: 880px;
-  background-color: #808080;
-  border-radius: 15px;
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: flex-end;
-}
-.enter-window__info {
-  background-color: #E6E6E6;
-  width: 50%;
-  border-bottom-left-radius: 15px;
-  border-top-left-radius: 15px;
-  font-size: 24px;
-  padding: 40px;
-}
-.enter-window__info span {
-  color: #AEAFFF;
-}
-.enter-window__enter {
-  padding: 45px;
-  height: 348px;
-  max-width: 370px;
-  align-self: center;
-  flex-basis: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #E6E6E6;
-  border-radius: 15px;
-  margin: 0 35px 0 35px;
-  position: relative;
-}
-.enter-window__error-message {
-  position: absolute;
-  top: 15px;
-  left: 27px;
-  padding: 0 5px 0 5px;
-  background-color: #ff3333;
-  height: 20px;
-  min-width: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 5px;
-}
-.enter-window__input {
-  padding: 10px;
-  background-color: #AEAFFF;
-  max-width: 318px;
-  height: 60px;
-  font-size: 24px;
-  border-radius: 10px;
-}
-.enter-window__btn {
-  align-self: flex-end;
 }
 
 html {

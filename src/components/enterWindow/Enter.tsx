@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {useTypeDispatch} from "../../store/store";
 import {postName, setName} from "../../store/web-slices/profile_slice";
+import style from "./enterWindow.module.scss";
 
 function Enter({setAuth}: propsEnterWindow){
     const [nick, setNick] = useState('');
@@ -35,17 +36,17 @@ function Enter({setAuth}: propsEnterWindow){
     }
 
     return (
-        <div className="enter-window__enter">
-            {isErrorMaxLen && <div className="enter-window__error-message">Слишком длинный ник</div>}
-            {isErrorZeroInput && <div className="enter-window__error-message">Пустой ник</div>}
+        <div className={style.enter}>
+            {isErrorMaxLen && <div className={style.errorMessage}>Слишком длинный ник</div>}
+            {isErrorZeroInput && <div className={style.errorMessage}>Пустой ник</div>}
             <input placeholder="Введите свой ник"
-                   className="enter-window__input"
+                   className={style.input + ' ' + 'input'}
                    type="text"
                    value={nick}
                    onChange={(e) => {onChangeInput(e.target.value)}}
                    onKeyPress={e => {handlePressEnter(e)}}
             />
-            <button className="enter-window__btn btn" onClick={handleClickBtn}>Войти</button>
+            <button className={style.btn + ' ' + "btn"} onClick={handleClickBtn}>Войти</button>
         </div>
     )
 }
