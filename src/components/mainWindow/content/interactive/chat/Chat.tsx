@@ -21,10 +21,9 @@ const Chat : React.FC = () => {
         }
     }, [messages])
 
+    //Получаем всю историю сообщений при монтировании
     useEffect(() => {
-      setInterval(() => {
-          dispatch(getStoryMessage())
-      }, 100)
+        dispatch(getStoryMessage());
     }, [])
 
     const getMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,7 +58,11 @@ const Chat : React.FC = () => {
                 )}
             </ul>
             <div className={style.inputBox}>
-                <input ref={inputRef} placeholder={"Написать сообщение..."} className={style.input} type="text" onKeyPress={(e) => applyMessage(e)} onChange={(e) => getMessage(e)}/>
+                <input ref={inputRef}
+                       placeholder={"Написать сообщение..."}
+                       className={style.input} type="text"
+                       onKeyPress={(e) => applyMessage(e)}
+                       onChange={e => setMessage(e.target.value)}/>
                 <button className={style.button}>1</button>
             </div>
         </div>
