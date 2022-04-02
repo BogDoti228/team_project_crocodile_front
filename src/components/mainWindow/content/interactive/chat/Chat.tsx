@@ -7,10 +7,8 @@ import Message from "./Message";
 
 const Chat : React.FC = () => {
     const [message, setMessage] = useState<string>("")
-    /*const [listMessage, setListMessage] = useState<Array<string>>([])*/
     const inputRef = useRef<HTMLInputElement>(null)
     const ulRef = useRef<HTMLUListElement>(null)
-    const {name} = useSelector((state : RootState) => state.profileReducer)
     const {messages} = useSelector((state : RootState) => state.chatReducer)
 
     const dispatch = useTypeDispatch()
@@ -21,15 +19,9 @@ const Chat : React.FC = () => {
         }
     }, [messages])
 
-    //Получаем всю историю сообщений при монтировании
     useEffect(() => {
         dispatch(getStoryMessage());
     }, [])
-
-    const getMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const val = e.target.value;
-        setMessage(val)
-    }
 
     const applyMessage = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
@@ -37,14 +29,11 @@ const Chat : React.FC = () => {
 
             await Promise.resolve().then(() => {
                 dispatch(sendMessage(message))
-            }).then(() => {
-                dispatch(getStoryMessage())
             })
 
             setMessage('');
             if (inputRef.current)
                 inputRef.current.value = ""
-
         }
     }
 
@@ -53,7 +42,7 @@ const Chat : React.FC = () => {
             <ul className={style.window} ref={ulRef}>
                 {messages.map((message, index) =>
                     <li key={index}>
-                    <Message name={message.Name} text={message.Text} />
+                    <Message name={message.name} text={message.text} status={message.status} id={message.id}/>
                     </li>
                 )}
             </ul>
