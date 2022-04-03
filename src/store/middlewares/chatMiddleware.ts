@@ -18,7 +18,7 @@ const callbacks = withCallbacks<DispatchSignal, RootState>()
         dispatch(changeMessageStatus(msg))
     })
 
-export const signal = signalMiddleware({
+export const chatMiddleware = signalMiddleware({
         callbacks,
         connection,
 });
