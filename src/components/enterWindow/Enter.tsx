@@ -40,13 +40,13 @@ function Enter({setAuth}: propsEnterWindow){
             {isErrorMaxLen && <div className={style.errorMessage}>Слишком длинный ник</div>}
             {isErrorZeroInput && <div className={style.errorMessage}>Пустой ник</div>}
             <input placeholder="Введите свой ник"
-                   className={style.input + ' ' + 'input'}
+                   className={style.input + " input"}
                    type="text"
                    value={nick}
                    onChange={(e) => {onChangeInput(e.target.value)}}
                    onKeyPress={e => {handlePressEnter(e)}}
             />
-            <button className={style.btn + ' ' + "btn"} onClick={handleClickBtn}>Войти</button>
+            <button className={style.btn + " btn"} onClick={handleClickBtn}>Войти</button>
         </div>
     )
 }
