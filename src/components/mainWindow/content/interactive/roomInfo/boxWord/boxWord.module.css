@@ -1,0 +1,8 @@
+:local .box_word_window {
+  width: 100%;
+  height: 60%;
+  border-radius: 15px;
+  border: solid 2px #92f4c0;
+}
+
+/*# sourceMappingURL=boxWord.module.css.map */

@@ -1,0 +1,10 @@
+@import "../../../../../../styles/variables";
+
+:local {
+  .box_word_window {
+    width: 100%;
+    height: 60%;
+    border-radius: $medium-border-radius;
+    border: solid 2px $color-green-light;
+  }
+}

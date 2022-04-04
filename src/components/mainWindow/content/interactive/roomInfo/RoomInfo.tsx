@@ -3,24 +3,18 @@ import {RootState, useTypeDispatch} from "../../../../../store/store";
 import {getUsersList} from "../../../../../store/web-slices/list_users_slice";
 import {useSelector} from "react-redux";
 import style from "./roomInfo.module.scss";
+import UserList from "./userList/UserList";
+import BoxWord from "./boxWord/BoxWord";
+import Timer from "./timer/Timer";
 
 const RoomInfo : React.FC = () => {
-    const dispatch = useTypeDispatch();
-    const {usersList} = useSelector((state : RootState) => state.usersListReducer)
-
-    useEffect(() => {
-        dispatch(getUsersList())
-
-        setInterval(() => {
-            dispatch(getUsersList())
-        }, 1000)
-    },[])
-
     return (
         <div className={style.room_info}>
-            <ul className={style.box_word}>
-                {usersList.map((x, index) => <li key={index}>{x}</li>)}
-            </ul>
+            <UserList/>
+            <div className={style.timer_box_word_wrapper}>
+                <BoxWord/>
+                <Timer/>
+            </div>
         </div>
     )
 }

@@ -1,0 +1,10 @@
+@import "../../../../../../styles/variables";
+
+:local {
+  .timer_window {
+    width: 100%;
+    height: 40%;
+    border-radius: $medium-border-radius;
+    border: solid 2px $color-green-light;
+  }
+}

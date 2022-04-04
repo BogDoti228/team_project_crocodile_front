@@ -1,0 +1,9 @@
+:local .user_list_box {
+  height: 100%;
+  width: 70%;
+  border-radius: 15px;
+  border: solid 2px #92f4c0;
+  overflow: auto;
+}
+
+/*# sourceMappingURL=userList.module.css.map */
