@@ -16,7 +16,7 @@ const rootReducer = combineReducers({
 
 export const store = configureStore({
     reducer : rootReducer,
-    middleware: getDefaultMiddleware => getDefaultMiddleware().concat(chatMiddleware, canvasMiddleware),
+    middleware: getDefaultMiddleware => getDefaultMiddleware().concat(chatMiddleware),
 })
 
 export type AppDispatch = typeof store.dispatch
