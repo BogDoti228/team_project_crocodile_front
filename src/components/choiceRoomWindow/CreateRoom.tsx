@@ -1,15 +1,16 @@
 import React, {useState} from "react";
 import style from './choiceRoomWindow.module.scss';
+import {useNavigate} from "react-router-dom";
 
-function CreateRoom({setOpen}: choiceRoomWindowProps){
+function CreateRoom() {
 
     const [nameRoom, setNameRoom] = useState('');
 
-    const handleCreateRoom = () =>{
-        setOpen(v => !v);
+    let navigate = useNavigate();
+    const handleCreateRoom = () => {
+        navigate('/game');
     }
-
-    const handlePressEnter = (e:  React.KeyboardEvent<HTMLInputElement>) => {
+    const handlePressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter")
             handleCreateRoom();
     }

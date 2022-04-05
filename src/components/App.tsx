@@ -2,18 +2,19 @@ import React, {useState} from 'react';
 import EnterWindow from "./enterWindow/EnterWindow";
 import MainWindow from "./mainWindow/MainWindow";
 import ChoiceRoomWindow from "./choiceRoomWindow/ChoiceRoomWindow";
+import { Routes, BrowserRouter, Link, Route } from "react-router-dom";
 
 
 const App : React.FC = () => {
-    const [isAuth, setIsAuth] = useState(false);
-    const [isOpenMain, setIsOpenMain] = useState(false);
 
     return (
-        <>
-            {!isAuth && <EnterWindow setAuth={setIsAuth}/>}
-            {!(!isAuth || isOpenMain) && <ChoiceRoomWindow setOpen={setIsOpenMain}/>}
-            {isOpenMain && <MainWindow />}
-        </>
+        <BrowserRouter>
+            <Routes>
+                <Route path='/' element={<EnterWindow/>}/>
+                <Route path='choiceRoom' element={<ChoiceRoomWindow/>}/>
+                <Route path='game' element={<MainWindow />}/>
+            </Routes>
+        </BrowserRouter>
     )
 }
 

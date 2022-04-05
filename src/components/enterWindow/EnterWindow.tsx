@@ -3,11 +3,11 @@ import Enter from "./Enter";
 import Info from "./Info";
 import style from "./enterWindow.module.scss";
 
-function EnterWindow({setAuth}: propsEnterWindow){
+function EnterWindow(){
     return (
         <div className={style.window}>
             <div className={style.window_content}>
-                <Enter setAuth={setAuth} />
+                <Enter/>
                 <Info/>
             </div>
 
