@@ -1,11 +1,13 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
 interface ProfileType {
+    isAuth: boolean,
     name : string,
     loading?: 'idle' | 'pending' | 'succeeded' | 'failed'
 }
 
 const initialState = {
+    isAuth: false,
     name: "none",
     loading: 'idle',
 } as ProfileType
@@ -33,6 +35,9 @@ export const profileSlice = createSlice({
     reducers : {
         setName : (state, action) => {
             state.name = action.payload;
+        },
+        setAuth : (state, action) => {
+            state.isAuth = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -40,10 +45,9 @@ export const profileSlice = createSlice({
             state.name = action.payload.name
         })
         builder.addCase(postName.fulfilled, (state, action) => {
-
         })
     }
 })
 
 export const profileSliceReducers = profileSlice.reducer;
-export const {setName} = profileSlice.actions
+export const {setName, setAuth} = profileSlice.actions

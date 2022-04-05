@@ -1,25 +1,36 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import style from './choiceRoomWindow.module.scss';
+
 import {useTypeDispatch} from "../../store/store";
-import {setAdmin} from "../../store/web-slices/role_slice";
+
+import {Link, useNavigate} from "react-router-dom";
 
 
-function JoinRoom({setOpen}: choiceRoomWindowProps){
+
+function JoinRoom() {
     const [idRoom, setIdRoom] = useState('');
-    const dispatch = useTypeDispatch();
 
-    const handleJoinRoom = () =>{
-        setOpen(v => !v);
+    let navigate = useNavigate();
+    const handleJoinRoom = () => {
+        navigate('/game');
+    }
 
-        dispatch(setAdmin(false))
+    const handlePressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter")
+            handleJoinRoom();
     }
 
     return (
         <div className={style.section + ' ' + style.joinRoom}>
             <div className={style.widget}>
                 <div>Индефикатор комнаты:</div>
-                <input className={style.input + ' ' + 'input'} type="text" value={idRoom} onChange={e => setIdRoom(e.target.value)}/>
-                <button className={style.button + ' ' + "btn"} onClick={handleJoinRoom}>Войти в комнату</button>
+                <input className={style.input + " input"}
+                       type="text"
+                       value={idRoom}
+                       onChange={e => setIdRoom(e.target.value)}
+                       onKeyPress={e => handlePressEnter(e)}
+                />
+                <button className={style.button + " btn"} onClick={handleJoinRoom}>Создать комнату</button>
             </div>
 
         </div>)

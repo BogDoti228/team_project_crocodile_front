@@ -1,9 +1,8 @@
 import React, {useEffect, useRef} from "react";
 import {ImageData} from "canvas";
-import {RootState, useTypeDispatch} from "../../../../store/store";
-import {getCanvasImage, postCanvasImage} from "../../../../store/web-slices/canvas_slice";
-import {useSelector} from "react-redux";
 import style from "./drawTable.module.scss";
+import {HubConnectionBuilder} from "@microsoft/signalr";
+import {HubConnection} from "redux-signalr";
 
 interface Point {
     x: number,
@@ -18,10 +17,6 @@ const DrawTable: React.FC = () => {
     let prevPoint: Point = {x: 0, y: 0};
     let ctx: CanvasRenderingContext2D | null = null;
     const historyStack: ImageData[] = [];
-
-    const {url} = useSelector((state : RootState) => state.canvasReducer)
-
-    const dispatch = useTypeDispatch();
 
     useEffect(() => {
         const canvas = canvasRef.current
@@ -38,26 +33,6 @@ const DrawTable: React.FC = () => {
         }
     }, [canvasRef.current])
 
-    //ВОТ ТУТ (в компоненте где угодно) НАДО ЧЕТО СДЕЛАТЬ ЧТОБЫ ОНО ПЕРЕДАВАЛО ДРУГИМ, Я НЕ ЕБУ КАК ЭТО СДЕЛАТЬ))
-    /*useEffect(() => {
-            setInterval(async () => {
-                if (ctx) {
-                    await Promise.resolve().then(() => {
-                        if (ctx) {
-                            dispatch(postCanvasImage(ctx.canvas.toDataURL()))
-                        }
-                    }).then(() => {
-                        dispatch(getCanvasImage())
-                    })
-
-                    let img = new Image();
-                    img.src = url;
-                    ctx.drawImage(img, 0, 0)
-                }
-            }, 25)
-
-    }, [])*/
-
     const startDraw = (e: React.MouseEvent<HTMLCanvasElement>) => {
         isDraw = true;
         const point = getCurrentPoint(e)
@@ -71,6 +46,7 @@ const DrawTable: React.FC = () => {
             isDraw = false;
             const imageData = ctx.getImageData(0, 0, canvasRef.current.width, canvasRef.current.height);
             historyStack.push(imageData);
+            postCanvas();
         }
     }
 
@@ -106,8 +82,47 @@ const DrawTable: React.FC = () => {
         }
     }
 
+    let connection: HubConnection | null = null;
+
+    useEffect(() => {
+        connection = new HubConnectionBuilder()
+            .withUrl('https://localhost:8080/canvas')
+            .withAutomaticReconnect()
+            .build();
+    }, [])
+
+    useEffect(() => {
+        if (connection) {
+            connection.start()
+                .then(res => {
+                    console.log('Chat Connected!');
+
+                    connection?.on('ReceiveCanvas', canvas => {
+                        console.log('Receive Canvas!')
+                        let img = new Image();
+                        img.onload = () => {
+                            ctx?.drawImage(img, 0, 0, ctx?.canvas.width, ctx?.canvas.height);
+                        }
+                        img.src = canvas.img;
+                    });
+                })
+                .catch(e => console.log('Connection failed: ', e));
+        }
+    }, [])
+
+    const postCanvas = () => {
+        console.log('Post Canvas!');
+        fetch('https://localhost:8080/canvas/post', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({img: ctx?.canvas.toDataURL()})
+        })
+    }
+
     return (
-        <canvas className={style.canvas + ' ' + 'unselectable'} ref={canvasRef}
+        <canvas className={style.canvas + ' unselectable'} ref={canvasRef}
                 onMouseDown={startDraw}
                 onMouseMove={(e) => getMousePose(e)}
                 onMouseUp={endDraw}

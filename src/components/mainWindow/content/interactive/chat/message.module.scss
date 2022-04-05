@@ -39,11 +39,11 @@
 
 .buttonLike{
   margin-left: 5px;
-  background: #4896F1
+  background: #00cf0a
 }
 
 .buttonLike:hover{
-  background: #6cafff
+  background: #00ab06
 }
 
 .buttonDislike{
@@ -51,5 +51,19 @@
 }
 
 .buttonDislike:hover{
-  background: #ff5858;
+  background: #c24343;
+}
+
+.positive{
+  border-color: #00cf0a;
+  background-color: #a8ffac;
+}
+
+.negative{
+  border-color: #FF0000;
+  background-color: #ffb0b0;
+}
+
+.neutral{
+  background-color: #FBFBFB;
 }
