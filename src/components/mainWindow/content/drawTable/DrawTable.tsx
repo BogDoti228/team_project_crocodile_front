@@ -117,7 +117,7 @@ const DrawTable: React.FC = () => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({img: ctx?.canvas.toDataURL()})
+            body: JSON.stringify({img: ctx?.canvas.toDataURL(), groupName: sessionStorage.getItem("groupName")})
         })
     }
 

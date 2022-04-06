@@ -11,9 +11,9 @@ const RoomInfo : React.FC = () => {
     useEffect(() => {
         dispatch(getUsersList())
 
-        setInterval(() => {
+        /*setInterval(() => {
             dispatch(getUsersList())
-        }, 1000)
+        }, 1000)*/
     },[])
 
     return (

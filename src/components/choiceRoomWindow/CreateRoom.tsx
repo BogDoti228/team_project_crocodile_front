@@ -1,15 +1,20 @@
 import React, {useState} from "react";
 import style from './choiceRoomWindow.module.scss';
 import {useNavigate} from "react-router-dom";
+import {useTypeDispatch} from "../../store/store";
+import {joinToRoom, ROOM_NAME_IN_STORAGE} from "../../store/web-slices/chat_slice";
 
 function CreateRoom() {
-
     const [nameRoom, setNameRoom] = useState('');
+    const dispatch = useTypeDispatch();
 
     let navigate = useNavigate();
     const handleCreateRoom = () => {
+        dispatch(joinToRoom(nameRoom));
+        sessionStorage.setItem(ROOM_NAME_IN_STORAGE, nameRoom);
         navigate('/game');
     }
+
     const handlePressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter")
             handleCreateRoom();

@@ -22,3 +22,5 @@ export const chatMiddleware = signalMiddleware({
         callbacks,
         connection,
 });
+
+export default connection;

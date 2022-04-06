@@ -2,13 +2,15 @@ import {createAsyncThunk, createSlice, nanoid} from "@reduxjs/toolkit";
 import {RootState} from "../store";
 import { AnyAction } from 'redux';
 import {SignalDispatch} from "redux-signalr";
+import connection from "../middlewares/chatMiddleware";
+export const ROOM_NAME_IN_STORAGE = "roomName";
 
 const initialState = {
     messages: [],
     loading: 'idle',
 } as MessagesListType
 
-export const sendMessage = createAsyncThunk("sendMessage", async (text : string) => {
+export const sendMessage = createAsyncThunk("sendMessage", async (text: string) => {
     await fetch('https://localhost:8080/chat/message', {
         method: "POST",
         headers: {
@@ -18,8 +20,9 @@ export const sendMessage = createAsyncThunk("sendMessage", async (text : string)
             id: nanoid(5),
             name: localStorage.getItem("name"),
             text: text,
-            status: "neutral"
-        } as MessageType)
+            status: "neutral",
+            roomName: sessionStorage.getItem(ROOM_NAME_IN_STORAGE),
+        } as MessageTypePost)
     })
 })
 
@@ -29,9 +32,19 @@ export const sendChangeMessage = createAsyncThunk("changeMessageStatus", async (
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(msg),
+        body: JSON.stringify({...msg, roomName: sessionStorage.getItem(ROOM_NAME_IN_STORAGE)} as MessageTypePost),
     })
 })
+
+export const joinToRoom = createAsyncThunk("joinToRoom", async (nameRoom: string) => {
+    await fetch('https://localhost:8080/chat/joinRoom', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({name: nameRoom, connectionId: connection.connectionId})
+    });
+});
 
 export const getStoryMessage = createAsyncThunk("getStoryMessage", async () => {
     const response : Promise<string> = fetch('https://localhost:8080/chat/story')
@@ -50,6 +63,10 @@ export const chatSlice = createSlice({
         changeMessageStatus: (state, action) => {
             let index = state.messages.findIndex(msg => msg.id === action.payload.id);
             state.messages[index].status = action.payload.status;
+        },
+        setConnectionId : (state, action) => {
+            state.connectionId = action.payload;
+            console.log('ConnectionID: ', state.connectionId);
         }
     },
     extraReducers: (builder) => {
@@ -62,17 +79,20 @@ export const chatSlice = createSlice({
         })
         builder.addCase(sendChangeMessage.fulfilled, (state, action) => {
         })
+        builder.addCase(joinToRoom.fulfilled, (state,action) => {
+        })
     }
 })
 
 export const chatSliceReducers = chatSlice.reducer;
-export const {addMessage, changeMessageStatus} = chatSlice.actions;
+export const {addMessage, changeMessageStatus, setConnectionId} = chatSlice.actions;
 
 export type DispatchSignal<Action extends AnyAction = AnyAction> = SignalDispatch<RootState,Action>;
 
 export type MessagesListType = {
     messages : Array<MessageType>
     loading?: 'idle' | 'pending' | 'succeeded' | 'failed'
+    connectionId?: string;
 }
 
 export type MessageType = {
@@ -80,4 +100,12 @@ export type MessageType = {
     text : string,
     name : string,
     status: 'neutral' | 'positive' | 'negative',
+}
+
+type MessageTypePost = {
+    id: string,
+    text : string,
+    name : string,
+    status: 'neutral' | 'positive' | 'negative',
+    roomName: string,
 }
