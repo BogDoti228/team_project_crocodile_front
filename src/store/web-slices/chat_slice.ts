@@ -2,7 +2,7 @@ import {createAsyncThunk, createSlice, nanoid} from "@reduxjs/toolkit";
 import {RootState} from "../store";
 import { AnyAction } from 'redux';
 import {SignalDispatch} from "redux-signalr";
-import connection from "../middlewares/chatMiddleware";
+import chatConnection from "../middlewares/chatMiddleware";
 export const ROOM_NAME_IN_STORAGE = "roomName";
 
 const initialState = {
@@ -36,13 +36,13 @@ export const sendChangeMessage = createAsyncThunk("changeMessageStatus", async (
     })
 })
 
-export const joinToRoom = createAsyncThunk("joinToRoom", async (nameRoom: string) => {
+export const joinToChatRoom = createAsyncThunk("joinToRoom", async (nameRoom: string) => {
     await fetch('https://localhost:8080/chat/joinRoom', {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({name: nameRoom, connectionId: connection.connectionId})
+        body: JSON.stringify({roomName: nameRoom, connectionId: chatConnection.connectionId} as JointRoomType)
     });
 });
 
@@ -64,7 +64,7 @@ export const chatSlice = createSlice({
             let index = state.messages.findIndex(msg => msg.id === action.payload.id);
             state.messages[index].status = action.payload.status;
         },
-        setConnectionId : (state, action) => {
+        setChatConnectionId : (state, action) => {
             state.connectionId = action.payload;
             console.log('ConnectionID: ', state.connectionId);
         }
@@ -79,15 +79,15 @@ export const chatSlice = createSlice({
         })
         builder.addCase(sendChangeMessage.fulfilled, (state, action) => {
         })
-        builder.addCase(joinToRoom.fulfilled, (state,action) => {
+        builder.addCase(joinToChatRoom.fulfilled, (state, action) => {
         })
     }
 })
 
 export const chatSliceReducers = chatSlice.reducer;
-export const {addMessage, changeMessageStatus, setConnectionId} = chatSlice.actions;
+export const {addMessage, changeMessageStatus, setChatConnectionId} = chatSlice.actions;
 
-export type DispatchSignal<Action extends AnyAction = AnyAction> = SignalDispatch<RootState,Action>;
+export type ChatDispatchSignal<Action extends AnyAction = AnyAction> = SignalDispatch<RootState,Action>;
 
 export type MessagesListType = {
     messages : Array<MessageType>

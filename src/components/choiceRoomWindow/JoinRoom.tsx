@@ -2,7 +2,8 @@ import React, {useState} from "react";
 import style from './choiceRoomWindow.module.scss';
 import {useNavigate} from "react-router-dom";
 import {useTypeDispatch} from "../../store/store";
-import {joinToRoom, ROOM_NAME_IN_STORAGE} from "../../store/web-slices/chat_slice";
+import {joinToChatRoom, ROOM_NAME_IN_STORAGE} from "../../store/web-slices/chat_slice";
+import {joinToCanvasRoom} from "../../store/web-slices/canvas_slice";
 
 
 function JoinRoom() {
@@ -11,7 +12,8 @@ function JoinRoom() {
 
     let navigate = useNavigate();
     const handleJoinRoom = () => {
-        dispatch(joinToRoom(idRoom));
+        dispatch(joinToChatRoom(idRoom));
+        dispatch(joinToCanvasRoom(idRoom));
         sessionStorage.setItem(ROOM_NAME_IN_STORAGE, idRoom);
         navigate('/game');
     }

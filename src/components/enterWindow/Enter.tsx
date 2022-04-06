@@ -3,8 +3,10 @@ import {useTypeDispatch} from "../../store/store";
 import {postName, setName, setAuth} from "../../store/web-slices/profile_slice";
 import style from "./enterWindow.module.scss";
 import {useNavigate} from "react-router-dom";
-import {setConnectionId} from "../../store/web-slices/chat_slice";
-import connection from "../../store/middlewares/chatMiddleware";
+import {setChatConnectionId} from "../../store/web-slices/chat_slice";
+import chatConnection from "../../store/middlewares/chatMiddleware";
+import {setCanvasConnectionId} from "../../store/web-slices/canvas_slice";
+import canvasConnection from "../../store/middlewares/canvasMiddleware";
 
 function Enter() {
     const [nick, setNick] = useState('');
@@ -32,7 +34,8 @@ function Enter() {
         dispatch(setName(nick));
         dispatch(postName(nick));
         dispatch(setAuth(true));
-        dispatch(setConnectionId(connection.connectionId));
+        dispatch(setChatConnectionId(chatConnection.connectionId));
+        dispatch(setCanvasConnectionId(canvasConnection.connectionId));
         navigate('/choiceRoom');
         localStorage.setItem("name", nick);
     }

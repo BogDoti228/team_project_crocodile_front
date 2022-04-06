@@ -3,6 +3,9 @@ import {ImageData} from "canvas";
 import style from "./drawTable.module.scss";
 import {HubConnectionBuilder} from "@microsoft/signalr";
 import {HubConnection} from "redux-signalr";
+import {useSelector} from "react-redux";
+import {RootState, useTypeDispatch} from "../../../../store/store";
+import {postCanvas} from "../../../../store/web-slices/canvas_slice";
 
 interface Point {
     x: number,
@@ -17,6 +20,9 @@ const DrawTable: React.FC = () => {
     const prevPointRef = useRef<Point>({x: 0, y: 0});
     const stackImageRef = useRef<Array<ImageData>>([]);
     const ctxRef = useRef<CanvasRenderingContext2D | null>(null)
+
+    const {url} = useSelector((state: RootState) => state.canvasReducer);
+    const dispatch = useTypeDispatch();
 
     useEffect(() => {
         let canvas = canvasRef.current
@@ -46,7 +52,7 @@ const DrawTable: React.FC = () => {
         if (canvasRef.current && ctxRef.current){
             const imageData = ctxRef.current.getImageData(0,0, canvasRef.current.width,  canvasRef.current.height);
             stackImageRef.current.push(imageData);
-            postCanvas();
+            dispatch(postCanvas(ctxRef.current?.canvas.toDataURL()));
         }
     }
     console.log('rerender');
@@ -83,46 +89,13 @@ const DrawTable: React.FC = () => {
         }
     }
 
-    const connectionRef = useRef<HubConnection | null>(null);
     useEffect(() => {
-        connectionRef.current = new HubConnectionBuilder()
-            .withUrl('https://localhost:8080/canvas')
-            .withAutomaticReconnect()
-            .build();
-    }, [])
-
-    useEffect(() => {
-        if (connectionRef.current) {
-            connectionRef.current.start()
-                .then(res => {
-                    console.log('Chat Connected!');
-
-                    connectionRef.current?.on('ReceiveCanvas', canvas => {
-                        console.log('Receive Canvas!')
-                        let img = new Image();
-                        img.onload = () => {
-                            ctxRef.current?.drawImage(img, 0, 0, ctxRef.current?.canvas.width, ctxRef.current?.canvas.height);
-                        }
-                        img.src = canvas.img;
-                    });
-                })
-                .catch(e => console.log('Connection failed: ', e));
+        let img = new Image();
+        img.onload = () => {
+            ctxRef.current?.drawImage(img, 0, 0, ctxRef.current?.canvas.width, ctxRef.current?.canvas.height);
         }
-    }, [])
-
-    const postCanvas = () => {
-        console.log('Post Canvas!');
-        fetch('https://localhost:8080/canvas/post', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                img: ctxRef.current?.canvas.toDataURL(),
-                groupName: sessionStorage.getItem("g roupName")
-            })
-        })
-    }
+        img.src = url;
+    }, [url]);
 
     return (
         <canvas className={style.canvas + ' unselectable'} ref={canvasRef}

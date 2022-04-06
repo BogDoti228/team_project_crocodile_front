@@ -2,7 +2,8 @@ import React, {useState} from "react";
 import style from './choiceRoomWindow.module.scss';
 import {useNavigate} from "react-router-dom";
 import {useTypeDispatch} from "../../store/store";
-import {joinToRoom, ROOM_NAME_IN_STORAGE} from "../../store/web-slices/chat_slice";
+import {joinToChatRoom, ROOM_NAME_IN_STORAGE} from "../../store/web-slices/chat_slice";
+import {joinToCanvasRoom} from "../../store/web-slices/canvas_slice";
 
 function CreateRoom() {
     const [nameRoom, setNameRoom] = useState('');
@@ -10,7 +11,8 @@ function CreateRoom() {
 
     let navigate = useNavigate();
     const handleCreateRoom = () => {
-        dispatch(joinToRoom(nameRoom));
+        dispatch(joinToChatRoom(nameRoom));
+        dispatch(joinToCanvasRoom(nameRoom));
         sessionStorage.setItem(ROOM_NAME_IN_STORAGE, nameRoom);
         navigate('/game');
     }
