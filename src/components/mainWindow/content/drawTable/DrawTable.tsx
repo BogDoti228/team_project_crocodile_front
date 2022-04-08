@@ -56,10 +56,14 @@ const DrawTable: React.FC = () => {
         }
     }
     console.log('rerender');
+
     const onKeyDown = (e: KeyboardEvent) => {
         if ((e.ctrlKey || e.metaKey) && e.code === 'KeyZ' && stackImageRef.current.length > 1) {
             stackImageRef.current.pop();
             ctxRef.current?.putImageData(stackImageRef.current[stackImageRef.current.length - 1], 0, 0);
+
+            if (canvasRef.current && ctxRef.current)
+                dispatch(postCanvas(ctxRef.current?.canvas.toDataURL()));
         }
     }
 
@@ -92,6 +96,7 @@ const DrawTable: React.FC = () => {
     useEffect(() => {
         let img = new Image();
         img.onload = () => {
+            ctxRef.current?.clearRect(0,0,ctxRef.current?.canvas.width, ctxRef.current?.canvas.height);
             ctxRef.current?.drawImage(img, 0, 0, ctxRef.current?.canvas.width, ctxRef.current?.canvas.height);
         }
         img.src = url;
