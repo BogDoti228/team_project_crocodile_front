@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import style from './choiceRoomWindow.module.scss';
 import {useNavigate} from "react-router-dom";
 import {useTypeDispatch} from "../../store/store";
-import {joinToChatRoom, ROOM_NAME_IN_STORAGE} from "../../store/web-slices/chat_slice";
+import {joinToChatRoom, ROOM_ID_IN_STORAGE} from "../../store/web-slices/chat_slice";
 import {joinToCanvasRoom} from "../../store/web-slices/canvas_slice";
 
 
@@ -14,7 +14,7 @@ function JoinRoom() {
     const handleJoinRoom = () => {
         dispatch(joinToChatRoom(idRoom));
         dispatch(joinToCanvasRoom(idRoom));
-        sessionStorage.setItem(ROOM_NAME_IN_STORAGE, idRoom);
+        sessionStorage.setItem(ROOM_ID_IN_STORAGE, idRoom);
         navigate('/game');
     }
 
@@ -26,13 +26,16 @@ function JoinRoom() {
     return (
         <div className={style.section + ' ' + style.joinRoom}>
             <div className={style.widget}>
-                <div>Индефикатор комнаты:</div>
-                <input className={style.input + " input"}
-                       type="text"
-                       value={idRoom}
-                       onChange={e => setIdRoom(e.target.value)}
-                       onKeyPress={e => handlePressEnter(e)}
-                />
+                <>
+                    <div>Индефикатор комнаты:</div>
+                    <input className={style.input + " input"}
+                           type="text"
+                           value={idRoom}
+                           onChange={e => setIdRoom(e.target.value)}
+                           onKeyPress={e => handlePressEnter(e)}
+                    />
+                </>
+
                 <button className={style.button + " btn"} onClick={handleJoinRoom}>Присоединиться</button>
             </div>
 

@@ -4,7 +4,7 @@ import {AnyAction} from 'redux';
 import {SignalDispatch} from "redux-signalr";
 import chatConnection from "../middlewares/chatMiddleware";
 
-export const ROOM_NAME_IN_STORAGE = "roomName";
+export const ROOM_ID_IN_STORAGE = "roomName";
 
 const initialState = {
     messages: [],
@@ -22,7 +22,7 @@ export const sendMessage = createAsyncThunk("sendMessage", async (text: string) 
             name: localStorage.getItem("name"),
             text: text,
             status: "neutral",
-            roomName: sessionStorage.getItem(ROOM_NAME_IN_STORAGE),
+            roomName: sessionStorage.getItem(ROOM_ID_IN_STORAGE),
         } as MessageTypePost)
     })
         .catch(console.log);
@@ -34,7 +34,7 @@ export const sendChangeMessage = createAsyncThunk("changeMessageStatus", async (
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({...msg, roomName: sessionStorage.getItem(ROOM_NAME_IN_STORAGE)} as MessageTypePost),
+        body: JSON.stringify({...msg, roomName: sessionStorage.getItem(ROOM_ID_IN_STORAGE)} as MessageTypePost),
     })
         .catch(console.log);
 })

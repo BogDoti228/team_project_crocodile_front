@@ -2,7 +2,7 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {AnyAction} from "redux";
 import {SignalDispatch} from "redux-signalr";
 import {RootState} from "../store";
-import {ROOM_NAME_IN_STORAGE} from "./chat_slice";
+import {ROOM_ID_IN_STORAGE} from "./chat_slice";
 import canvasConnection from "../middlewares/canvasMiddleware";
 
 const initialState = {
@@ -18,7 +18,7 @@ export const postCanvas = createAsyncThunk("postCanvas", async (url: string) => 
         },
         body: JSON.stringify({
             url: url,
-            roomName: sessionStorage.getItem(ROOM_NAME_IN_STORAGE)
+            roomName: sessionStorage.getItem(ROOM_ID_IN_STORAGE)
         } as CanvasTypeForPost)
     })
         .catch(console.log);
