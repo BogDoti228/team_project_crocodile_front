@@ -21,6 +21,7 @@ export const postCanvas = createAsyncThunk("postCanvas", async (url: string) => 
             roomName: sessionStorage.getItem(ROOM_NAME_IN_STORAGE)
         } as CanvasTypeForPost)
     })
+        .catch(console.log);
 })
 
 export const joinToCanvasRoom = createAsyncThunk("joinToRoom", async (nameRoom: string) => {
@@ -30,7 +31,8 @@ export const joinToCanvasRoom = createAsyncThunk("joinToRoom", async (nameRoom: 
             "Content-Type": "application/json"
         },
         body: JSON.stringify({roomName: nameRoom, connectionId: canvasConnection.connectionId} as JointRoomType)
-    });
+    })
+        .catch(console.log);
 });
 
 export const canvasSlice = createSlice({
@@ -40,10 +42,6 @@ export const canvasSlice = createSlice({
         setUrlImg: (state, action) => {
             state.url = action.payload;
         },
-        setCanvasConnectionId : (state, action) => {
-            state.connectionId = action.payload;
-            console.log('ConnectionID: ', state.connectionId);
-        }
     },
     extraReducers: (builder) => {
         builder.addCase(postCanvas.fulfilled, (state, action) => {
@@ -55,7 +53,7 @@ export const canvasSlice = createSlice({
 
 export const canvasSliceReducers = canvasSlice.reducer;
 
-export const {setUrlImg, setCanvasConnectionId} = canvasSlice.actions;
+export const {setUrlImg} = canvasSlice.actions;
 
 
 export type CanvasDispatchSignal<Action extends AnyAction = AnyAction> = SignalDispatch<RootState,Action>;

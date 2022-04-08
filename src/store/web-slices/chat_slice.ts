@@ -1,8 +1,9 @@
 import {createAsyncThunk, createSlice, nanoid} from "@reduxjs/toolkit";
 import {RootState} from "../store";
-import { AnyAction } from 'redux';
+import {AnyAction} from 'redux';
 import {SignalDispatch} from "redux-signalr";
 import chatConnection from "../middlewares/chatMiddleware";
+
 export const ROOM_NAME_IN_STORAGE = "roomName";
 
 const initialState = {
@@ -24,6 +25,7 @@ export const sendMessage = createAsyncThunk("sendMessage", async (text: string) 
             roomName: sessionStorage.getItem(ROOM_NAME_IN_STORAGE),
         } as MessageTypePost)
     })
+        .catch(console.log);
 })
 
 export const sendChangeMessage = createAsyncThunk("changeMessageStatus", async (msg: MessageType) => {
@@ -34,6 +36,7 @@ export const sendChangeMessage = createAsyncThunk("changeMessageStatus", async (
         },
         body: JSON.stringify({...msg, roomName: sessionStorage.getItem(ROOM_NAME_IN_STORAGE)} as MessageTypePost),
     })
+        .catch(console.log);
 })
 
 export const joinToChatRoom = createAsyncThunk("joinToRoom", async (nameRoom: string) => {
@@ -43,20 +46,21 @@ export const joinToChatRoom = createAsyncThunk("joinToRoom", async (nameRoom: st
             "Content-Type": "application/json"
         },
         body: JSON.stringify({roomName: nameRoom, connectionId: chatConnection.connectionId} as JointRoomType)
-    });
+    })
+        .catch(console.log);
 });
 
 export const getStoryMessage = createAsyncThunk("getStoryMessage", async () => {
-    const response : Promise<string> = fetch('https://localhost:8080/chat/story')
+    const response: Promise<string> = fetch('https://localhost:8080/chat/story')
         .then((x) => x.json())
         .catch(console.log)
     return await response
 })
 
 export const chatSlice = createSlice({
-    name : "chatSlice",
-    initialState : initialState,
-    reducers : {
+    name: "chatSlice",
+    initialState: initialState,
+    reducers: {
         addMessage: (state, action) => {
             state.messages.push(action.payload);
         },
@@ -64,14 +68,10 @@ export const chatSlice = createSlice({
             let index = state.messages.findIndex(msg => msg.id === action.payload.id);
             state.messages[index].status = action.payload.status;
         },
-        setChatConnectionId : (state, action) => {
-            state.connectionId = action.payload;
-            console.log('ConnectionID: ', state.connectionId);
-        }
     },
     extraReducers: (builder) => {
         builder.addCase(getStoryMessage.fulfilled, (state, action) => {
-            const messages : Array<MessageType> = JSON.parse(action.payload)
+            const messages: Array<MessageType> = JSON.parse(action.payload)
             console.log('get story message', messages)
             state.messages = messages
         })
@@ -85,27 +85,27 @@ export const chatSlice = createSlice({
 })
 
 export const chatSliceReducers = chatSlice.reducer;
-export const {addMessage, changeMessageStatus, setChatConnectionId} = chatSlice.actions;
+export const {addMessage, changeMessageStatus} = chatSlice.actions;
 
-export type ChatDispatchSignal<Action extends AnyAction = AnyAction> = SignalDispatch<RootState,Action>;
+export type ChatDispatchSignal<Action extends AnyAction = AnyAction> = SignalDispatch<RootState, Action>;
 
 export type MessagesListType = {
-    messages : Array<MessageType>
+    messages: Array<MessageType>
     loading?: 'idle' | 'pending' | 'succeeded' | 'failed'
     connectionId?: string;
 }
 
 export type MessageType = {
     id: string,
-    text : string,
-    name : string,
+    text: string,
+    name: string,
     status: 'neutral' | 'positive' | 'negative',
 }
 
 type MessageTypePost = {
     id: string,
-    text : string,
-    name : string,
+    text: string,
+    name: string,
     status: 'neutral' | 'positive' | 'negative',
     roomName: string,
 }
