@@ -5,7 +5,6 @@ import {useTypeDispatch} from "../../../../../store/store";
 
 const Message : React.FC<MessageType> = ({id,name, text, status}) => {
     const dispatch = useTypeDispatch();
-
     let messageColor = style.neutral;
     switch (status){
         case "negative":

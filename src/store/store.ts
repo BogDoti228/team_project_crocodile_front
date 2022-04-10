@@ -6,18 +6,22 @@ import {chatSliceReducers} from "./web-slices/chat_slice";
 import {roleSliceReducers} from "./web-slices/role_slice";
 import {chatMiddleware} from "./middlewares/chatMiddleware";
 import {selectSliceReducers} from "./web-slices/select_slice";
+import {canvasMiddleware} from "./middlewares/canvasMiddleware";
+import {canvasSliceReducers} from "./web-slices/canvas_slice";
+
 
 const rootReducer = combineReducers({
     profileReducer : profileSliceReducers,
     usersListReducer : usersListSliceReducers,
     chatReducer : chatSliceReducers,
     roleReducer : roleSliceReducers,
-    selectReducer : selectSliceReducers
+    selectReducer : selectSliceReducers,
+    canvasReducer: canvasSliceReducers
 })
 
 export const store = configureStore({
     reducer : rootReducer,
-    middleware: getDefaultMiddleware => getDefaultMiddleware().concat(chatMiddleware)
+    middleware: getDefaultMiddleware => getDefaultMiddleware().concat(chatMiddleware, canvasMiddleware),
 })
 
 export type AppDispatch = typeof store.dispatch

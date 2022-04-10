@@ -1,7 +1,4 @@
-import React, {useEffect} from "react";
-import {RootState, useTypeDispatch} from "../../../../../store/store";
-import {getUsersList} from "../../../../../store/web-slices/list_users_slice";
-import {useSelector} from "react-redux";
+import React from "react";
 import style from "./roomInfo.module.scss";
 import UserList from "./userList/UserList";
 import BoxWord from "./boxWord/BoxWord";

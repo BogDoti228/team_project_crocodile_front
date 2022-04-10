@@ -2,3 +2,8 @@
 interface DataInput{
     name: string,
 }
+
+declare type JointRoomType = {
+    roomName: string,
+    connectionId: string,
+}
