@@ -6,9 +6,6 @@ import style from './header.module.scss';
 import AdminMenu from "./AdminMenu/AdminMenu";
 import {ROOM_ID_IN_STORAGE} from "../../../store/web-slices/chat_slice";
 
-
-
-
 const Header : React.FC = () => {
     const {name} = useSelector((state : RootState) => state.profileReducer)
     const {isAdmin} = useSelector((state : RootState) => state.roleReducer)
@@ -26,12 +23,12 @@ const Header : React.FC = () => {
                     <h1 className={style.title}>AlligatorZ</h1>
             </div>
             {isAdmin && <AdminMenu/>}
-            <div>
-                <div className={style.room_info}>
-                    <div className={style.box_word} onClick={handleCopyToClipboard}>ID: {sessionStorage.getItem(ROOM_ID_IN_STORAGE)}</div>
+            <div className={style.info}>
+                <div className={style.boxWrap}>
+                    <div onClick={handleCopyToClipboard}>Идентификатор комнаты: {sessionStorage.getItem(ROOM_ID_IN_STORAGE)}</div>
                 </div>
-                <div className={style.profile}>
-                    {name}
+                <div className={style.boxWrap}>
+                    Имя: {name}
                 </div>
             </div>
         </header>
