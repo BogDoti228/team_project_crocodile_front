@@ -2,11 +2,13 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
 interface UserListType {
     usersList: Array<string>,
+    timeList: Array<string>,
     loading?: 'idle' | 'pending' | 'succeeded' | 'failed'
 }
 
 const initialState = {
     usersList : [],
+    timeList : ["1:00", "2:00", "3:00", "4:00", "5:00"],
     loading: 'idle',
 } as  UserListType
 

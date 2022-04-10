@@ -4,15 +4,18 @@ import style from './choiceRoomWindow.module.scss';
 import {useTypeDispatch} from "../../store/store";
 
 import {Link, useNavigate} from "react-router-dom";
+import {setAdmin} from "../../store/web-slices/role_slice";
 
 
 
 function JoinRoom() {
     const [idRoom, setIdRoom] = useState('');
+    const dispatch = useTypeDispatch();
 
     let navigate = useNavigate();
     const handleJoinRoom = () => {
         navigate('/game');
+        dispatch(setAdmin(false))
     }
 
     const handlePressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {

@@ -3,6 +3,7 @@ import React, {useEffect} from "react";
 import {RootState, useTypeDispatch} from "../../../../../../store/store";
 import {useSelector} from "react-redux";
 import {getUsersList} from "../../../../../../store/web-slices/list_users_slice";
+import User from "./user/User";
 
 const UserList : React.FC = () => {
     const dispatch = useTypeDispatch();
@@ -18,7 +19,7 @@ const UserList : React.FC = () => {
 
     return (
         <ul className={styles.user_list_box}>
-            {usersList.map((x, index) => <li key={index}>{x}</li>)}
+            {usersList.map((name, index) => <User name={name} key={index}/>)}
         </ul>
     )
 }

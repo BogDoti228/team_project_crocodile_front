@@ -5,12 +5,14 @@ import {usersListSliceReducers} from "./web-slices/list_users_slice";
 import {chatSliceReducers} from "./web-slices/chat_slice";
 import {roleSliceReducers} from "./web-slices/role_slice";
 import {chatMiddleware} from "./middlewares/chatMiddleware";
+import {selectSliceReducers} from "./web-slices/select_slice";
 
 const rootReducer = combineReducers({
     profileReducer : profileSliceReducers,
     usersListReducer : usersListSliceReducers,
     chatReducer : chatSliceReducers,
-    roleReducer : roleSliceReducers
+    roleReducer : roleSliceReducers,
+    selectReducer : selectSliceReducers
 })
 
 export const store = configureStore({
