@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {useTypeDispatch} from "../../store/store";
 import {joinToChatRoom, ROOM_ID_IN_STORAGE} from "../../store/web-slices/chat_slice";
 import {joinToCanvasRoom} from "../../store/web-slices/canvas_slice";
+import {setAuth} from "../../store/web-slices/profile_slice";
 
 
 function JoinRoom() {
@@ -15,7 +16,8 @@ function JoinRoom() {
         dispatch(joinToChatRoom(idRoom));
         dispatch(joinToCanvasRoom(idRoom));
         sessionStorage.setItem(ROOM_ID_IN_STORAGE, idRoom);
-        navigate('/game');
+        dispatch(setAuth(true));
+        navigate('/enter');
     }
 
     const handlePressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {

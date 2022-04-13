@@ -5,6 +5,7 @@ import {useTypeDispatch} from "../../store/store";
 import {joinToChatRoom, ROOM_ID_IN_STORAGE} from "../../store/web-slices/chat_slice";
 import {joinToCanvasRoom} from "../../store/web-slices/canvas_slice";
 import {nanoid} from "@reduxjs/toolkit";
+import {setAuth} from "../../store/web-slices/profile_slice";
 
 function CreateRoom() {
     const dispatch = useTypeDispatch();
@@ -15,7 +16,8 @@ function CreateRoom() {
         dispatch(joinToChatRoom(id));
         dispatch(joinToCanvasRoom(id));
         sessionStorage.setItem(ROOM_ID_IN_STORAGE, id);
-        navigate('/game');
+        dispatch(setAuth(true));
+        navigate('/enter');
     }
 
     return (
