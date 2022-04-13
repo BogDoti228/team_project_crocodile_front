@@ -2,8 +2,7 @@ import React, {useState} from "react";
 import style from './choiceRoomWindow.module.scss';
 import {useNavigate} from "react-router-dom";
 import {useTypeDispatch} from "../../store/store";
-import {joinToChatRoom, ROOM_ID_IN_STORAGE} from "../../store/web-slices/chat_slice";
-import {joinToCanvasRoom} from "../../store/web-slices/canvas_slice";
+import {ROOM_ID_IN_STORAGE} from "../../store/web-slices/chat_slice";
 import {setAuth} from "../../store/web-slices/profile_slice";
 
 
@@ -13,8 +12,6 @@ function JoinRoom() {
 
     let navigate = useNavigate();
     const handleJoinRoom = () => {
-        dispatch(joinToChatRoom(idRoom));
-        dispatch(joinToCanvasRoom(idRoom));
         sessionStorage.setItem(ROOM_ID_IN_STORAGE, idRoom);
         dispatch(setAuth(true));
         navigate('/enter');
@@ -30,7 +27,7 @@ function JoinRoom() {
             <div className={style.widget}>
                 <>
                     <div>Индефикатор комнаты:</div>
-                    <input className={style.input + " input"}
+                    <input className={`${style.input} input`}
                            type="text"
                            value={idRoom}
                            onChange={e => setIdRoom(e.target.value)}
@@ -38,7 +35,7 @@ function JoinRoom() {
                     />
                 </>
 
-                <button className={style.button + " btn"} onClick={handleJoinRoom}>Присоединиться</button>
+                <button className={`${style.button} btn`} onClick={handleJoinRoom}>Присоединиться</button>
             </div>
 
         </div>)

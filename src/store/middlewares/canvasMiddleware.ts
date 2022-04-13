@@ -16,7 +16,8 @@ const callbacks = withCallbacks<CanvasDispatchSignal, RootState>()
 
 export const canvasMiddleware = signalMiddleware({
     callbacks,
-    connection: canvasConnection
+    connection: canvasConnection,
+    shouldConnectionStartImmediately: false,
 });
 
 export default canvasConnection;
