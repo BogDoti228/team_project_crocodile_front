@@ -1,6 +1,5 @@
-import React, {useState} from "react";
+import React from "react";
 import style from "./toolPanel.module.scss";
-import "./toolPanel.scss"
 
 type ToolPanelPropsType = {
     activeSize: number,
@@ -16,7 +15,7 @@ const ToolPanel : React.FC<ToolPanelPropsType> = ({setSize, clear, activeSize, s
     }
 
     const sizeList = [
-        35,
+        34,
         25,
         15,
         10,
@@ -45,7 +44,10 @@ const ToolPanel : React.FC<ToolPanelPropsType> = ({setSize, clear, activeSize, s
     return (<div className={style.panel}>
         <div className={`${style.sizeList} ${style.list}`}>
             {sizeList.map((size) => {
-                return <div className={`${style.item} ${isActive(size)}`} onClick={() => handleSetSize(size)}><div className={`size${size}`}/></div>
+                return <div className={`${style.item} ${isActive(size)}`}
+                            onClick={() => handleSetSize(size)}>
+                    <div style={{height: size, width: size}}/>
+                </div>
             })}
         </div>
         <div className={style.clearButton} onClick={clear}>

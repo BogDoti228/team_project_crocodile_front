@@ -65,10 +65,9 @@
   background-color: $background-white-blue;
   border-radius: $little-border-radius;
   transition: background-color 0.3s ease;
-}
-
-.clearButton:hover{
-  background-color: #4c82f1;
+  &:hover{
+    background-color: #4c82f1;
+  }
 }
 
 .active{
