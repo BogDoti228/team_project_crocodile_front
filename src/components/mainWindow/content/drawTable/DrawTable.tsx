@@ -6,6 +6,7 @@ import {HubConnection} from "redux-signalr";
 import {useSelector} from "react-redux";
 import {RootState, useTypeDispatch} from "../../../../store/store";
 import {postCanvas} from "../../../../store/web-slices/canvas_slice";
+import ToolPanel from "./toolPanel/ToolPanel";
 
 interface Point {
     x: number,
@@ -20,6 +21,8 @@ const DrawTable: React.FC = () => {
     const prevPointRef = useRef<Point>({x: 0, y: 0});
     const stackImageRef = useRef<Array<ImageData>>([]);
     const ctxRef = useRef<CanvasRenderingContext2D | null>(null)
+    const [penSize, setPenSize] = useState(10);
+    const [penColor, setPenColor] = useState("#000");
 
     const {url} = useSelector((state: RootState) => state.canvasReducer);
     const dispatch = useTypeDispatch();
@@ -33,6 +36,7 @@ const DrawTable: React.FC = () => {
             const startImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
             stackImageRef.current = [startImage];
             ctxRef.current = ctx;
+            ctxRef.current.lineCap = "round";
         }
         document.addEventListener('keydown', onKeyDown, false);
         return () => {
@@ -43,8 +47,11 @@ const DrawTable: React.FC = () => {
     const startDraw = (e : React.MouseEvent<HTMLCanvasElement>) =>  {
         isDrawing.current = true;
         const point = getCurrentPoint(e)
-        if (point)
+        if (point && ctxRef.current){
             prevPointRef.current = point;
+            ctxRef.current.lineWidth = penSize;
+            ctxRef.current.strokeStyle = penColor;
+        }
     }
 
     const endDraw = () =>  {
@@ -81,8 +88,6 @@ const DrawTable: React.FC = () => {
         if (isDrawing.current) {
             const point = getCurrentPoint(e)
             if (ctxRef.current && point) {
-                ctxRef.current.lineCap = "round"
-                ctxRef.current.lineWidth = 10
                 ctxRef.current.beginPath()
                 ctxRef.current.moveTo(prevPointRef.current.x, prevPointRef.current.y)
                 ctxRef.current.lineTo(point.x, point.y)
@@ -91,6 +96,11 @@ const DrawTable: React.FC = () => {
             }
 
         }
+    }
+
+    const clearCanvas = () => {
+        ctxRef.current?.clearRect(0,0,ctxRef.current?.canvas.width, ctxRef.current?.canvas.height);
+        endDraw();
     }
 
     useEffect(() => {
@@ -103,12 +113,16 @@ const DrawTable: React.FC = () => {
     }, [url]);
 
     return (
-        <canvas className={style.canvas + ' unselectable'} ref={canvasRef}
-                onMouseDown={startDraw}
-                onMouseMove={(e) => getMousePose(e)}
-                onMouseUp={endDraw}
-                onMouseLeave={endDraw}
-        />
+        <div>
+            <canvas className={style.canvas + ' unselectable'} ref={canvasRef}
+                    onMouseDown={startDraw}
+                    onMouseMove={(e) => getMousePose(e)}
+                    onMouseUp={endDraw}
+                    onMouseLeave={endDraw}
+            />
+            <ToolPanel setSize={setPenSize} clear={clearCanvas} activeSize={penSize} activeColor={penColor} setColor={setPenColor}/>
+        </div>
+
     )
 }
 
