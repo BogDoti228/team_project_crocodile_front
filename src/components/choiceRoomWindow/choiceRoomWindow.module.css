@@ -58,4 +58,18 @@
   background-color: #5E7CE2;
 }
 
+.errorMessage {
+  position: absolute;
+  top: 15px;
+  left: 27px;
+  padding: 0 5px 0 5px;
+  background-color: #ff3333;
+  height: 20px;
+  min-width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
 /*# sourceMappingURL=choiceRoomWindow.module.css.map */
