@@ -7,7 +7,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 80%;
+  height: 70%;
   width: 100%;
   padding: 10px;
 }
@@ -24,6 +24,7 @@
 }
 
 .button {
+  min-width: 20px;
   flex-basis: 47px;
   background: $background-white-blue;
   height: 100%;
@@ -45,8 +46,8 @@
   background-color: $background-white-blue;
 }
 .input {
+  font-size: 1.2vw;
   flex-grow: 1;
   border-radius: $little-border-radius;
-  font-size: 20px;
   padding-left: 5px;
 }

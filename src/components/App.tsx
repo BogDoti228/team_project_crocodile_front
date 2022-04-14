@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import EnterWindow from "./enterWindow/EnterWindow";
 import MainWindow from "./mainWindow/MainWindow";
 import ChoiceRoomWindow from "./choiceRoomWindow/ChoiceRoomWindow";
-import { Routes, BrowserRouter, Link, Route } from "react-router-dom";
+import { Routes, BrowserRouter, Route } from "react-router-dom";
 
 
 const App : React.FC = () => {
@@ -10,8 +10,8 @@ const App : React.FC = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path='/' element={<EnterWindow/>}/>
-                <Route path='choiceRoom' element={<ChoiceRoomWindow/>}/>
+                <Route path='/' element={<ChoiceRoomWindow/>}/>
+                <Route path='enter' element={<EnterWindow/>}/>
                 <Route path='game' element={<MainWindow />}/>
             </Routes>
         </BrowserRouter>

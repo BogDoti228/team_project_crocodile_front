@@ -1,12 +1,15 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, nanoid} from "@reduxjs/toolkit";
+import {ROOM_ID_IN_STORAGE} from "./chat_slice";
 
 interface UserListType {
     usersList: Array<string>,
+    timeList: Array<string>,
     loading?: 'idle' | 'pending' | 'succeeded' | 'failed'
 }
 
 const initialState = {
     usersList : [],
+    timeList : ["1:00", "2:00", "3:00", "4:00", "5:00"],
     loading: 'idle',
 } as  UserListType
 
@@ -16,7 +19,13 @@ interface ObjectList {
 }
 
 export const getUsersList = createAsyncThunk("getUsersList", async () => {
-    const response : Promise<string> = fetch('https://localhost:8080/users/list')
+    const response : Promise<string> = fetch('https://localhost:8080/users/list', {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Room-Id" : sessionStorage.getItem(ROOM_ID_IN_STORAGE) as string
+        }
+    })
         .then((x) => x.json())
         .catch(console.log)
     return await response

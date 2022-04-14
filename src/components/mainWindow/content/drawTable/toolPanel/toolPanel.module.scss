@@ -1,0 +1,75 @@
+@import "../../../../../styles/variables";
+
+.panel{
+  padding: 8px;
+  height: 45px;
+  background-color: $background-white;
+  border-radius: $medium-border-radius;
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list{
+  .item{
+    margin-left: 8px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:first-child{
+      margin-left: 0;
+    }
+    div{
+      border-radius: 50%;
+      background-color: black;
+    }
+  }
+}
+
+.sizeList{
+  display: flex;
+  align-items: center;
+}
+
+.color{
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  div{
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+  }
+}
+
+.colorList{
+  display: flex;
+}
+
+.clearButton{
+  cursor: pointer;
+  height: 100%;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $background-white-blue;
+  border-radius: $little-border-radius;
+  transition: background-color 0.3s ease;
+  &:hover{
+    background-color: #4c82f1;
+  }
+}
+
+.active{
+  border: 3px solid $background-blue;
+}

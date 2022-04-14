@@ -8,7 +8,7 @@ const Content : React.FC = () => {
     return (
         <main className={style.content}>
             <DrawTable/>
-            <Interactive />
+            <Interactive/>
         </main>
     )
 }

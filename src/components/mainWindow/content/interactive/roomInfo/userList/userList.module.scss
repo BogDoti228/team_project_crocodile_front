@@ -1,0 +1,17 @@
+@import "../../../../../../styles/variables";
+
+:local {
+  .user_list_box {
+    height: 100%;
+    width: 70%;
+    border-radius: $medium-border-radius;
+    border: solid 3px $color-green-light;
+    background: white;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    padding: 10px;
+  }
+}

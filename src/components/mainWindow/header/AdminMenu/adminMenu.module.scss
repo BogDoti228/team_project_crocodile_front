@@ -1,0 +1,36 @@
+@import "../../../../styles/variables";
+:local {
+  .menuBar {
+    width: 400px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px 5px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    padding: 0 20px 0 20px;
+    margin: 0 auto 0 auto;
+  }
+
+  .play {
+    margin: 10px 0 10px auto;
+    width: 65px;
+    height: 65px;
+    border-radius: 45px;
+    background: url("../../../../resources/images/play.svg") no-repeat $background-white-blue;
+    background-position: 14px 8px;
+    background-size: 50px 50px;
+    -o-background-size: 50px 50px;
+    -webkit-background-size: 50px 50px;
+    filter: drop-shadow(0 0 0.15rem rgba(0,0,0,0.3));
+
+    &:hover {
+      opacity: 0.9;
+      filter: drop-shadow(0 0 0.15rem rgba(0,0,0,0.3));
+    }
+
+    &:active {
+      box-shadow: inset 0px 0px 3px 3px rgba(0,0,0,0.3);
+    }
+  }
+}

@@ -25,7 +25,11 @@
 }
 
 .widget {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 24.703125vw;
+  height: 50vh;
   font-size: 24px;
   padding: 110px 25px 25px 25px;
   background-color: #FBFBFB;
@@ -52,6 +56,20 @@
 
 .createRoom {
   background-color: #5E7CE2;
+}
+
+.errorMessage {
+  position: absolute;
+  top: 15px;
+  left: 27px;
+  padding: 0 5px 0 5px;
+  background-color: #ff3333;
+  height: 20px;
+  min-width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
 }
 
 /*# sourceMappingURL=choiceRoomWindow.module.css.map */

@@ -1,0 +1,73 @@
+.panel {
+  padding: 8px;
+  height: 45px;
+  background-color: #FBFBFB;
+  border-radius: 15px;
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list .item {
+  margin-left: 8px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.list .item:first-child {
+  margin-left: 0;
+}
+.list .item div {
+  border-radius: 50%;
+  background-color: black;
+}
+
+.sizeList {
+  display: flex;
+  align-items: center;
+}
+
+.color {
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.color div {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+}
+
+.colorList {
+  display: flex;
+}
+
+.clearButton {
+  cursor: pointer;
+  height: 100%;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #92b4f4;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+.clearButton:hover {
+  background-color: #4c82f1;
+}
+
+.active {
+  border: 3px solid #5E7CE2;
+}
+
+/*# sourceMappingURL=toolPanel.module.css.map */

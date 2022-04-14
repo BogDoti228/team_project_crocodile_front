@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {useTypeDispatch} from "../../store/store";
-import {postName, setName, setAuth} from "../../store/web-slices/profile_slice";
+import {postName, setName} from "../../store/web-slices/profile_slice";
 import style from "./enterWindow.module.scss";
 import {useNavigate} from "react-router-dom";
 
@@ -29,8 +29,7 @@ function Enter() {
         }
         dispatch(setName(nick));
         dispatch(postName(nick));
-        dispatch(setAuth(true));
-        navigate('/choiceRoom');
+        navigate('/game');
         localStorage.setItem("name", nick);
     }
 

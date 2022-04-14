@@ -1,59 +1,76 @@
-import React, {useEffect, useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {ImageData} from "canvas";
 import style from "./drawTable.module.scss";
 import {HubConnectionBuilder} from "@microsoft/signalr";
 import {HubConnection} from "redux-signalr";
+import {useSelector} from "react-redux";
+import {RootState, useTypeDispatch} from "../../../../store/store";
+import {postCanvas} from "../../../../store/web-slices/canvas_slice";
+import ToolPanel from "./toolPanel/ToolPanel";
 
 interface Point {
     x: number,
     y: number
 }
 
-const scale = 10
+const scale = 10;
 
 const DrawTable: React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null)
-    let isDraw = false;
-    let prevPoint: Point = {x: 0, y: 0};
-    let ctx: CanvasRenderingContext2D | null = null;
-    const historyStack: ImageData[] = [];
+    const isDrawing = useRef(false);
+    const prevPointRef = useRef<Point>({x: 0, y: 0});
+    const stackImageRef = useRef<Array<ImageData>>([]);
+    const ctxRef = useRef<CanvasRenderingContext2D | null>(null)
+    const [penSize, setPenSize] = useState(10);
+    const [penColor, setPenColor] = useState("#000");
+
+    const {url} = useSelector((state: RootState) => state.canvasReducer);
+    const dispatch = useTypeDispatch();
 
     useEffect(() => {
-        const canvas = canvasRef.current
+        let canvas = canvasRef.current
         if (canvas) {
-            ctx = canvas.getContext('2d') as CanvasRenderingContext2D
+            const ctx = canvas?.getContext('2d') as CanvasRenderingContext2D
             canvas.width = canvas.width * scale
             canvas.height = canvas.height * scale
             const startImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            historyStack.push(startImage);
+            stackImageRef.current = [startImage];
+            ctxRef.current = ctx;
+            ctxRef.current.lineCap = "round";
         }
         document.addEventListener('keydown', onKeyDown, false);
         return () => {
             document.removeEventListener('keydown', onKeyDown)
         }
-    }, [canvasRef.current])
+    }, [])
 
-    const startDraw = (e: React.MouseEvent<HTMLCanvasElement>) => {
-        isDraw = true;
+    const startDraw = (e : React.MouseEvent<HTMLCanvasElement>) =>  {
+        isDrawing.current = true;
         const point = getCurrentPoint(e)
-        if (point) {
-            prevPoint = point;
+        if (point && ctxRef.current){
+            prevPointRef.current = point;
+            ctxRef.current.lineWidth = penSize;
+            ctxRef.current.strokeStyle = penColor;
         }
     }
 
-    const endDraw = () => {
-        if (isDraw && canvasRef.current && ctx) {
-            isDraw = false;
-            const imageData = ctx.getImageData(0, 0, canvasRef.current.width, canvasRef.current.height);
-            historyStack.push(imageData);
-            postCanvas();
+    const endDraw = () =>  {
+        isDrawing.current = false;
+        if (canvasRef.current && ctxRef.current){
+            const imageData = ctxRef.current.getImageData(0,0, canvasRef.current.width,  canvasRef.current.height);
+            stackImageRef.current.push(imageData);
+            dispatch(postCanvas(ctxRef.current?.canvas.toDataURL()));
         }
     }
+    console.log('rerender');
 
     const onKeyDown = (e: KeyboardEvent) => {
-        if ((e.ctrlKey || e.metaKey) && e.code === 'KeyZ' && historyStack.length > 1) {
-            historyStack.pop();
-            ctx?.putImageData(historyStack[historyStack.length - 1], 0, 0);
+        if ((e.ctrlKey || e.metaKey) && e.code === 'KeyZ' && stackImageRef.current.length > 1) {
+            stackImageRef.current.pop();
+            ctxRef.current?.putImageData(stackImageRef.current[stackImageRef.current.length - 1], 0, 0);
+
+            if (canvasRef.current && ctxRef.current)
+                dispatch(postCanvas(ctxRef.current?.canvas.toDataURL()));
         }
     }
 
@@ -68,66 +85,44 @@ const DrawTable: React.FC = () => {
     }
 
     const getMousePose = (e: React.MouseEvent<HTMLCanvasElement>) => {
-        if (isDraw) {
+        if (isDrawing.current) {
             const point = getCurrentPoint(e)
-            if (ctx && point) {
-                ctx.lineCap = "round"
-                ctx.lineWidth = 10
-                ctx.beginPath()
-                ctx.moveTo(prevPoint.x, prevPoint.y)
-                ctx.lineTo(point.x, point.y)
-                ctx.stroke()
-                prevPoint = point;
+            if (ctxRef.current && point) {
+                ctxRef.current.beginPath()
+                ctxRef.current.moveTo(prevPointRef.current.x, prevPointRef.current.y)
+                ctxRef.current.lineTo(point.x, point.y)
+                ctxRef.current.stroke()
+                prevPointRef.current = point;
             }
+
         }
     }
 
-    let connection: HubConnection | null = null;
-
-    useEffect(() => {
-        connection = new HubConnectionBuilder()
-            .withUrl('https://localhost:8080/canvas')
-            .withAutomaticReconnect()
-            .build();
-    }, [])
-
-    useEffect(() => {
-        if (connection) {
-            connection.start()
-                .then(res => {
-                    console.log('Chat Connected!');
-
-                    connection?.on('ReceiveCanvas', canvas => {
-                        console.log('Receive Canvas!')
-                        let img = new Image();
-                        img.onload = () => {
-                            ctx?.drawImage(img, 0, 0, ctx?.canvas.width, ctx?.canvas.height);
-                        }
-                        img.src = canvas.img;
-                    });
-                })
-                .catch(e => console.log('Connection failed: ', e));
-        }
-    }, [])
-
-    const postCanvas = () => {
-        console.log('Post Canvas!');
-        fetch('https://localhost:8080/canvas/post', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({img: ctx?.canvas.toDataURL()})
-        })
+    const clearCanvas = () => {
+        ctxRef.current?.clearRect(0,0,ctxRef.current?.canvas.width, ctxRef.current?.canvas.height);
+        endDraw();
     }
+
+    useEffect(() => {
+        let img = new Image();
+        img.onload = () => {
+            ctxRef.current?.clearRect(0,0,ctxRef.current?.canvas.width, ctxRef.current?.canvas.height);
+            ctxRef.current?.drawImage(img, 0, 0, ctxRef.current?.canvas.width, ctxRef.current?.canvas.height);
+        }
+        img.src = url;
+    }, [url]);
 
     return (
-        <canvas className={style.canvas + ' unselectable'} ref={canvasRef}
-                onMouseDown={startDraw}
-                onMouseMove={(e) => getMousePose(e)}
-                onMouseUp={endDraw}
-                onMouseLeave={endDraw}
-        />
+        <div>
+            <canvas className={style.canvas + ' unselectable'} ref={canvasRef}
+                    onMouseDown={startDraw}
+                    onMouseMove={(e) => getMousePose(e)}
+                    onMouseUp={endDraw}
+                    onMouseLeave={endDraw}
+            />
+            <ToolPanel setSize={setPenSize} clear={clearCanvas} activeSize={penSize} activeColor={penColor} setColor={setPenColor}/>
+        </div>
+
     )
 }
 
