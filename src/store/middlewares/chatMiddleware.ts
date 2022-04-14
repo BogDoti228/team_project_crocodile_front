@@ -21,6 +21,7 @@ const callbacks = withCallbacks<ChatDispatchSignal, RootState>()
 export const chatMiddleware = signalMiddleware({
     callbacks,
     connection: chatConnection,
+    shouldConnectionStartImmediately: false,
 });
 
 export default chatConnection;
