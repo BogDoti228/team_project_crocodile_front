@@ -3,19 +3,35 @@ import styles from "./adminMenu.module.scss"
 import {useSelector} from "react-redux";
 import {RootState, useTypeDispatch} from "../../../../store/store";
 import CustomSelect from "../../../utils/customSelect/CustomSelect";
-import {generateNewWord, setCurrentStartUser, setCurrentTimer} from "../../../../store/web-slices/select_slice";
+import {
+    generateNewWord,
+    postPreStartInfo, PreStartInfoType,
+    setCurrentStartUser,
+    setCurrentTimer
+} from "../../../../store/web-slices/select_slice";
 
 const AdminMenu : React.FC = () => {
     const {usersList, timeList} = useSelector((state : RootState) => state.usersListReducer)
-    const [user, setUser] = useState(usersList[0])
-    const [time, setTime] = useState("")
+    const {currentStartUser, currentTimer} = useSelector((state : RootState) => state.selectReducer)
+    const [user, setUser] = useState(localStorage.getItem("name"))
+    const [time, setTime] = useState(timeList[0])
 
     const dispatch = useTypeDispatch()
 
     useEffect(()=> {
-        dispatch(setCurrentStartUser(usersList[0]))
-        dispatch(setCurrentTimer(timeList[0]))
+        console.log(user + "ON USEFFET")
+        dispatch(setCurrentStartUser(user))
+        dispatch(setCurrentTimer(time))
     },[])
+
+    useEffect(() => {
+        const preStartInfo : PreStartInfoType = {
+            currentTimer : currentTimer,
+            currentStartUser: currentStartUser
+        }
+
+        dispatch(postPreStartInfo(preStartInfo))
+    }, [currentStartUser, currentTimer])
 
     const onChangeValueUser = (e : React.ChangeEvent<HTMLSelectElement>) => {
         setUser(e.target.value)

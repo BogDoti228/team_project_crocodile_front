@@ -1,4 +1,5 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {ROOM_ID_IN_STORAGE} from "./chat_slice";
 
 interface SelectType {
     currentTimer : string,
@@ -16,22 +17,33 @@ const initialState = {
     loading: 'idle',
 } as SelectType
 
-/*export const getCanvasImage = createAsyncThunk("getCanvasImage", async () => {
-    const response : Promise<string> = fetch('https://localhost:8080/canvas/get')
+export interface PreStartInfoType {
+    currentTimer : string,
+    currentStartUser: string
+}
+
+export const getPreStartInfo = createAsyncThunk("getPreStartInfo", async () => {
+    const response : Promise<PreStartInfoType> = fetch('https://localhost:8080/game/startInfo', {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Room-Id" : sessionStorage.getItem(ROOM_ID_IN_STORAGE) as string
+        }
+    })
         .then((x) => x.json())
         .catch(console.log)
     return await response
 })
 
-export const postCanvasImage = createAsyncThunk("postCanvasImage", async (url : string) => {
-    await fetch('https://localhost:8080/canvas/post', {
+export const postPreStartInfo = createAsyncThunk("postPreStartInfo", async (currentData : PreStartInfoType) => {
+    await fetch('https://localhost:8080/game/startInfo', {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({canvas: url})
+        body: JSON.stringify({...currentData, roomId: sessionStorage.getItem(ROOM_ID_IN_STORAGE)})
     })
-})*/
+})
 
 export const selectSlice = createSlice({
     name : "selectSlice",
@@ -52,8 +64,15 @@ export const selectSlice = createSlice({
             console.log("adad")
         }
     },
-    /*extraReducers: (builder) => {
-    }*/
+    extraReducers: (builder) => {
+        builder.addCase(getPreStartInfo.fulfilled, (state, action) => {
+            state.currentStartUser = action.payload.currentStartUser;
+            state.currentTimer = action.payload.currentTimer
+        })
+        builder.addCase(postPreStartInfo.fulfilled, () => {
+            console.log("POSTED DATA SURELY")
+        })
+    }
 })
 
 export const selectSliceReducers = selectSlice.reducer;

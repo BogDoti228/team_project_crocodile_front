@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
 import styles from "./user.module.scss"
 import {useSelector} from "react-redux";
-import {RootState} from "../../../../../../../store/store";
+import {RootState, useTypeDispatch} from "../../../../../../../store/store";
+import {getPreStartInfo} from "../../../../../../../store/web-slices/select_slice";
 
 interface UserProps {
     name : string,
@@ -12,8 +13,12 @@ const User : React.FC<UserProps> = ({name, key}) => {
     const {currentStartUser} = useSelector((state : RootState) => state.selectReducer)
     const [isSelected, setIsSelected] = useState<boolean>(false)
 
+
     useEffect(() => {
+        console.log(currentStartUser)
+        console.log(name)
         if (currentStartUser === name) {
+            console.log("selected")
             setIsSelected(true)
         }
         else {
