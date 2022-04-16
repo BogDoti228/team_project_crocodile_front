@@ -20,7 +20,8 @@ const initialState = {
 interface GameProcessData {
     isGameStarted: boolean,
     currentWord: string,
-    statusWord: string
+    statusWord: string,
+    timerTick: string
 }
 
 export const getGameProcessInfo = createAsyncThunk("getGameProcessInfo", async () => {
@@ -60,6 +61,7 @@ export const gameProcessSlice = createSlice({
             state.statusWord = action.payload.statusWord
             state.currentWord = action.payload.currentWord
             state.isGameStarted = action.payload.isGameStarted
+            state.timerTick = action.payload.timerTick
         })
     }
 })

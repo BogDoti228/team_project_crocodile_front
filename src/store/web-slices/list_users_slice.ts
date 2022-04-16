@@ -9,7 +9,7 @@ interface UserListType {
 
 const initialState = {
     usersList : [],
-    timeList : ["1:00", "2:00", "3:00", "4:00", "5:00"],
+    timeList : ["01:00", "02:00", "03:00", "04:00", "05:00"],
     loading: 'idle',
 } as  UserListType
 
