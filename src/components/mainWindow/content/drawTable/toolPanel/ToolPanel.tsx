@@ -44,7 +44,7 @@ const ToolPanel : React.FC<ToolPanelPropsType> = ({setSize, clear, activeSize, s
     return (<div className={style.panel}>
         <div className={`${style.sizeList} ${style.list}`}>
             {sizeList.map((size) => {
-                return <div className={`${style.item} ${isActive(size)}`}
+                return <div key={size} className={`${style.item} ${isActive(size)}`}
                             onClick={() => handleSetSize(size)}>
                     <div style={{height: size, width: size}}/>
                 </div>
@@ -58,7 +58,7 @@ const ToolPanel : React.FC<ToolPanelPropsType> = ({setSize, clear, activeSize, s
                 <div style={{backgroundColor: "#FBFBFB", border: "2px solid #9B9B9BFF"}}/>
             </div>
             {colorList.map((color) => {
-                return <div className={`${style.color} ${isActive(color)}`} onClick={() => handleSetColor(color)}>
+                return <div key={color} className={`${style.color} ${isActive(color)}`} onClick={() => handleSetColor(color)}>
                     <div style={{backgroundColor: color}}/>
                 </div>
             })}

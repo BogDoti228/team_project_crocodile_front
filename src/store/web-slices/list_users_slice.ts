@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice, nanoid} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {ROOM_ID_IN_STORAGE} from "./chat_slice";
 
 interface UserListType {
@@ -26,7 +26,13 @@ export const getUsersList = createAsyncThunk("getUsersList", async () => {
             "Room-Id" : sessionStorage.getItem(ROOM_ID_IN_STORAGE) as string
         }
     })
-        .then((x) => x.json())
+        .then((x) => {
+            if (x.ok){
+                return x.json();
+            }
+            console.error('Error get user list with status', x.status);
+            return JSON.stringify([]);
+        })
         .catch(console.log)
     return await response
 })
@@ -43,7 +49,16 @@ export const usersListSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(getUsersList.fulfilled, (state, action) => {
-            const userList : Array<ServerInfoUser> = JSON.parse(action.payload)
+            let userList : Array<ServerInfoUser> = [];
+
+            try{
+                userList = JSON.parse(action.payload);
+            }
+            catch (e)
+            {
+                console.error('Не могу распарсить JSON', action.payload)
+                console.error(e)
+            }
             state.usersList = userList.map(x => x.Name)
         })
     }
