@@ -1,35 +1,32 @@
 import React, {useState} from "react";
 import style from './choiceRoomWindow.module.scss';
-import {RootState, useTypeDispatch} from "../../store/store";
+import {useTypeDispatch} from "../../store/store";
 import {useNavigate} from "react-router-dom";
 import {setAdmin} from "../../store/web-slices/role_slice";
 import {ROOM_ID_IN_STORAGE} from "../../store/web-slices/chat_slice";
 import {checkExistingRoom, setAuth} from "../../store/web-slices/profile_slice";
-import {useSelector} from "react-redux";
+import {RoomInfo} from "../../store/web-slices/profile_slice";
 
 
 function JoinRoom() {
     const [idRoom, setIdRoom] = useState('');
     const dispatch = useTypeDispatch();
-    const {isRoomExist} = useSelector((state : RootState) => state.profileReducer)
     const [isErrorRoom, setIsErrorRoom] = useState(false)
 
-    //Баг со входом хз надо как то эвейт на диспатче правильно поставить чтобы он обновлялся норм
     let navigate = useNavigate();
     const handleJoinRoom = async () => {
-        await dispatch(checkExistingRoom(idRoom))
-        console.log(isRoomExist)
-        if (isRoomExist) {
-            sessionStorage.setItem(ROOM_ID_IN_STORAGE, idRoom);
-            dispatch(setAdmin(false))
-            dispatch(setAuth(true));
-            navigate('/enter');
-            setIsErrorRoom(false)
-        }
-        else {
-            setIsErrorRoom(true)
-        }
-
+        await dispatch(checkExistingRoom(idRoom)).then( (x,) => {
+            if ((x.payload as RoomInfo).isRoomExist) {
+                sessionStorage.setItem(ROOM_ID_IN_STORAGE, idRoom);
+                dispatch(setAdmin(false))
+                dispatch(setAuth(true));
+                navigate('/enter');
+            }
+            else {
+                setIsErrorRoom(true)
+            }
+            }
+        )
     }
 
     const handlePressEnter = async (e: React.KeyboardEvent<HTMLInputElement>) => {

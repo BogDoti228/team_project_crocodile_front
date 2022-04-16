@@ -15,7 +15,7 @@ const initialState = {
     isRoomExist : false
 } as ProfileType
 
-interface RoomInfo {
+export type RoomInfo = {
     isRoomExist : boolean
 }
 
