@@ -113,7 +113,7 @@ const DrawTable: React.FC = () => {
     }, [url]);
 
     return (
-        <div>
+        <div className={style.canvasWrapper}>
             <canvas className={style.canvas + ' unselectable'} ref={canvasRef}
                     onMouseDown={startDraw}
                     onMouseMove={(e) => getMousePose(e)}

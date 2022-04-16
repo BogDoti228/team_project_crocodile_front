@@ -37,7 +37,6 @@ function JoinRoom() {
     return (
         <div className={style.section + ' ' + style.joinRoom}>
             <div className={style.widget}>
-                <>
                     <div>Индефикатор комнаты:</div>
                     {isErrorRoom && <div className={style.errorMessage}>Такой комнаты не существует</div>}
                     <input className={`${style.input} input`}
@@ -49,7 +48,6 @@ function JoinRoom() {
                            }}
                            onKeyPress={e => handlePressEnter(e)}
                     />
-                </>
 
                 <button className={`${style.button} btn`} onClick={handleJoinRoom}>Присоединиться</button>
             </div>
