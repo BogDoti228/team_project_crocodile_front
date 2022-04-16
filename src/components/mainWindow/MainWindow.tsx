@@ -18,7 +18,8 @@ const MainWindow : React.FC = () => {
         if (!isAuth) {
             navigate('/');
         }
-    })
+    },[])
+
 
     return (
         <>

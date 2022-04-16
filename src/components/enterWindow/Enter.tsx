@@ -1,8 +1,10 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useTypeDispatch} from "../../store/store";
 import {postName, setName} from "../../store/web-slices/profile_slice";
 import style from "./enterWindow.module.scss";
 import {useNavigate} from "react-router-dom";
+import {getPreStartInfo} from "../../store/web-slices/select_slice";
+import {getGameProcessInfo} from "../../store/web-slices/game_process_slice";
 
 function Enter() {
     const [nick, setNick] = useState('');

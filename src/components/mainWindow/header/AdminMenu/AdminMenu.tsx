@@ -4,11 +4,11 @@ import {useSelector} from "react-redux";
 import {RootState, useTypeDispatch} from "../../../../store/store";
 import CustomSelect from "../../../utils/customSelect/CustomSelect";
 import {
-    generateNewWord,
     postPreStartInfo, PreStartInfoType,
     setCurrentStartUser,
     setCurrentTimer
 } from "../../../../store/web-slices/select_slice";
+import {postGameProcessInfo} from "../../../../store/web-slices/game_process_slice";
 
 const AdminMenu : React.FC = () => {
     const {usersList, timeList} = useSelector((state : RootState) => state.usersListReducer)
@@ -44,9 +44,7 @@ const AdminMenu : React.FC = () => {
     }
 
     const onStart = () => {
-        console.log(user)
-        console.log(time)
-        dispatch(generateNewWord())
+        dispatch(postGameProcessInfo(true))
     }
 
     return (

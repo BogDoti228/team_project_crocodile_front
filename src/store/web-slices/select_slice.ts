@@ -4,16 +4,12 @@ import {ROOM_ID_IN_STORAGE} from "./chat_slice";
 interface SelectType {
     currentTimer : string,
     currentStartUser: string,
-    words : Array<string>,
-    currentWord: string,
     loading?: 'idle' | 'pending' | 'succeeded' | 'failed'
 }
 
 const initialState = {
     currentTimer : "",
     currentStartUser: "",
-    words: ["Аниме", "Бебра", "Амогус", "Телевизор", "Чешуя"],
-    currentWord: "Игра не началась",
     loading: 'idle',
 } as SelectType
 
@@ -54,14 +50,6 @@ export const selectSlice = createSlice({
         },
         setCurrentStartUser : (state, action) => {
             state.currentStartUser = action.payload
-        },
-        generateNewWord : (state) => {
-            const getRandomInt = (length : number) => {
-                return Math.floor(Math.random() * length);
-            }
-
-            state.currentWord = state.words[getRandomInt(state.words.length)]
-            console.log("adad")
         }
     },
     extraReducers: (builder) => {
@@ -76,4 +64,4 @@ export const selectSlice = createSlice({
 })
 
 export const selectSliceReducers = selectSlice.reducer;
-export  const {setCurrentStartUser, setCurrentTimer, generateNewWord} = selectSlice.actions
+export  const {setCurrentStartUser, setCurrentTimer} = selectSlice.actions
