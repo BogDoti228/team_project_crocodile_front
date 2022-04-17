@@ -27,36 +27,43 @@
 }
 
 .button{
-  margin-top: 7px;
-  width: 48%;
+  margin-top: 2px;
+  width: 49%;
   height: 20px;
-  border-radius: $little-border-radius;
+  border-radius: 7px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   transition: background-color 0.3s ease;
 }
 
+.buttonRightAnswer{
+  background-color: #00dc09;
+  width: 100%;
+  &:hover{
+    background-color: #00ab06;
+  }
+}
+
 .buttonLike{
   margin-left: 5px;
-  background: #00cf0a
+  background: $background-white-blue;
+  &:hover{
+  background: $background-blue;
+  }
 }
 
-.buttonLike:hover{
-  background: #00ab06
-}
 
 .buttonDislike{
-  background: #FF0000;
-}
-
-.buttonDislike:hover{
-  background: #c24343;
+  background: #ff441a;
+  &:hover{
+    background: #d24545;
+  }
 }
 
 .positive{
-  border-color: #00cf0a;
-  background-color: #a8ffac;
+  border-color: $background-white-blue;
+  background-color: #b6cbfa;
 }
 
 .negative{
@@ -66,4 +73,9 @@
 
 .neutral{
   background-color: #FBFBFB;
+}
+
+.right{
+  border-color: #00ab06;
+  background-color: #00dc09;
 }

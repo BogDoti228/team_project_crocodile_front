@@ -51,12 +51,12 @@ export const joinToChatRoom = createAsyncThunk("joinToRoom", async (nameRoom: st
         .catch(console.log);
 });
 
-export const getStoryMessage = createAsyncThunk("getStoryMessage", async () => {
+export const getStoryMessage = createAsyncThunk("getStoryMessage", async (name: string) => {
     const response: Promise<string> = fetch('https://localhost:8080/chat/story', {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            "Room-Id" : sessionStorage.getItem(ROOM_ID_IN_STORAGE) as string
+            "Room-Id" : name,
         }
     })
         .then((x) => x.json())
@@ -107,13 +107,13 @@ export type MessageType = {
     id: string,
     text: string,
     name: string,
-    status: 'neutral' | 'positive' | 'negative',
+    status: 'neutral' | 'positive' | 'negative' | 'right',
 }
 
 type MessageTypePost = {
     id: string,
     text: string,
     name: string,
-    status: 'neutral' | 'positive' | 'negative',
+    status: 'neutral' | 'positive' | 'negative' | 'right',
     roomName: string,
 }

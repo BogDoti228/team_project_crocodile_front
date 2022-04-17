@@ -1,8 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {ImageData} from "canvas";
 import style from "./drawTable.module.scss";
-import {HubConnectionBuilder} from "@microsoft/signalr";
-import {HubConnection} from "redux-signalr";
 import {useSelector} from "react-redux";
 import {RootState, useTypeDispatch} from "../../../../store/store";
 import {postCanvas} from "../../../../store/web-slices/canvas_slice";
@@ -75,9 +73,6 @@ const DrawTable: React.FC = () => {
         if ((e.ctrlKey || e.metaKey) && e.code === 'KeyZ' && stackImageRef.current.length > 1) {
             stackImageRef.current.pop();
             ctxRef.current?.putImageData(stackImageRef.current[stackImageRef.current.length - 1], 0, 0);
-
-      /*      if (canvasRef.current && ctxRef.current)
-                dispatch(postCanvas(ctxRef.current?.canvas.toDataURL()));*/
         }
     }
 
