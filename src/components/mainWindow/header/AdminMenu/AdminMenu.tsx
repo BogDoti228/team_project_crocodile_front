@@ -10,7 +10,11 @@ import {
 } from "../../../../store/web-slices/select_slice";
 import {postGameProcessInfo} from "../../../../store/web-slices/game_process_slice";
 
-const AdminMenu : React.FC = () => {
+type AdminMenuTypeProps = {
+    setGameStart: React.Dispatch<React.SetStateAction<boolean>>,
+}
+
+const AdminMenu : React.FC<AdminMenuTypeProps> = ({setGameStart}) => {
     const {usersList, timeList} = useSelector((state : RootState) => state.usersListReducer)
     const {currentStartUser, currentTimer} = useSelector((state : RootState) => state.selectReducer)
     const [user, setUser] = useState(localStorage.getItem("name"))
@@ -44,6 +48,7 @@ const AdminMenu : React.FC = () => {
     }
 
     const onStart = () => {
+        setGameStart(true);
         dispatch(postGameProcessInfo(true))
     }
 
