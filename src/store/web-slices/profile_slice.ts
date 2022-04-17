@@ -19,13 +19,6 @@ export type RoomInfo = {
     isRoomExist : boolean
 }
 
-export const getName = createAsyncThunk("getName", async () => {
-    const response : Promise<ProfileType> = fetch('https://localhost:8080/user/profile')
-        .then((x) => x.json())
-        .catch(console.log)
-    return await response
-})
-
 export const postName = createAsyncThunk("postName", async (name : string) => {
     return await fetch('https://localhost:8080/user/profile', {
         method: "POST",
@@ -72,9 +65,6 @@ export const profileSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(getName.fulfilled, (state, action) => {
-            state.name = action.payload.name
-        })
         builder.addCase(postName.fulfilled, () => {
         })
         builder.addCase(deleteName.fulfilled, () => {

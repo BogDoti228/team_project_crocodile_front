@@ -3,6 +3,7 @@ import {RootState} from "../store";
 import {AnyAction} from 'redux';
 import {SignalDispatch} from "redux-signalr";
 import chatConnection from "../middlewares/chatMiddleware";
+import {NICK_IN_STORAGE} from "../../components/enterWindow/Enter";
 
 export const ROOM_ID_IN_STORAGE = "roomName";
 
@@ -19,7 +20,7 @@ export const sendMessage = createAsyncThunk("sendMessage", async (text: string) 
         },
         body: JSON.stringify({
             id: nanoid(5),
-            name: localStorage.getItem("name"),
+            name: sessionStorage.getItem(NICK_IN_STORAGE),
             text: text,
             status: "neutral",
             roomName: sessionStorage.getItem(ROOM_ID_IN_STORAGE),

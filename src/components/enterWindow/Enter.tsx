@@ -3,6 +3,7 @@ import {useTypeDispatch} from "../../store/store";
 import {postName, setName} from "../../store/web-slices/profile_slice";
 import style from "./enterWindow.module.scss";
 import {useNavigate} from "react-router-dom";
+export const NICK_IN_STORAGE = "name";
 
 function Enter() {
     const [nick, setNick] = useState('');
@@ -37,7 +38,7 @@ function Enter() {
                     setIsNickTaken(true);
             }
         );
-        localStorage.setItem("name", nick);
+        sessionStorage.setItem(NICK_IN_STORAGE, nick);
     }
 
     const handlePressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
