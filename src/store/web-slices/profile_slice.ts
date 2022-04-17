@@ -27,12 +27,14 @@ export const getName = createAsyncThunk("getName", async () => {
 })
 
 export const postName = createAsyncThunk("postName", async (name : string) => {
-    await fetch('https://localhost:8080/user/profile', {
+    return await fetch('https://localhost:8080/user/profile', {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({name: name, roomId: sessionStorage.getItem(ROOM_ID_IN_STORAGE)})
+    }).then(x => {
+        return x.status !== 409;
     })
 })
 
