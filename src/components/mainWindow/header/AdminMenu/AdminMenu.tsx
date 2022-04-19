@@ -3,19 +3,40 @@ import styles from "./adminMenu.module.scss"
 import {useSelector} from "react-redux";
 import {RootState, useTypeDispatch} from "../../../../store/store";
 import CustomSelect from "../../../utils/customSelect/CustomSelect";
-import {generateNewWord, setCurrentStartUser, setCurrentTimer} from "../../../../store/web-slices/select_slice";
+import {
+    postPreStartInfo, PreStartInfoType,
+    setCurrentStartUser,
+    setCurrentTimer
+} from "../../../../store/web-slices/select_slice";
+import {GameBooleansType, postGameProcessInfo} from "../../../../store/web-slices/game_process_slice";
+import {NICK_IN_STORAGE} from "../../../enterWindow/Enter";
 
-const AdminMenu : React.FC = () => {
+type AdminMenuTypeProps = {
+    setGameStart: React.Dispatch<React.SetStateAction<boolean>>,
+}
+
+const AdminMenu : React.FC<AdminMenuTypeProps> = ({setGameStart}) => {
     const {usersList, timeList} = useSelector((state : RootState) => state.usersListReducer)
-    const [user, setUser] = useState(usersList[0])
-    const [time, setTime] = useState("")
+    const {currentStartUser, currentTimer} = useSelector((state : RootState) => state.selectReducer)
+    const [user, setUser] = useState(sessionStorage.getItem(NICK_IN_STORAGE))
+    const [time, setTime] = useState(timeList[0])
 
     const dispatch = useTypeDispatch()
 
     useEffect(()=> {
-        dispatch(setCurrentStartUser(usersList[0]))
-        dispatch(setCurrentTimer(timeList[0]))
+        console.log(user + "ON USEFFET")
+        dispatch(setCurrentStartUser(user))
+        dispatch(setCurrentTimer(time))
     },[])
+
+    useEffect(() => {
+        const preStartInfo : PreStartInfoType = {
+            currentTimer : currentTimer,
+            currentStartUser: currentStartUser
+        }
+        console.log(" POST PRE START INFO WITH + " + currentTimer + " " + currentStartUser)
+        dispatch(postPreStartInfo(preStartInfo))
+    }, [currentStartUser, currentTimer])
 
     const onChangeValueUser = (e : React.ChangeEvent<HTMLSelectElement>) => {
         setUser(e.target.value)
@@ -28,9 +49,12 @@ const AdminMenu : React.FC = () => {
     }
 
     const onStart = () => {
-        console.log(user)
-        console.log(time)
-        dispatch(generateNewWord())
+        setGameStart(true);
+        const gameBooleans : GameBooleansType = {
+            isGameStarted : true,
+            isGameEnded : false
+        }
+        dispatch(postGameProcessInfo(gameBooleans))
     }
 
     return (

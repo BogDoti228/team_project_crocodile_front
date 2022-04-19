@@ -1,0 +1,27 @@
+:local .boxWrapPanelResult {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #92f4c0;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+:local .button {
+  padding: 10px;
+  background: #92B4F4;
+  border-radius: 15px;
+  font-size: 20px;
+}
+:local .text {
+  background: #92B4F4;
+  border-radius: 15px;
+  border: 2px solid #92B4F4;
+  padding: 10px;
+  font-size: 20px;
+}
+
+/*# sourceMappingURL=gameResultPanel.module.css.map */

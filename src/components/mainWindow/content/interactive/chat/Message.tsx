@@ -1,11 +1,21 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import style from "./message.module.scss";
 import {sendChangeMessage, MessageType} from "../../../../../store/web-slices/chat_slice";
-import {useTypeDispatch} from "../../../../../store/store";
+import {RootState, useTypeDispatch} from "../../../../../store/store";
+import {useSelector} from "react-redux";
+import {NICK_IN_STORAGE} from "../../../../enterWindow/Enter";
+import {GameBooleansType, postGameProcessInfo} from "../../../../../store/web-slices/game_process_slice";
 
 const Message : React.FC<MessageType> = ({id,name, text, status}) => {
+    const {currentStartUser} = useSelector((state : RootState) => state.selectReducer)
+    const [visibleBtn, setVisibleBtn] = useState(false);
     const dispatch = useTypeDispatch();
     let messageColor = style.neutral;
+
+    useEffect(() => {
+        setVisibleBtn(currentStartUser === sessionStorage.getItem(NICK_IN_STORAGE));
+    }, [currentStartUser])
+
     switch (status){
         case "negative":
             messageColor = style.negative;
@@ -16,6 +26,16 @@ const Message : React.FC<MessageType> = ({id,name, text, status}) => {
         case "positive":
             messageColor = style.positive;
             break;
+        case "right":
+            messageColor = style.right;
+    }
+
+    const onGameEnd = () => {
+        const gameBooleans : GameBooleansType = {
+            isGameStarted : false,
+            isGameEnded : true
+        }
+        dispatch(postGameProcessInfo(gameBooleans))
     }
 
     const handleDislike = () => {
@@ -32,11 +52,23 @@ const Message : React.FC<MessageType> = ({id,name, text, status}) => {
             dispatch(sendChangeMessage({id, name, text, status: "positive"}))
     }
 
+    const handleRight = () => {
+        if (status === "right")
+            dispatch(sendChangeMessage({id, name, text, status: "neutral"}))
+        else
+        {
+            onGameEnd()
+            dispatch(sendChangeMessage({id, name, text, status: "right"}))
+        }
+
+    }
+
     return (<div  className={style.message}>
         <div className={style.name}>{name}: </div>
         <div className={style.text + ' ' + messageColor}>{text}</div>
-        <button className={style.button + ' ' + style.buttonDislike} onClick={handleDislike}>no</button>
-        <button className={style.button + ' ' + style.buttonLike} onClick={handleLike}>yes</button>
+        {visibleBtn && <button className={`${style.button} ${style.buttonDislike}`}  onClick={handleDislike}>no</button>}
+        {visibleBtn && <button className={`${style.button} ${style.buttonLike}`} onClick={handleLike}>yes</button>}
+        {visibleBtn && <button className={`${style.button} ${style.buttonRightAnswer}`} onClick={handleRight}>right</button> }
     </div>)
 }
 

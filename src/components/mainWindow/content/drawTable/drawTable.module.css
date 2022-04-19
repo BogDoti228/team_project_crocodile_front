@@ -1,8 +1,16 @@
 .canvas {
   background-color: #FBFBFB;
-  height: 70vh;
+  height: 100%;
   width: 100%;
   border-radius: 15px;
+}
+
+.canvasWrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  position: relative;
 }
 
 /*# sourceMappingURL=drawTable.module.css.map */

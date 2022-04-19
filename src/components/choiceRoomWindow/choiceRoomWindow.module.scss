@@ -27,6 +27,7 @@
 }
 
 .widget{
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -48,7 +49,7 @@
 
 .input{
   width: 100%;
-  margin-bottom: 73px;
+  margin-bottom: auto;
   margin-top: 15px;
 }
 
@@ -62,14 +63,14 @@
 
 .errorMessage{
   position: absolute;
-  top: 15px;
-  left: 27px;
+  top: 10px;
+  margin-top: 15px;
+  font-size: 18px;
   padding: 0 5px 0 5px;
   background-color: $color-error;
-  height: 20px;
   min-width: 50px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   border-radius: 5px;
 }

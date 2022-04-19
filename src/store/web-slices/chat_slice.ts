@@ -3,6 +3,7 @@ import {RootState} from "../store";
 import {AnyAction} from 'redux';
 import {SignalDispatch} from "redux-signalr";
 import chatConnection from "../middlewares/chatMiddleware";
+import {NICK_IN_STORAGE} from "../../components/enterWindow/Enter";
 
 export const ROOM_ID_IN_STORAGE = "roomName";
 
@@ -19,7 +20,7 @@ export const sendMessage = createAsyncThunk("sendMessage", async (text: string) 
         },
         body: JSON.stringify({
             id: nanoid(5),
-            name: localStorage.getItem("name"),
+            name: sessionStorage.getItem(NICK_IN_STORAGE),
             text: text,
             status: "neutral",
             roomName: sessionStorage.getItem(ROOM_ID_IN_STORAGE),
@@ -50,8 +51,14 @@ export const joinToChatRoom = createAsyncThunk("joinToRoom", async (nameRoom: st
         .catch(console.log);
 });
 
-export const getStoryMessage = createAsyncThunk("getStoryMessage", async () => {
-    const response: Promise<string> = fetch('https://localhost:8080/chat/story')
+export const getStoryMessage = createAsyncThunk("getStoryMessage", async (name: string) => {
+    const response: Promise<string> = fetch('https://localhost:8080/chat/story', {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Room-Id" : name,
+        }
+    })
         .then((x) => x.json())
         .catch(console.log)
     return await response
@@ -72,8 +79,9 @@ export const chatSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(getStoryMessage.fulfilled, (state, action) => {
             const messages: Array<MessageType> = JSON.parse(action.payload)
-            console.log('get story message', messages)
-            state.messages = messages
+            console.log('get story message', messages);
+            messages.forEach(msg => state.messages.push(msg as MessageType))
+            //state.messages = messages
         })
         builder.addCase(sendMessage.fulfilled, (state, action) => {
         })
@@ -99,13 +107,13 @@ export type MessageType = {
     id: string,
     text: string,
     name: string,
-    status: 'neutral' | 'positive' | 'negative',
+    status: 'neutral' | 'positive' | 'negative' | 'right',
 }
 
 type MessageTypePost = {
     id: string,
     text: string,
     name: string,
-    status: 'neutral' | 'positive' | 'negative',
+    status: 'neutral' | 'positive' | 'negative' | 'right',
     roomName: string,
 }

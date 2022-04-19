@@ -1,12 +1,11 @@
 import React, {useEffect, useRef, useState} from "react";
 import {ImageData} from "canvas";
 import style from "./drawTable.module.scss";
-import {HubConnectionBuilder} from "@microsoft/signalr";
-import {HubConnection} from "redux-signalr";
 import {useSelector} from "react-redux";
 import {RootState, useTypeDispatch} from "../../../../store/store";
 import {postCanvas} from "../../../../store/web-slices/canvas_slice";
 import ToolPanel from "./toolPanel/ToolPanel";
+import GameResultPanel from "./gameResultPanel/GameResultPanel";
 
 interface Point {
     x: number,
@@ -23,6 +22,10 @@ const DrawTable: React.FC = () => {
     const ctxRef = useRef<CanvasRenderingContext2D | null>(null)
     const [penSize, setPenSize] = useState(10);
     const [penColor, setPenColor] = useState("#000");
+    const {currentStartUser} = useSelector((state : RootState) => state.selectReducer)
+    const {isGameStarted} = useSelector((state: RootState) => state.gameProcessReducer)
+    const {name} = useSelector((state : RootState) => state.profileReducer)
+
 
     const {url} = useSelector((state: RootState) => state.canvasReducer);
     const dispatch = useTypeDispatch();
@@ -45,7 +48,7 @@ const DrawTable: React.FC = () => {
     }, [])
 
     const startDraw = (e : React.MouseEvent<HTMLCanvasElement>) =>  {
-        isDrawing.current = true;
+        isDrawing.current = (name === currentStartUser && isGameStarted);
         const point = getCurrentPoint(e)
         if (point && ctxRef.current){
             prevPointRef.current = point;
@@ -59,7 +62,10 @@ const DrawTable: React.FC = () => {
         if (canvasRef.current && ctxRef.current){
             const imageData = ctxRef.current.getImageData(0,0, canvasRef.current.width,  canvasRef.current.height);
             stackImageRef.current.push(imageData);
-            dispatch(postCanvas(ctxRef.current?.canvas.toDataURL()));
+            if (currentStartUser === name){
+                dispatch(postCanvas(ctxRef.current?.canvas.toDataURL()));
+            }
+
         }
     }
     console.log('rerender');
@@ -68,9 +74,6 @@ const DrawTable: React.FC = () => {
         if ((e.ctrlKey || e.metaKey) && e.code === 'KeyZ' && stackImageRef.current.length > 1) {
             stackImageRef.current.pop();
             ctxRef.current?.putImageData(stackImageRef.current[stackImageRef.current.length - 1], 0, 0);
-
-            if (canvasRef.current && ctxRef.current)
-                dispatch(postCanvas(ctxRef.current?.canvas.toDataURL()));
         }
     }
 
@@ -113,7 +116,7 @@ const DrawTable: React.FC = () => {
     }, [url]);
 
     return (
-        <div>
+        <div className={style.canvasWrapper}>
             <canvas className={style.canvas + ' unselectable'} ref={canvasRef}
                     onMouseDown={startDraw}
                     onMouseMove={(e) => getMousePose(e)}
@@ -121,6 +124,7 @@ const DrawTable: React.FC = () => {
                     onMouseLeave={endDraw}
             />
             <ToolPanel setSize={setPenSize} clear={clearCanvas} activeSize={penSize} activeColor={penColor} setColor={setPenColor}/>
+            <GameResultPanel/>
         </div>
 
     )

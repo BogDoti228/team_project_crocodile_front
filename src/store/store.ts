@@ -8,6 +8,7 @@ import {chatMiddleware} from "./middlewares/chatMiddleware";
 import {selectSliceReducers} from "./web-slices/select_slice";
 import {canvasMiddleware} from "./middlewares/canvasMiddleware";
 import {canvasSliceReducers} from "./web-slices/canvas_slice";
+import {gameProcessSliceReducers} from "./web-slices/game_process_slice";
 
 
 const rootReducer = combineReducers({
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     chatReducer : chatSliceReducers,
     roleReducer : roleSliceReducers,
     selectReducer : selectSliceReducers,
-    canvasReducer: canvasSliceReducers
+    canvasReducer: canvasSliceReducers,
+    gameProcessReducer: gameProcessSliceReducers
 })
 
 export const store = configureStore({

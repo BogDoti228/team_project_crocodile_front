@@ -7,9 +7,13 @@ import Message from "./Message";
 
 const Chat : React.FC = () => {
     const [message, setMessage] = useState<string>("")
+    const [styleInput, setStyleInput] = useState(style.chat);
     const inputRef = useRef<HTMLInputElement>(null)
     const ulRef = useRef<HTMLUListElement>(null)
     const {messages} = useSelector((state : RootState) => state.chatReducer)
+    const {currentStartUser} = useSelector((state : RootState) => state.selectReducer)
+    const {isGameStarted} = useSelector((state: RootState) => state.gameProcessReducer)
+    const {name} = useSelector((state : RootState) => state.profileReducer)
 
     const dispatch = useTypeDispatch()
 
@@ -20,7 +24,7 @@ const Chat : React.FC = () => {
     }, [messages])
 
     useEffect(() => {
-        //dispatch(getStoryMessage());
+        dispatch(getStoryMessage(name));
     }, [])
 
     const applyMessage = async (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -37,6 +41,15 @@ const Chat : React.FC = () => {
         }
     }
 
+    useEffect(() => {
+       if (isGameStarted && currentStartUser !== name){
+           setStyleInput(style.inputBox)
+       }
+       else{
+           setStyleInput(style.inputBox + ' ' + style.nonActive)
+       }
+    }, [isGameStarted, currentStartUser])
+
     return (
         <div className={style.chat}>
             <ul className={style.window} ref={ulRef}>
@@ -46,7 +59,7 @@ const Chat : React.FC = () => {
                     </li>
                 )}
             </ul>
-            <div className={style.inputBox}>
+            <div className={styleInput}>
                 <input ref={inputRef}
                        placeholder={"Написать сообщение..."}
                        className={style.input} type="text"

@@ -18,7 +18,7 @@ const CustomSelect : React.FC<CustomSelectProps> = ({options, name, onChangeValu
     return (
         <div className={styles.selectWrap}>
             <select className={styles.select} name={name} id={name} onChange={(event => onChange(event))}>
-                {options.map((x) => <option value={x}>{x}</option>)}
+                {options.map((x) => <option key={x} value={x}>{x}</option>)}
             </select>
         </div>
 
