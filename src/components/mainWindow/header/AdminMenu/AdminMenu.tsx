@@ -8,7 +8,7 @@ import {
     setCurrentStartUser,
     setCurrentTimer
 } from "../../../../store/web-slices/select_slice";
-import {postGameProcessInfo} from "../../../../store/web-slices/game_process_slice";
+import {GameBooleansType, postGameProcessInfo} from "../../../../store/web-slices/game_process_slice";
 import {NICK_IN_STORAGE} from "../../../enterWindow/Enter";
 
 type AdminMenuTypeProps = {
@@ -34,7 +34,7 @@ const AdminMenu : React.FC<AdminMenuTypeProps> = ({setGameStart}) => {
             currentTimer : currentTimer,
             currentStartUser: currentStartUser
         }
-
+        console.log(" POST PRE START INFO WITH + " + currentTimer + " " + currentStartUser)
         dispatch(postPreStartInfo(preStartInfo))
     }, [currentStartUser, currentTimer])
 
@@ -50,7 +50,11 @@ const AdminMenu : React.FC<AdminMenuTypeProps> = ({setGameStart}) => {
 
     const onStart = () => {
         setGameStart(true);
-        dispatch(postGameProcessInfo(true))
+        const gameBooleans : GameBooleansType = {
+            isGameStarted : true,
+            isGameEnded : false
+        }
+        dispatch(postGameProcessInfo(gameBooleans))
     }
 
     return (

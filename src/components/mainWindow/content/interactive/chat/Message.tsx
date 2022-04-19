@@ -4,6 +4,7 @@ import {sendChangeMessage, MessageType} from "../../../../../store/web-slices/ch
 import {RootState, useTypeDispatch} from "../../../../../store/store";
 import {useSelector} from "react-redux";
 import {NICK_IN_STORAGE} from "../../../../enterWindow/Enter";
+import {GameBooleansType, postGameProcessInfo} from "../../../../../store/web-slices/game_process_slice";
 
 const Message : React.FC<MessageType> = ({id,name, text, status}) => {
     const {currentStartUser} = useSelector((state : RootState) => state.selectReducer)
@@ -29,6 +30,14 @@ const Message : React.FC<MessageType> = ({id,name, text, status}) => {
             messageColor = style.right;
     }
 
+    const onGameEnd = () => {
+        const gameBooleans : GameBooleansType = {
+            isGameStarted : false,
+            isGameEnded : true
+        }
+        dispatch(postGameProcessInfo(gameBooleans))
+    }
+
     const handleDislike = () => {
         if (status === 'negative')
             dispatch(sendChangeMessage({id, name, text, status: "neutral"}))
@@ -47,7 +56,11 @@ const Message : React.FC<MessageType> = ({id,name, text, status}) => {
         if (status === "right")
             dispatch(sendChangeMessage({id, name, text, status: "neutral"}))
         else
+        {
+            onGameEnd()
             dispatch(sendChangeMessage({id, name, text, status: "right"}))
+        }
+
     }
 
     return (<div  className={style.message}>

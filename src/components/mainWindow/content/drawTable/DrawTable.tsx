@@ -5,6 +5,7 @@ import {useSelector} from "react-redux";
 import {RootState, useTypeDispatch} from "../../../../store/store";
 import {postCanvas} from "../../../../store/web-slices/canvas_slice";
 import ToolPanel from "./toolPanel/ToolPanel";
+import GameResultPanel from "./gameResultPanel/GameResultPanel";
 
 interface Point {
     x: number,
@@ -123,6 +124,7 @@ const DrawTable: React.FC = () => {
                     onMouseLeave={endDraw}
             />
             <ToolPanel setSize={setPenSize} clear={clearCanvas} activeSize={penSize} activeColor={penColor} setColor={setPenColor}/>
+            <GameResultPanel/>
         </div>
 
     )

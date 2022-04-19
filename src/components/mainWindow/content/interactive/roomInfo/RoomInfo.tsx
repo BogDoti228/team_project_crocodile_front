@@ -8,24 +8,6 @@ import {RootState, useTypeDispatch} from "../../../../../store/store";
 import {getPreStartInfo} from "../../../../../store/web-slices/select_slice";
 
 const RoomInfo : React.FC = () => {
-    const {isAdmin} = useSelector((state : RootState) => state.roleReducer)
-
-    const dispatch = useTypeDispatch();
-
-    useEffect(() => {
-        if (!isAdmin) {
-            dispatch(getPreStartInfo())
-
-            const idInterval = setInterval(() => {
-                dispatch(getPreStartInfo())
-            }, 1000)
-
-            return () => {
-                clearInterval(idInterval)
-            }
-        }
-    },[])
-
     return (
         <div className={style.room_info}>
             <UserList/>

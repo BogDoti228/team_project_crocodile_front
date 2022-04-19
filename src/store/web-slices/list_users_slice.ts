@@ -9,7 +9,7 @@ interface UserListType {
 
 const initialState = {
     usersList : [],
-    timeList : ["01:00", "02:00", "03:00", "04:00", "05:00"],
+    timeList : ["00:10","01:00", "02:00", "03:00", "04:00", "05:00"],
     loading: 'idle',
 } as  UserListType
 
@@ -49,6 +49,7 @@ export const usersListSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(getUsersList.fulfilled, (state, action) => {
+            console.log("accept user list")
             let userList : Array<ServerInfoUser> = [];
 
             try{
@@ -60,6 +61,7 @@ export const usersListSlice = createSlice({
                 console.error(e)
             }
             state.usersList = userList.map(x => x.Name)
+
         })
     }
 })

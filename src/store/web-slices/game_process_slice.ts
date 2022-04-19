@@ -6,6 +6,7 @@ interface GameProcessType {
     currentWord: string,
     timerTick : string,
     statusWord: string,
+    isGameEnded: boolean,
     loading?: 'idle' | 'pending' | 'succeeded' | 'failed'
 }
 
@@ -14,6 +15,7 @@ const initialState = {
     currentWord: "",
     timerTick: "",
     statusWord: "Игра не началась",
+    isGameEnded: false,
     loading: 'idle',
 } as GameProcessType
 
@@ -21,7 +23,8 @@ interface GameProcessData {
     isGameStarted: boolean,
     currentWord: string,
     statusWord: string,
-    timerTick: string
+    timerTick: string,
+    isGameEnded: boolean
 }
 
 export const getGameProcessInfo = createAsyncThunk("getGameProcessInfo", async () => {
@@ -37,13 +40,18 @@ export const getGameProcessInfo = createAsyncThunk("getGameProcessInfo", async (
     return await response
 })
 
-export const postGameProcessInfo = createAsyncThunk("postGameProcessInfo", async (isGameStarted: boolean) => {
+export interface GameBooleansType {
+    isGameStarted: boolean,
+    isGameEnded: boolean
+}
+
+export const postGameProcessInfo = createAsyncThunk("postGameProcessInfo", async (gameBooleans : GameBooleansType) => {
     await fetch('https://localhost:8080/game/gameProcess', {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({roomId : sessionStorage.getItem(ROOM_ID_IN_STORAGE), isGameStarted: isGameStarted})
+        body: JSON.stringify({roomId : sessionStorage.getItem(ROOM_ID_IN_STORAGE), ...gameBooleans})
     })
 })
 
@@ -62,6 +70,7 @@ export const gameProcessSlice = createSlice({
             state.currentWord = action.payload.currentWord
             state.isGameStarted = action.payload.isGameStarted
             state.timerTick = action.payload.timerTick
+            state.isGameEnded = action.payload.isGameEnded
         })
     }
 })
