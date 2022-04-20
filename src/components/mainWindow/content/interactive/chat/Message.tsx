@@ -5,6 +5,7 @@ import {RootState, useTypeDispatch} from "../../../../../store/store";
 import {useSelector} from "react-redux";
 import {NICK_IN_STORAGE} from "../../../../enterWindow/Enter";
 import {GameBooleansType, postGameProcessInfo} from "../../../../../store/web-slices/game_process_slice";
+import {setIsWordGuessed} from "../../../../../store/web-slices/role_slice";
 
 const Message : React.FC<MessageType> = ({id,name, text, status}) => {
     const {currentStartUser} = useSelector((state : RootState) => state.selectReducer)
@@ -31,11 +32,8 @@ const Message : React.FC<MessageType> = ({id,name, text, status}) => {
     }
 
     const onGameEnd = () => {
-        const gameBooleans : GameBooleansType = {
-            isGameStarted : false,
-            isGameEnded : true
-        }
-        dispatch(postGameProcessInfo('betweenRound'))
+        dispatch(postGameProcessInfo('betweenRound'));
+        dispatch(setIsWordGuessed(true));
     }
 
     const handleDislike = () => {
@@ -60,7 +58,6 @@ const Message : React.FC<MessageType> = ({id,name, text, status}) => {
             onGameEnd()
             dispatch(sendChangeMessage({id, name, text, status: "right"}))
         }
-
     }
 
     return (<div  className={style.message}>

@@ -9,11 +9,13 @@ import {
     setCurrentStartUser
 } from "../../../../../store/web-slices/select_slice";
 import styles from "./gameResultPanel.module.scss"
+import {setIsWordGuessed} from "../../../../../store/web-slices/role_slice";
 
 const GameResultPanel : React.FC = () => {
     const {gameState,currentWord} = useSelector((state : RootState) => state.gameProcessReducer)
     const {currentStartUser, currentTimer} = useSelector((state : RootState) => state.selectReducer)
     const {usersList} = useSelector((state : RootState) => state.usersListReducer)
+    const {isWordGuessed} = useSelector((state : RootState) => state.roleReducer)
     const dispatch = useTypeDispatch();
 
     const [showForDrawingUser, setShowForDrawingUser] = useState(false);
@@ -23,6 +25,8 @@ const GameResultPanel : React.FC = () => {
     }, [gameState]);
 
     const onGameContinue = async () => {
+        dispatch(setIsWordGuessed(false))
+
         const nextUser = getNextUser()
 
         const preStartInfo : PreStartInfoType = {
@@ -45,8 +49,10 @@ const GameResultPanel : React.FC = () => {
         <>
             {gameState === 'betweenRound' && showForDrawingUser &&
             <div className={styles.boxWrapPanelResult}>
-                <p className={styles.text}>Вы не смогли нарисовать слово</p>
-                <p className={styles.text}>Вы получаете 0 очков</p>
+                {isWordGuessed && <p className={styles.text}>Вы смогли нарисовать слово</p>}
+                {isWordGuessed && <p className={styles.text}>Вы получаете очко</p>}
+                {!isWordGuessed && <p className={styles.text}>Вы не смогли нарисовать слово</p>}
+                {!isWordGuessed && <p className={styles.text}>Вы получаете 0 очков</p>}
                 <button className={styles.button} onClick={onGameContinue}>Передать ход</button>
             </div>
             }

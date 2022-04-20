@@ -2,12 +2,14 @@ import {createSlice} from "@reduxjs/toolkit";
 
 interface RoleType {
     isAdmin : boolean,
-    isDrawMember: boolean
+    isDrawMember: boolean,
+    isWordGuessed: boolean,
     loading?: 'idle' | 'pending' | 'succeeded' | 'failed'
 }
 
 const initialState = {
     isAdmin: false,
+    isWordGuessed: false,
     isDrawMember: false,
     loading: 'idle',
 } as RoleType
@@ -19,11 +21,11 @@ export const roleSlice = createSlice({
         setAdmin : (state, action) => {
             state.isAdmin = action.payload;
         },
-        setDrawMember : (state, action) => {
-            state.isDrawMember = action.payload
-        }
+        setIsWordGuessed : (state, action) => {
+            state.isWordGuessed = action.payload
+        },
     },
 })
 
 export const roleSliceReducers = roleSlice.reducer;
-export  const {setAdmin} = roleSlice.actions
+export const {setIsWordGuessed, setAdmin} = roleSlice.actions
