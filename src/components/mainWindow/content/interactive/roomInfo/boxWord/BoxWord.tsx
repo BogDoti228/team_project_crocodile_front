@@ -11,7 +11,7 @@ const BoxWord : React.FC = () => {
 
     useEffect(() => {
         if (isGameStarted) {
-            console.log(currentStartUser + " === "+ sessionStorage.getItem(NICK_IN_STORAGE))
+            console.log(`startUser: ${currentStartUser} name: ${sessionStorage.getItem(NICK_IN_STORAGE)}`)
             if (currentStartUser === sessionStorage.getItem(NICK_IN_STORAGE)) {
                 setCurrentValue(currentWord)
             }

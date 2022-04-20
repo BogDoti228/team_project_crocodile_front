@@ -41,7 +41,8 @@ const ToolPanel : React.FC<ToolPanelPropsType> = ({setSize, clear, activeSize, s
         return null;
     }
 
-    return (<div className={style.panel}>
+    return (
+        <div className={style.panel}>
         <div className={`${style.sizeList} ${style.list}`}>
             {sizeList.map((size) => {
                 return <div key={size} className={`${style.item} ${isActive(size)}`}

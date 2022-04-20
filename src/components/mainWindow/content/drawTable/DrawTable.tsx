@@ -6,6 +6,7 @@ import {RootState, useTypeDispatch} from "../../../../store/store";
 import {postCanvas} from "../../../../store/web-slices/canvas_slice";
 import ToolPanel from "./toolPanel/ToolPanel";
 import GameResultPanel from "./gameResultPanel/GameResultPanel";
+import {NICK_IN_STORAGE} from "../../../enterWindow/Enter";
 
 interface Point {
     x: number,
@@ -22,6 +23,7 @@ const DrawTable: React.FC = () => {
     const ctxRef = useRef<CanvasRenderingContext2D | null>(null)
     const [penSize, setPenSize] = useState(10);
     const [penColor, setPenColor] = useState("#000");
+    const [showToolPanel, setShowToolPanel] = useState(false);
     const {currentStartUser} = useSelector((state : RootState) => state.selectReducer)
     const {isGameStarted} = useSelector((state: RootState) => state.gameProcessReducer)
     const {name} = useSelector((state : RootState) => state.profileReducer)
@@ -68,7 +70,6 @@ const DrawTable: React.FC = () => {
 
         }
     }
-    console.log('rerender');
 
     const onKeyDown = (e: KeyboardEvent) => {
         if ((e.ctrlKey || e.metaKey) && e.code === 'KeyZ' && stackImageRef.current.length > 1) {
@@ -115,6 +116,10 @@ const DrawTable: React.FC = () => {
         img.src = url;
     }, [url]);
 
+    useEffect(() => {
+        setShowToolPanel(currentStartUser === sessionStorage.getItem(NICK_IN_STORAGE) && isGameStarted)
+    }, [isGameStarted, currentStartUser])
+
     return (
         <div className={style.canvasWrapper}>
             <canvas className={style.canvas + ' unselectable'} ref={canvasRef}
@@ -123,7 +128,8 @@ const DrawTable: React.FC = () => {
                     onMouseUp={endDraw}
                     onMouseLeave={endDraw}
             />
-            <ToolPanel setSize={setPenSize} clear={clearCanvas} activeSize={penSize} activeColor={penColor} setColor={setPenColor}/>
+            {showToolPanel && <ToolPanel setSize={setPenSize} clear={clearCanvas} activeSize={penSize} activeColor={penColor}
+                                         setColor={setPenColor}/>}
             <GameResultPanel/>
         </div>
 

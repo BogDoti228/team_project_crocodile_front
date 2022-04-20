@@ -65,7 +65,7 @@ export const gameProcessSlice = createSlice({
         builder.addCase(postGameProcessInfo.fulfilled, (state, action) => {
         })
         builder.addCase(getGameProcessInfo.fulfilled, (state, action) => {
-            console.log(action.payload.statusWord + " " + action.payload.currentWord + " " + action.payload.isGameStarted + " GAME PROCESS INFO")
+            console.log(`GAME PROCESS INFO \n game status: ${action.payload.statusWord} \n word: ${action.payload.currentWord} \n game is start: ${action.payload.isGameStarted}`)
             state.statusWord = action.payload.statusWord
             state.currentWord = action.payload.currentWord
             state.isGameStarted = action.payload.isGameStarted
