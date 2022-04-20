@@ -117,8 +117,8 @@ const DrawTable: React.FC = () => {
     }, [url]);
 
     useEffect(() => {
-        setShowToolPanel(currentStartUser === sessionStorage.getItem(NICK_IN_STORAGE) && isGameStarted)
-    }, [isGameStarted, currentStartUser])
+        setShowToolPanel(currentStartUser === sessionStorage.getItem(NICK_IN_STORAGE) && gameState == 'during')
+    }, [gameState, currentStartUser])
 
     return (
         <div className={style.canvasWrapper}>
