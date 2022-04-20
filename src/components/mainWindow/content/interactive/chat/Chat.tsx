@@ -12,7 +12,7 @@ const Chat : React.FC = () => {
     const ulRef = useRef<HTMLUListElement>(null)
     const {messages} = useSelector((state : RootState) => state.chatReducer)
     const {currentStartUser} = useSelector((state : RootState) => state.selectReducer)
-    const {isGameStarted} = useSelector((state: RootState) => state.gameProcessReducer)
+    const {gameState} = useSelector((state: RootState) => state.gameProcessReducer)
     const {name} = useSelector((state : RootState) => state.profileReducer)
 
     const dispatch = useTypeDispatch()
@@ -42,13 +42,13 @@ const Chat : React.FC = () => {
     }
 
     useEffect(() => {
-       if (isGameStarted && currentStartUser !== name){
+       if (gameState === 'during' && currentStartUser !== name){
            setStyleInput(style.inputBox)
        }
        else{
            setStyleInput(style.inputBox + ' ' + style.nonActive)
        }
-    }, [isGameStarted, currentStartUser])
+    }, [gameState, currentStartUser])
 
     return (
         <div className={style.chat}>
