@@ -11,16 +11,16 @@ const User : React.FC<UserProps> = ({name}) => {
     const {currentStartUser} = useSelector((state : RootState) => state.selectReducer)
     const [isSelected, setIsSelected] = useState<boolean>(false)
 
-
+    console.log('произошел рендер')
     useEffect(() => {
+        console.log(`start: ${currentStartUser} = name is: ${name}`)
         if (currentStartUser === name) {
-            //console.log("selected")
             setIsSelected(true)
         }
         else {
             setIsSelected(false)
         }
-    },[currentStartUser])
+    },[currentStartUser, name])
 
     return (
         <li className={styles.wrap} style={{borderColor : isSelected ? "red" : "rgb(146 244 192)"}}>

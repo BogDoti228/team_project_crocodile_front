@@ -8,7 +8,7 @@ import {
     setCurrentStartUser,
     setCurrentTimer
 } from "../../../../store/web-slices/select_slice";
-import {GameBooleansType, postGameProcessInfo} from "../../../../store/web-slices/game_process_slice";
+import {postGameProcessInfo} from "../../../../store/web-slices/game_process_slice";
 import {NICK_IN_STORAGE} from "../../../enterWindow/Enter";
 
 type AdminMenuTypeProps = {
@@ -24,7 +24,6 @@ const AdminMenu : React.FC<AdminMenuTypeProps> = ({setGameStart}) => {
     const dispatch = useTypeDispatch()
 
     useEffect(()=> {
-        console.log(user + "ON USEFFET")
         dispatch(setCurrentStartUser(user))
         dispatch(setCurrentTimer(time))
     },[])
@@ -50,10 +49,7 @@ const AdminMenu : React.FC<AdminMenuTypeProps> = ({setGameStart}) => {
 
     const onStart = () => {
         setGameStart(true);
-        const gameBooleans : GameBooleansType = {
-            isGameStarted : true,
-            isGameEnded : false
-        }
+
         dispatch(postGameProcessInfo('during'))
     }
 
