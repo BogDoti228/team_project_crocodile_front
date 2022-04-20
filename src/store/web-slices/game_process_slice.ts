@@ -1,30 +1,27 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {ROOM_ID_IN_STORAGE} from "./chat_slice";
 
+type GameStateType = 'during' | 'preStart' | 'betweenRound' | 'end';
+
 interface GameProcessType {
-    isGameStarted : boolean,
+    gameState: GameStateType,
     currentWord: string,
     timerTick : string,
     statusWord: string,
-    isGameEnded: boolean,
-    loading?: 'idle' | 'pending' | 'succeeded' | 'failed'
 }
 
 const initialState = {
-    isGameStarted: false,
+    gameState: 'preStart',
     currentWord: "",
     timerTick: "",
     statusWord: "Игра не началась",
-    isGameEnded: false,
-    loading: 'idle',
 } as GameProcessType
 
 interface GameProcessData {
-    isGameStarted: boolean,
     currentWord: string,
+    gameState: GameStateType,
     statusWord: string,
     timerTick: string,
-    isGameEnded: boolean
 }
 
 export const getGameProcessInfo = createAsyncThunk("getGameProcessInfo", async () => {
@@ -45,13 +42,15 @@ export interface GameBooleansType {
     isGameEnded: boolean
 }
 
-export const postGameProcessInfo = createAsyncThunk("postGameProcessInfo", async (gameBooleans : GameBooleansType) => {
+
+export const postGameProcessInfo = createAsyncThunk("postGameProcessInfo", async (gameState : GameStateType) => {
     await fetch('https://localhost:8080/game/gameProcess', {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Room-Id" : sessionStorage.getItem(ROOM_ID_IN_STORAGE) as string
         },
-        body: JSON.stringify({roomId : sessionStorage.getItem(ROOM_ID_IN_STORAGE), ...gameBooleans})
+        body: JSON.stringify({gameState: gameState})
     })
 })
 
@@ -65,15 +64,17 @@ export const gameProcessSlice = createSlice({
         builder.addCase(postGameProcessInfo.fulfilled, (state, action) => {
         })
         builder.addCase(getGameProcessInfo.fulfilled, (state, action) => {
-            console.log(action.payload.statusWord + " " + action.payload.currentWord + " " + action.payload.isGameStarted + " GAME PROCESS INFO")
+            console.log(`GAME PROCESS INFO 
+             status word: ${action.payload.statusWord}
+             word: ${action.payload.currentWord} 
+             game state: ${action.payload.gameState}
+             timer: ${action.payload.timerTick}`);
             state.statusWord = action.payload.statusWord
             state.currentWord = action.payload.currentWord
-            state.isGameStarted = action.payload.isGameStarted
+            state.gameState = action.payload.gameState
             state.timerTick = action.payload.timerTick
-            state.isGameEnded = action.payload.isGameEnded
         })
     }
 })
 
 export const gameProcessSliceReducers = gameProcessSlice.reducer;
-export  const {} = gameProcessSlice.actions

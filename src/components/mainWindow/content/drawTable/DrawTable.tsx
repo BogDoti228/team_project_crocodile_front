@@ -23,7 +23,7 @@ const DrawTable: React.FC = () => {
     const [penSize, setPenSize] = useState(10);
     const [penColor, setPenColor] = useState("#000");
     const {currentStartUser} = useSelector((state : RootState) => state.selectReducer)
-    const {isGameStarted} = useSelector((state: RootState) => state.gameProcessReducer)
+    const {gameState} = useSelector((state: RootState) => state.gameProcessReducer)
     const {name} = useSelector((state : RootState) => state.profileReducer)
 
 
@@ -48,7 +48,7 @@ const DrawTable: React.FC = () => {
     }, [])
 
     const startDraw = (e : React.MouseEvent<HTMLCanvasElement>) =>  {
-        isDrawing.current = (name === currentStartUser && isGameStarted);
+        isDrawing.current = (name === currentStartUser && gameState === 'during');
         const point = getCurrentPoint(e)
         if (point && ctxRef.current){
             prevPointRef.current = point;
@@ -68,7 +68,6 @@ const DrawTable: React.FC = () => {
 
         }
     }
-    console.log('rerender');
 
     const onKeyDown = (e: KeyboardEvent) => {
         if ((e.ctrlKey || e.metaKey) && e.code === 'KeyZ' && stackImageRef.current.length > 1) {

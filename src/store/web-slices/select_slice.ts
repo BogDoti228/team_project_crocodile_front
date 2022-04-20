@@ -54,12 +54,12 @@ export const selectSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(getPreStartInfo.fulfilled, (state, action) => {
-            console.log("get current user " + action.payload.currentStartUser + " get current timer " + action.payload.currentTimer)
+            //console.log(`start user: ${action.payload.currentStartUser} \n current timer ${action.payload.currentTimer}`)
             state.currentStartUser = action.payload.currentStartUser;
             state.currentTimer = action.payload.currentTimer
         })
         builder.addCase(postPreStartInfo.fulfilled, () => {
-            console.log("POSTED DATA SURELY")
+            //console.log("POSTED DATA SURELY")
         })
     }
 })

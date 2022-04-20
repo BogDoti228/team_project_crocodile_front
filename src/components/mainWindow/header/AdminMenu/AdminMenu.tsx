@@ -54,7 +54,7 @@ const AdminMenu : React.FC<AdminMenuTypeProps> = ({setGameStart}) => {
             isGameStarted : true,
             isGameEnded : false
         }
-        dispatch(postGameProcessInfo(gameBooleans))
+        dispatch(postGameProcessInfo('during'))
     }
 
     return (

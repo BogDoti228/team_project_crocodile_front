@@ -11,7 +11,7 @@ import {
 import styles from "./gameResultPanel.module.scss"
 
 const GameResultPanel : React.FC = () => {
-    const {isGameEnded,currentWord} = useSelector((state : RootState) => state.gameProcessReducer)
+    const {gameState,currentWord} = useSelector((state : RootState) => state.gameProcessReducer)
     const {currentStartUser, currentTimer} = useSelector((state : RootState) => state.selectReducer)
     const {usersList} = useSelector((state : RootState) => state.usersListReducer)
     const dispatch = useTypeDispatch();
@@ -30,7 +30,7 @@ const GameResultPanel : React.FC = () => {
         }
 
         await dispatch(postPreStartInfo(preStartInfo))
-        await dispatch(postGameProcessInfo(gameBooleans))
+        await dispatch(postGameProcessInfo('during'))
     }
 
     const getNextUser = () => {
@@ -42,7 +42,7 @@ const GameResultPanel : React.FC = () => {
 
     return (
         <>
-            {isGameEnded && currentStartUser === sessionStorage.getItem(NICK_IN_STORAGE) &&
+            {gameState === 'betweenRound' && currentStartUser === sessionStorage.getItem(NICK_IN_STORAGE) &&
             <div className={styles.boxWrapPanelResult}>
                 <p className={styles.text}>Вы не смогли нарисовать слово</p>
                 <p className={styles.text}>Вы получаете 0 очков</p>
@@ -50,7 +50,7 @@ const GameResultPanel : React.FC = () => {
             </div>
             }
 
-            {isGameEnded && currentStartUser !== sessionStorage.getItem(NICK_IN_STORAGE) &&
+            {gameState === 'betweenRound' && currentStartUser !== sessionStorage.getItem(NICK_IN_STORAGE) &&
             <div className={styles.boxWrapPanelResult}>
                 <p className={styles.text}>Загаданное слово: {currentWord}</p>
                 <p className={styles.text}>Ожидайте когда ведущий передаст ход</p>

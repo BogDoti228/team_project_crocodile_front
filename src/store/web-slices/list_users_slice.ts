@@ -49,7 +49,7 @@ export const usersListSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(getUsersList.fulfilled, (state, action) => {
-            console.log("accept user list")
+            //console.log("accept user list")
             let userList : Array<ServerInfoUser> = [];
 
             try{
