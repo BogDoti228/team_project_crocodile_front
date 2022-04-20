@@ -13,8 +13,6 @@ const User : React.FC<UserProps> = ({name}) => {
 
 
     useEffect(() => {
-        /*console.log(currentStartUser)
-        console.log(name)*/
         if (currentStartUser === name) {
             //console.log("selected")
             setIsSelected(true)

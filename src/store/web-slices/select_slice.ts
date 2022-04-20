@@ -54,7 +54,6 @@ export const selectSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(getPreStartInfo.fulfilled, (state, action) => {
-            //console.log(`start user: ${action.payload.currentStartUser} \n current timer ${action.payload.currentTimer}`)
             state.currentStartUser = action.payload.currentStartUser;
             state.currentTimer = action.payload.currentTimer
         })
