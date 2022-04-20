@@ -10,7 +10,7 @@ const canvasConnection = new HubConnectionBuilder()
 
 const callbacks = withCallbacks<CanvasDispatchSignal, RootState>()
     .add('ReceiveCanvas', (canvas: CanvasTypeForPost) => (dispatch) => {
-        console.log('Receive Canvas!')
+        //console.log('Receive Canvas!')
         dispatch(setUrlImg(canvas.url));
     });
 

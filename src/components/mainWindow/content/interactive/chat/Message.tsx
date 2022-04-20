@@ -35,7 +35,7 @@ const Message : React.FC<MessageType> = ({id,name, text, status}) => {
             isGameStarted : false,
             isGameEnded : true
         }
-        dispatch(postGameProcessInfo(gameBooleans))
+        dispatch(postGameProcessInfo('betweenRound'))
     }
 
     const handleDislike = () => {

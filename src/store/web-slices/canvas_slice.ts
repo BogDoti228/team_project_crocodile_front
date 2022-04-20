@@ -11,7 +11,7 @@ const initialState = {
 
 
 export const postCanvas = createAsyncThunk("postCanvas", async (url: string) => {
-    console.log('Post Canvas!');
+    //console.log('Post Canvas!');
     await fetch('https://localhost:8080/canvas/post', {
         method: "POST",
         headers: {

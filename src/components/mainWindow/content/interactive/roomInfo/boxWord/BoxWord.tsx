@@ -5,13 +5,13 @@ import {RootState} from "../../../../../../store/store";
 import {NICK_IN_STORAGE} from "../../../../../enterWindow/Enter";
 
 const BoxWord : React.FC = () => {
-    const {statusWord, isGameStarted, currentWord} = useSelector((state : RootState) => state.gameProcessReducer)
+    const {statusWord, gameState, currentWord} = useSelector((state : RootState) => state.gameProcessReducer)
     const {currentStartUser} = useSelector((state : RootState) => state.selectReducer)
     const [currentValue, setCurrentValue] = useState("")
 
     useEffect(() => {
-        if (isGameStarted) {
-            console.log(currentStartUser + " === "+ sessionStorage.getItem(NICK_IN_STORAGE))
+        if (gameState === 'during') {
+            //console.log(currentStartUser + " === "+ sessionStorage.getItem(NICK_IN_STORAGE))
             if (currentStartUser === sessionStorage.getItem(NICK_IN_STORAGE)) {
                 setCurrentValue(currentWord)
             }
@@ -22,7 +22,7 @@ const BoxWord : React.FC = () => {
         else {
             setCurrentValue(statusWord)
         }
-    },[isGameStarted])
+    },[gameState])
 
     return (
         <div className={styles.box_word_window}>
