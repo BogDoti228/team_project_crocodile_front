@@ -12,7 +12,7 @@ const App : React.FC = () => {
             <Routes>
                 <Route path='/' element={<ChoiceRoomWindow/>}/>
                 <Route path='enter' element={<EnterWindow/>}/>
-                <Route path='game' element={<MainWindow />}/>
+                <Route path='game/:roomId' element={<MainWindow />}/>
             </Routes>
         </BrowserRouter>
     )
