@@ -13,6 +13,15 @@ const App : React.FC = () => {
                 <Route path='/' element={<ChoiceRoomWindow/>}/>
                 <Route path='enter' element={<EnterWindow/>}/>
                 <Route path='game/:roomId' element={<MainWindow />}/>
+                <Route
+                    path="*"
+                    element={
+                        <main style={{ padding: "1rem", margin: "0 auto"}}>
+                            <p>Тут ничего нет, проверьте правильность ссылки!</p>
+                            <a href="/" style={{display: "block" ,margin: "20px auto", textAlign: "center"}} >На главную</a>
+                        </main>
+                    }
+                />
             </Routes>
         </BrowserRouter>
     )
