@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import logo from "../../../resources/images/logo.svg"
 import {useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
@@ -10,10 +10,15 @@ const Header : React.FC = () => {
     const {name} = useSelector((state : RootState) => state.profileReducer)
     const {isAdmin} = useSelector((state : RootState) => state.roleReducer)
     const [gameStart, setGameStart] = useState(false);
+    const [showCopied, setShowCopied] = useState(false);
     const handleCopyToClipboard = () => {
         let text = sessionStorage.getItem(ROOM_ID_IN_STORAGE);
         if (text)
             navigator.clipboard.writeText(text)
+                .then(() => {
+                    setShowCopied(true);
+                    setTimeout(() => setShowCopied(false), 3000)
+                })
                 .catch(console.log);
     }
 
@@ -32,6 +37,7 @@ const Header : React.FC = () => {
                     Имя: {name}
                 </div>
             </div>
+            {showCopied && <div className={style.copied}>Скопировано!</div>}
         </header>
     )
 }
