@@ -24,7 +24,7 @@ const Chat : React.FC = () => {
     }, [messages])
 
     useEffect(() => {
-        dispatch(getStoryMessage(name));
+        dispatch(getStoryMessage());
     }, [])
 
     const applyMessage = async (e: React.KeyboardEvent<HTMLInputElement>) => {
