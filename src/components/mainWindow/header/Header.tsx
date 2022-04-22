@@ -31,7 +31,7 @@ const Header : React.FC = () => {
             {isAdmin && !gameStart && <AdminMenu setGameStart={setGameStart}/>}
             <div className={style.info}>
                 <div className={style.boxWrap}>
-                    <div onClick={handleCopyToClipboard}>Идентификатор комнаты: {sessionStorage.getItem(ROOM_ID_IN_STORAGE)}</div>
+                    <div className={style.copiedText} onClick={handleCopyToClipboard}>Идентификатор комнаты: {sessionStorage.getItem(ROOM_ID_IN_STORAGE)}</div>
                 </div>
                 <div className={style.boxWrap}>
                     Имя: {name}

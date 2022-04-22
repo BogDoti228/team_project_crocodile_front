@@ -33,6 +33,9 @@
 :local .title {
   font-size: 35px;
 }
+:local .copiedText {
+  cursor: pointer;
+}
 :local .copied {
   position: absolute;
   color: white;
