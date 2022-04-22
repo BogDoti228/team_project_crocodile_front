@@ -43,13 +43,13 @@ export const deleteName = createAsyncThunk("deleteName", async (name : string) =
 
 export const checkExistingRoom = createAsyncThunk("checkExistingRoom", async (roomId : string) => {
     const response : Promise<RoomInfo> = await fetch('https://localhost:8080/user/rooms', {
-        method: "GET",
+        method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Room-Id": roomId
-        }
+        },
+        body: JSON.stringify({roomId: roomId})
     }).then((x) => x.json())
-        .catch(console.log)
+        .catch(console.error)
     return await response
 })
 

@@ -48,7 +48,7 @@ export const joinToChatRoom = createAsyncThunk("joinToRoom", async (nameRoom: st
         },
         body: JSON.stringify({roomName: nameRoom, connectionId: chatConnection.connectionId} as JointRoomType)
     })
-        .catch(console.log);
+        .catch(console.error);
 });
 
 export const getStoryMessage = createAsyncThunk("getStoryMessage", async () => {
@@ -60,7 +60,7 @@ export const getStoryMessage = createAsyncThunk("getStoryMessage", async () => {
         }
     })
         .then((x) => x.json())
-        .catch(console.log)
+        .catch(console.error)
     return await response
 })
 
