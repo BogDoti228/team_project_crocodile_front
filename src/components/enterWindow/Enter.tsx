@@ -13,6 +13,7 @@ function Enter() {
     const dispatch = useTypeDispatch();
 
     const onChangeInput = (value: string) => {
+        setIsNickTaken(false);
         setIsErrorZeroInput(false);
         if (value.length > 15) {
             setIsErrorMaxLenMaxLen(true);
