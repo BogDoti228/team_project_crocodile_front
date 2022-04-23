@@ -9,11 +9,13 @@
 :local .wrap .name {
   font-weight: bold;
   font-size: 15px;
+  margin-left: 5px;
 }
-:local .wrap .utilsButton {
-  margin: 0 auto 0 0;
-  height: 20px;
-  background-color: #00ab06;
+:local .wrap .utils {
+  margin: 0 5px 0 auto;
+}
+:local .wrap .utils .score {
+  font-size: 15px;
 }
 
 /*# sourceMappingURL=user.module.css.map */
