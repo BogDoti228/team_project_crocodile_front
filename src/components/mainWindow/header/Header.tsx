@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import logo from "../../../resources/images/logo.svg"
 import {useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
@@ -9,12 +9,18 @@ import {ROOM_ID_IN_STORAGE} from "../../../store/web-slices/chat_slice";
 const Header : React.FC = () => {
     const {name} = useSelector((state : RootState) => state.profileReducer)
     const {isAdmin} = useSelector((state : RootState) => state.roleReducer)
+    const [gameStart, setGameStart] = useState(false);
+    const [showCopied, setShowCopied] = useState(false);
     const {gameState} = useSelector((state : RootState) => state.gameProcessReducer)
-
+    
     const handleCopyToClipboard = () => {
         let text = sessionStorage.getItem(ROOM_ID_IN_STORAGE);
         if (text)
             navigator.clipboard.writeText(text)
+                .then(() => {
+                    setShowCopied(true);
+                    setTimeout(() => setShowCopied(false), 3000)
+                })
                 .catch(console.log);
     }
 
@@ -27,12 +33,13 @@ const Header : React.FC = () => {
             {isAdmin && gameState === "preStart" && <AdminMenu/>}
             <div className={style.info}>
                 <div className={style.boxWrap}>
-                    <div onClick={handleCopyToClipboard}>Идентификатор комнаты: {sessionStorage.getItem(ROOM_ID_IN_STORAGE)}</div>
+                    <div className={style.copiedText} onClick={handleCopyToClipboard}>Идентификатор комнаты: {sessionStorage.getItem(ROOM_ID_IN_STORAGE)}</div>
                 </div>
                 <div className={style.boxWrap}>
                     Имя: {name}
                 </div>
             </div>
+            {showCopied && <div className={style.copied}>Скопировано!</div>}
         </header>
     )
 }

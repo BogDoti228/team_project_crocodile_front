@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import style from "./roomInfo.module.scss";
 import UserList from "./userList/UserList";
 import BoxWord from "./boxWord/BoxWord";

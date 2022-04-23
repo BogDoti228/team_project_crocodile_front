@@ -1,6 +1,7 @@
 @import "../../../styles/variables";
 
 :local {
+
   .header{
     display: flex;
     flex-direction: row;
@@ -41,5 +42,35 @@
     font-size: 35px;
   }
 
+  .copiedText{
+    cursor: pointer;
+  }
 
+  .copied{
+    position: absolute;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 75px;
+    left: 50%;
+    margin-left: -75px;
+    width: 150px;
+    height: 45px;
+    z-index: 1;
+    border-radius: 15px;
+    opacity: 50%;
+    animation: copiedAnimation 3s ease-in-out forwards;
+  }
+
+
+
+  @keyframes copiedAnimation {
+    from, to {
+      background-color: rgba(0, 0, 0, 0);
+    }
+    50% {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  }
 }
