@@ -12,6 +12,7 @@
     flex-direction: column;
     gap: 20px;
     padding: 20px;
+    box-shadow: 1px 1px 5px 5px rgba(0, 0, 0, 0.1);
   }
 
   .button {
@@ -19,6 +20,11 @@
     background: $background-color-blue-two;
     border-radius: $medium-border-radius;
     font-size: 20px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: $background-blue;
+    }
   }
 
   .text {

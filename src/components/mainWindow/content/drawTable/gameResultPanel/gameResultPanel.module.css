@@ -9,12 +9,17 @@
   flex-direction: column;
   gap: 20px;
   padding: 20px;
+  box-shadow: 1px 1px 5px 5px rgba(0, 0, 0, 0.1);
 }
 :local .button {
   padding: 10px;
   background: #92B4F4;
   border-radius: 15px;
   font-size: 20px;
+  transition: background-color 0.3s ease;
+}
+:local .button:hover {
+  background-color: #5E7CE2;
 }
 :local .text {
   background: #92B4F4;
