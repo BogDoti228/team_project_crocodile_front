@@ -1,3 +1,27 @@
+.btn {
+  width: 166px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  border-radius: 10px;
+  background-color: #92b4f4;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #5E7CE2;
+}
+
+.input {
+  border: 5px solid #92b4f4;
+  font-size: 24px;
+  padding: 5px;
+  height: 60px;
+  border-radius: 10px;
+}
+
 :local .boxWrapPanelResult {
   position: absolute;
   left: 50%;
