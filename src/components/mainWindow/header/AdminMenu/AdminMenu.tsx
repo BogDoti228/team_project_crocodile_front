@@ -8,7 +8,7 @@ import {
     setCurrentStartUser,
     setCurrentTimer
 } from "../../../../store/web-slices/select_slice";
-import {GameBooleansType, postGameProcessInfo} from "../../../../store/web-slices/game_process_slice";
+import {postGameProcessInfo} from "../../../../store/web-slices/game_process_slice";
 import {NICK_IN_STORAGE} from "../../../enterWindow/Enter";
 
 const AdminMenu : React.FC = () => {
@@ -21,7 +21,6 @@ const AdminMenu : React.FC = () => {
     const dispatch = useTypeDispatch()
 
     useEffect(()=> {
-        console.log(user + "ON USEFFET")
         dispatch(setCurrentStartUser(user))
         dispatch(setCurrentTimer(time))
         dispatch(setCurrentEndScore(endScore))
@@ -54,6 +53,7 @@ const AdminMenu : React.FC = () => {
 
     const onStart = () => {
         dispatch(postGameProcessInfo('during'))
+    
     }
 
     return (
