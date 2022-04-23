@@ -48,19 +48,19 @@ export const joinToChatRoom = createAsyncThunk("joinToRoom", async (nameRoom: st
         },
         body: JSON.stringify({roomName: nameRoom, connectionId: chatConnection.connectionId} as JointRoomType)
     })
-        .catch(console.log);
+        .catch(console.error);
 });
 
-export const getStoryMessage = createAsyncThunk("getStoryMessage", async (name: string) => {
+export const getStoryMessage = createAsyncThunk("getStoryMessage", async () => {
     const response: Promise<string> = fetch('https://localhost:8080/chat/story', {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            "Room-Id" : name,
+            "Room-Id" : sessionStorage.getItem(ROOM_ID_IN_STORAGE) as string,
         }
     })
         .then((x) => x.json())
-        .catch(console.log)
+        .catch(console.error)
     return await response
 })
 
