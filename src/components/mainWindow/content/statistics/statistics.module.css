@@ -1,4 +1,4 @@
-:local .boxWrapPanelResult {
+:local .boxWrapStatistics {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -29,4 +29,4 @@
   font-size: 20px;
 }
 
-/*# sourceMappingURL=gameResultPanel.module.css.map */
+/*# sourceMappingURL=statistics.module.css.map */
