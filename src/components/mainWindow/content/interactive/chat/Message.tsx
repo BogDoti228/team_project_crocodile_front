@@ -9,7 +9,6 @@ import {
     GameFinalResponseType,
     postScoreToAdd,
     ScoreAddUserType,
-    setIsWordGuessed
 } from "../../../../../store/web-slices/role_slice";
 
 const Message : React.FC<MessageType> = ({id,name, text, status}) => {
@@ -43,7 +42,6 @@ const Message : React.FC<MessageType> = ({id,name, text, status}) => {
         }
 
         dispatch(postScoreToAdd(scoreAddUser))
-        dispatch(setIsWordGuessed(true));
     }
 
     const handleDislike = () => {

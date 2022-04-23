@@ -12,6 +12,7 @@ import style from "./mainWindow.module.scss";
 import Statistics from "./content/statistics/Statistics";
 
 
+
 const MainWindow : React.FC = () => {
     let navigate = useNavigate();
     const {isAuth} = useSelector((state: RootState) => state.profileReducer);

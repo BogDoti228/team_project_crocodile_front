@@ -41,6 +41,7 @@ export const sendChangeMessage = createAsyncThunk("changeMessageStatus", async (
 })
 
 export const joinToChatRoom = createAsyncThunk("joinToRoom", async (nameRoom: string) => {
+    console.log(nameRoom)
     await fetch('https://localhost:8080/chat/joinRoom', {
         method: "POST",
         headers: {

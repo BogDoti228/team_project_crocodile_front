@@ -23,24 +23,28 @@ function EnterWindow(){
     const dispatch = useTypeDispatch();
 
     useEffect(() => {
-        const idRoom = sessionStorage.getItem(ROOM_ID_IN_STORAGE);
-        if (idRoom === null) {
-            console.error("Has not id room");
-            return;
+        if (isAuth) {
+            const idRoom = sessionStorage.getItem(ROOM_ID_IN_STORAGE);
+            if (idRoom === null) {
+                console.error("Has not id room");
+                return;
+            }
+
+            if (canvasConnection.state !== HubConnectionState.Connected){
+                canvasConnection.start()
+                    .then(() => dispatch(joinToCanvasRoom(idRoom)))
+                    .catch((e) => console.log(e));
+            }
+
+            if (chatConnection.state !== HubConnectionState.Connected){
+                chatConnection.start()
+                    .then(() => dispatch(joinToChatRoom(idRoom)))
+                    .catch((e) => console.log(e));
+            }
         }
 
-        if (canvasConnection.state !== HubConnectionState.Connected){
-            canvasConnection.start()
-                .then(() => dispatch(joinToCanvasRoom(idRoom)))
-                .catch((e) => console.log(e));
-        }
+    }, [])
 
-        if (chatConnection.state !== HubConnectionState.Connected){
-            chatConnection.start()
-                .then(() => dispatch(joinToChatRoom(idRoom)))
-                .catch((e) => console.log(e));
-        }
-    })
     return (
         <div className={style.window}>
             <div className={style.window_content}>

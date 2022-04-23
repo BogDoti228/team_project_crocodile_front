@@ -1,5 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {ROOM_ID_IN_STORAGE} from "./chat_slice";
+import {ScoreAddUserType} from "./role_slice";
 
 type GameStateType = 'during' | 'preStart' | 'betweenRound' | 'end';
 
@@ -8,6 +9,7 @@ interface GameProcessType {
     currentWord: string,
     timerTick : string,
     statusWord: string,
+    scoreAddUser: ScoreAddUserType
 }
 
 const initialState = {
@@ -15,6 +17,10 @@ const initialState = {
     currentWord: "",
     timerTick: "",
     statusWord: "Игра не началась",
+    scoreAddUser : {
+        userGuessed : "",
+        userDraw : ""
+    }
 } as GameProcessType
 
 interface GameProcessData {
@@ -22,6 +28,7 @@ interface GameProcessData {
     gameState: GameStateType,
     statusWord: string,
     timerTick: string,
+    scoreAddUser: ScoreAddUserType
 }
 
 export const getGameProcessInfo = createAsyncThunk("getGameProcessInfo", async () => {
@@ -74,15 +81,16 @@ export const gameProcessSlice = createSlice({
         builder.addCase(postGameProcessInfo.fulfilled, () => {
         })
         builder.addCase(getGameProcessInfo.fulfilled, (state, action) => {
-            console.log(`GAME PROCESS INFO 
+            /*console.log(`GAME PROCESS INFO
              status word: ${action.payload.statusWord}
              word: ${action.payload.currentWord} 
              game state: ${action.payload.gameState}
-             timer: ${action.payload.timerTick}`);
+             timer: ${action.payload.timerTick}`);*/
             state.statusWord = action.payload.statusWord
             state.currentWord = action.payload.currentWord
             state.gameState = action.payload.gameState
             state.timerTick = action.payload.timerTick
+            state.scoreAddUser = action.payload.scoreAddUser
         })
         builder.addCase(restartGame.fulfilled, () => {
         })

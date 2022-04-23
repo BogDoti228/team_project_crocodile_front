@@ -38,6 +38,9 @@ const Chat : React.FC = () => {
 
     useEffect(() => {
         dispatch(clearChat());
+        if (inputRef.current) {
+            inputRef.current.blur()
+        }
     }, [gameState])
 
     const applyMessage = async (e: React.KeyboardEvent<HTMLInputElement>) => {

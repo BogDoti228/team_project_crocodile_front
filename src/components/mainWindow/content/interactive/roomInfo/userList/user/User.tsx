@@ -9,7 +9,7 @@ const User : React.FC<UserInfoType> = ({name,score}) => {
     const {currentStartUser} = useSelector((state : RootState) => state.selectReducer)
     const [isSelected, setIsSelected] = useState<boolean>(false)
 
-    console.log('произошел рендер')
+    /*console.log('произошел рендер')*/
     useEffect(() => {
         console.log(`start: ${currentStartUser} = name is: ${name}`)
         if (currentStartUser === name) {
