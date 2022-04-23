@@ -48,7 +48,6 @@ const DrawTable: React.FC = () => {
         }
     }, [])
 
-
     useEffect(() => {
         let img = new Image();
         img.onload = () => {
@@ -61,6 +60,10 @@ const DrawTable: React.FC = () => {
     useEffect(() => {
         setShowToolPanel(currentStartUser === sessionStorage.getItem(NICK_IN_STORAGE) && gameState === 'during')
     }, [gameState, currentStartUser])
+
+    useEffect(() => {
+        clearCanvas();
+    }, [gameState])
 
     const startDraw = (e : React.MouseEvent<HTMLCanvasElement>) =>  {
         isDrawing.current = (name === currentStartUser && gameState === 'during');
@@ -111,7 +114,6 @@ const DrawTable: React.FC = () => {
                 ctxRef.current.stroke()
                 prevPointRef.current = point;
             }
-
         }
     }
 
@@ -119,7 +121,6 @@ const DrawTable: React.FC = () => {
         ctxRef.current?.clearRect(0,0,ctxRef.current?.canvas.width, ctxRef.current?.canvas.height);
         endDraw();
     }
-
 
     return (
         <div className={style.canvasWrapper}>

@@ -75,13 +75,15 @@ export const chatSlice = createSlice({
             let index = state.messages.findIndex(msg => msg.id === action.payload.id);
             state.messages[index].status = action.payload.status;
         },
+        clearChat: (state) => {
+            state.messages = [];
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getStoryMessage.fulfilled, (state, action) => {
             const messages: Array<MessageType> = JSON.parse(action.payload)
             console.log('get story message', messages);
             messages.forEach(msg => state.messages.push(msg as MessageType))
-            //state.messages = messages
         })
         builder.addCase(sendMessage.fulfilled, (state, action) => {
         })
@@ -93,7 +95,7 @@ export const chatSlice = createSlice({
 })
 
 export const chatSliceReducers = chatSlice.reducer;
-export const {addMessage, changeMessageStatus} = chatSlice.actions;
+export const {addMessage, changeMessageStatus, clearChat} = chatSlice.actions;
 
 export type ChatDispatchSignal<Action extends AnyAction = AnyAction> = SignalDispatch<RootState, Action>;
 
