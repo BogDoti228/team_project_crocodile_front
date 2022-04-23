@@ -11,6 +11,8 @@ const Header : React.FC = () => {
     const {isAdmin} = useSelector((state : RootState) => state.roleReducer)
     const [gameStart, setGameStart] = useState(false);
     const [showCopied, setShowCopied] = useState(false);
+    const {gameState} = useSelector((state : RootState) => state.gameProcessReducer)
+    
     const handleCopyToClipboard = () => {
         let text = sessionStorage.getItem(ROOM_ID_IN_STORAGE);
         if (text)
@@ -28,7 +30,7 @@ const Header : React.FC = () => {
                 <img className={style.logo} src={logo} alt="crocodile"/>
                     <h1 className={style.title}>AlligatorZ</h1>
             </div>
-            {isAdmin && !gameStart && <AdminMenu setGameStart={setGameStart}/>}
+            {isAdmin && gameState === "preStart" && <AdminMenu/>}
             <div className={style.info}>
                 <div className={style.boxWrap}>
                     <div className={style.copiedText} onClick={handleCopyToClipboard}>Идентификатор комнаты: {sessionStorage.getItem(ROOM_ID_IN_STORAGE)}</div>

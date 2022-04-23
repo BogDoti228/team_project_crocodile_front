@@ -28,7 +28,6 @@ const DrawTable: React.FC = () => {
     const {gameState} = useSelector((state: RootState) => state.gameProcessReducer)
     const {name} = useSelector((state : RootState) => state.profileReducer)
 
-
     const {url} = useSelector((state: RootState) => state.canvasReducer);
     const dispatch = useTypeDispatch();
 
@@ -48,6 +47,23 @@ const DrawTable: React.FC = () => {
             document.removeEventListener('keydown', onKeyDown)
         }
     }, [])
+
+    useEffect(() => {
+        let img = new Image();
+        img.onload = () => {
+            ctxRef.current?.clearRect(0,0,ctxRef.current?.canvas.width, ctxRef.current?.canvas.height);
+            ctxRef.current?.drawImage(img, 0, 0, ctxRef.current?.canvas.width, ctxRef.current?.canvas.height);
+        }
+        img.src = url;
+    }, [url]);
+
+    useEffect(() => {
+        setShowToolPanel(currentStartUser === sessionStorage.getItem(NICK_IN_STORAGE) && gameState === 'during')
+    }, [gameState, currentStartUser])
+
+    useEffect(() => {
+        clearCanvas();
+    }, [gameState])
 
     const startDraw = (e : React.MouseEvent<HTMLCanvasElement>) =>  {
         isDrawing.current = (name === currentStartUser && gameState === 'during');
@@ -98,7 +114,6 @@ const DrawTable: React.FC = () => {
                 ctxRef.current.stroke()
                 prevPointRef.current = point;
             }
-
         }
     }
 
@@ -106,19 +121,6 @@ const DrawTable: React.FC = () => {
         ctxRef.current?.clearRect(0,0,ctxRef.current?.canvas.width, ctxRef.current?.canvas.height);
         endDraw();
     }
-
-    useEffect(() => {
-        let img = new Image();
-        img.onload = () => {
-            ctxRef.current?.clearRect(0,0,ctxRef.current?.canvas.width, ctxRef.current?.canvas.height);
-            ctxRef.current?.drawImage(img, 0, 0, ctxRef.current?.canvas.width, ctxRef.current?.canvas.height);
-        }
-        img.src = url;
-    }, [url]);
-
-    useEffect(() => {
-        setShowToolPanel(currentStartUser === sessionStorage.getItem(NICK_IN_STORAGE) && gameState == 'during')
-    }, [gameState, currentStartUser])
 
     return (
         <div className={style.canvasWrapper}>

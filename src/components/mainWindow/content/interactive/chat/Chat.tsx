@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useSelector} from "react-redux";
 import {RootState, useTypeDispatch} from "../../../../../store/store";
-import {getStoryMessage, sendMessage} from "../../../../../store/web-slices/chat_slice";
+import {clearChat, getStoryMessage, sendMessage} from "../../../../../store/web-slices/chat_slice";
 import style from "./chat.module.scss";
 import Message from "./Message";
 
@@ -24,8 +24,21 @@ const Chat : React.FC = () => {
     }, [messages])
 
     useEffect(() => {
-        dispatch(getStoryMessage(name));
+        dispatch(getStoryMessage());
     }, [])
+
+    useEffect(() => {
+        if (gameState === 'during' && currentStartUser !== name){
+            setStyleInput(style.inputBox)
+        }
+        else{
+            setStyleInput(style.inputBox + ' ' + style.nonActive)
+        }
+    }, [gameState, currentStartUser])
+
+    useEffect(() => {
+        dispatch(clearChat());
+    }, [gameState])
 
     const applyMessage = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
@@ -41,14 +54,7 @@ const Chat : React.FC = () => {
         }
     }
 
-    useEffect(() => {
-       if (gameState === 'during' && currentStartUser !== name){
-           setStyleInput(style.inputBox)
-       }
-       else{
-           setStyleInput(style.inputBox + ' ' + style.nonActive)
-       }
-    }, [gameState, currentStartUser])
+
 
     return (
         <div className={style.chat}>
