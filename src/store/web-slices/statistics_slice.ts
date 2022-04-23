@@ -15,7 +15,7 @@ const initialState = {
 } as StatisticsType
 
 export const getStatistics = createAsyncThunk("getStatistics", async () => {
-    const response : Promise<StatisticsType> = await fetch('https://localhost:8080/user/rooms', {
+    const response : Promise<StatisticsType> = await fetch('https://localhost:8080/game/gameStatistics', {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -33,7 +33,10 @@ export const statisticsSlice = createSlice({
 
     },
     extraReducers: (builder) => {
-        builder.addCase(getStatistics.fulfilled, () => {
+        builder.addCase(getStatistics.fulfilled, (state, {payload}) => {
+            state.winner = payload.winner
+            state.mostSuccessDrawing = payload.mostSuccessDrawing
+            state.mostSuccessGuessing = payload.mostSuccessGuessing
         })
     }
 })

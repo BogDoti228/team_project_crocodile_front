@@ -11,11 +11,7 @@ import {
 import {GameBooleansType, postGameProcessInfo} from "../../../../store/web-slices/game_process_slice";
 import {NICK_IN_STORAGE} from "../../../enterWindow/Enter";
 
-type AdminMenuTypeProps = {
-    setGameStart: React.Dispatch<React.SetStateAction<boolean>>,
-}
-
-const AdminMenu : React.FC<AdminMenuTypeProps> = ({setGameStart}) => {
+const AdminMenu : React.FC = () => {
     const {usersList, timeList, scoreList} = useSelector((state : RootState) => state.usersListReducer)
     const {currentStartUser, currentTimer, currentEndScore} = useSelector((state : RootState) => state.selectReducer)
     const [user, setUser] = useState(sessionStorage.getItem(NICK_IN_STORAGE))
@@ -57,8 +53,6 @@ const AdminMenu : React.FC<AdminMenuTypeProps> = ({setGameStart}) => {
     }
 
     const onStart = () => {
-        setGameStart(true);
-
         dispatch(postGameProcessInfo('during'))
     }
 
