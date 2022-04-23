@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import {useTypeDispatch} from "../../store/store";
-import {postName, setName} from "../../store/web-slices/profile_slice";
+import {postName, setAuth, setName} from "../../store/web-slices/profile_slice";
 import style from "./enterWindow.module.scss";
 import {useNavigate} from "react-router-dom";
+import {ROOM_ID_IN_STORAGE} from "../../store/web-slices/chat_slice";
 export const NICK_IN_STORAGE = "name";
 
 function Enter() {
@@ -32,8 +33,11 @@ function Enter() {
         setIsNickTaken(false);
         dispatch(setName(nick));
         dispatch(postName(nick)).then(x => {
-                if (x.payload)
-                    navigate('/game');
+                if (x.payload){
+                    dispatch(setAuth(true));
+                    navigate('/game/'+sessionStorage.getItem(ROOM_ID_IN_STORAGE));
+                }
+
                 else
                     setIsNickTaken(true);
             }

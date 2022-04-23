@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import DrawTable from "./drawTable/DrawTable";
 import Interactive from "./interactive/Interactive";
 import style from './content.module.scss';
@@ -9,6 +9,8 @@ import {useSelector} from "react-redux";
 
 const Content : React.FC = () => {
     const {isAdmin} = useSelector((state : RootState) => state.roleReducer)
+
+
     const dispatch = useTypeDispatch();
 
     useEffect(() => {
@@ -27,11 +29,16 @@ const Content : React.FC = () => {
         }
     },[])
 
+
     return (
-        <main className={style.content}>
-            <DrawTable/>
-            <Interactive/>
-        </main>
+        <>
+            <main className={style.content}>
+                <DrawTable/>
+                <Interactive/>
+            </main>
+
+        </>
+
     )
 }
 

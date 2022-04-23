@@ -13,7 +13,7 @@ import {setIsWordGuessed} from "../../../../../store/web-slices/role_slice";
 
 const GameResultPanel : React.FC = () => {
     const {gameState,currentWord} = useSelector((state : RootState) => state.gameProcessReducer)
-    const {currentStartUser, currentTimer} = useSelector((state : RootState) => state.selectReducer)
+    const {currentStartUser, currentTimer, currentEndScore} = useSelector((state : RootState) => state.selectReducer)
     const {usersList} = useSelector((state : RootState) => state.usersListReducer)
     const {isWordGuessed} = useSelector((state : RootState) => state.roleReducer)
     const dispatch = useTypeDispatch();
@@ -31,7 +31,8 @@ const GameResultPanel : React.FC = () => {
 
         const preStartInfo : PreStartInfoType = {
             currentTimer : currentTimer,
-            currentStartUser: nextUser
+            currentStartUser: nextUser,
+            currentEndScore: currentEndScore
         }
 
         await dispatch(postPreStartInfo(preStartInfo))
@@ -39,8 +40,8 @@ const GameResultPanel : React.FC = () => {
     }
 
     const getNextUser = () => {
-        const index = usersList.indexOf(currentStartUser)
-        const nextUser = usersList[(index + 1) % usersList.length]
+        const index = usersList.map(x => x.name).indexOf(currentStartUser)
+        const nextUser = usersList[(index + 1) % usersList.length].name
         dispatch(setCurrentStartUser(nextUser))
         return nextUser
     }

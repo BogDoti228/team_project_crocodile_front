@@ -1,15 +1,27 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {ROOM_ID_IN_STORAGE} from "./chat_slice";
 
+export interface UserInfoType {
+    name : string,
+    score : string
+}
+
 interface UserListType {
-    usersList: Array<string>,
+    usersList: Array<UserInfoType>,
     timeList: Array<string>,
+    scoreList: Array<string>
     loading?: 'idle' | 'pending' | 'succeeded' | 'failed'
+}
+
+interface ServerUserInfoType {
+    Name: string,
+    Score: string
 }
 
 const initialState = {
     usersList : [],
     timeList : ["00:10","01:00", "02:00", "03:00", "04:00", "05:00"],
+    scoreList : ["5", "10", "15", "20", "25", "30"],
     loading: 'idle',
 } as  UserListType
 
@@ -37,10 +49,6 @@ export const getUsersList = createAsyncThunk("getUsersList", async () => {
     return await response
 })
 
-interface ServerInfoUser {
-    Name : string
-}
-
 export const usersListSlice = createSlice({
     name : "userListSlice",
     initialState : initialState,
@@ -50,7 +58,7 @@ export const usersListSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(getUsersList.fulfilled, (state, action) => {
             //console.log("accept user list")
-            let userList : Array<ServerInfoUser> = [];
+            let userList : Array<ServerUserInfoType> = [];
 
             try{
                 userList = JSON.parse(action.payload);
@@ -60,7 +68,7 @@ export const usersListSlice = createSlice({
                 console.error('Не могу распарсить JSON', action.payload)
                 console.error(e)
             }
-            state.usersList = userList.map(x => x.Name)
+            state.usersList = userList.map(x => {return {name : x.Name, score : x.Score}})
 
         })
     }

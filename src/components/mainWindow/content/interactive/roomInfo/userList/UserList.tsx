@@ -29,7 +29,7 @@ const UserList : React.FC = () => {
 
     return (
         <ul className={styles.user_list_box}>
-            {usersList.map((name, index) => <User name={name} key={index}/>)}
+            {usersList.map((userInfo, index) => <User name={userInfo.name} score={userInfo.score} key={index}/>)}
         </ul>
     )
 }

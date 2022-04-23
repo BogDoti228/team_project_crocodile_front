@@ -28,7 +28,6 @@ const DrawTable: React.FC = () => {
     const {gameState} = useSelector((state: RootState) => state.gameProcessReducer)
     const {name} = useSelector((state : RootState) => state.profileReducer)
 
-
     const {url} = useSelector((state: RootState) => state.canvasReducer);
     const dispatch = useTypeDispatch();
 
@@ -122,8 +121,6 @@ const DrawTable: React.FC = () => {
         ctxRef.current?.clearRect(0,0,ctxRef.current?.canvas.width, ctxRef.current?.canvas.height);
         endDraw();
     }
-
-
 
     return (
         <div className={style.canvasWrapper}>

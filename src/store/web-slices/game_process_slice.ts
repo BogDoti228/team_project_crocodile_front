@@ -54,6 +54,16 @@ export const postGameProcessInfo = createAsyncThunk("postGameProcessInfo", async
     })
 })
 
+export const restartGame = createAsyncThunk("restartGame", async () => {
+    await fetch('https://localhost:8080/game/restart', {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Room-Id" : sessionStorage.getItem(ROOM_ID_IN_STORAGE) as string
+        }
+    })
+})
+
 export const gameProcessSlice = createSlice({
     name : "gameProcessSlice",
     initialState : initialState,
@@ -61,7 +71,7 @@ export const gameProcessSlice = createSlice({
 
     },
     extraReducers: (builder) => {
-        builder.addCase(postGameProcessInfo.fulfilled, (state, action) => {
+        builder.addCase(postGameProcessInfo.fulfilled, () => {
         })
         builder.addCase(getGameProcessInfo.fulfilled, (state, action) => {
             console.log(`GAME PROCESS INFO 
@@ -73,6 +83,8 @@ export const gameProcessSlice = createSlice({
             state.currentWord = action.payload.currentWord
             state.gameState = action.payload.gameState
             state.timerTick = action.payload.timerTick
+        })
+        builder.addCase(restartGame.fulfilled, () => {
         })
     }
 })

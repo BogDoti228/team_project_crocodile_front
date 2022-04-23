@@ -5,7 +5,12 @@ import {RootState, useTypeDispatch} from "../../../../../store/store";
 import {useSelector} from "react-redux";
 import {NICK_IN_STORAGE} from "../../../../enterWindow/Enter";
 import {GameBooleansType, postGameProcessInfo} from "../../../../../store/web-slices/game_process_slice";
-import {setIsWordGuessed} from "../../../../../store/web-slices/role_slice";
+import {
+    GameFinalResponseType,
+    postScoreToAdd,
+    ScoreAddUserType,
+    setIsWordGuessed
+} from "../../../../../store/web-slices/role_slice";
 
 const Message : React.FC<MessageType> = ({id,name, text, status}) => {
     const {currentStartUser} = useSelector((state : RootState) => state.selectReducer)
@@ -31,8 +36,13 @@ const Message : React.FC<MessageType> = ({id,name, text, status}) => {
             messageColor = style.right;
     }
 
-    const onGameEnd = () => {
-        dispatch(postGameProcessInfo('betweenRound'));
+    const onRoundEnd = () => {
+        const scoreAddUser : ScoreAddUserType = {
+            userDraw : currentStartUser,
+            userGuessed : name
+        }
+
+        dispatch(postScoreToAdd(scoreAddUser))
         dispatch(setIsWordGuessed(true));
     }
 
@@ -55,7 +65,7 @@ const Message : React.FC<MessageType> = ({id,name, text, status}) => {
             dispatch(sendChangeMessage({id, name, text, status: "neutral"}))
         else
         {
-            onGameEnd()
+            onRoundEnd()
             dispatch(sendChangeMessage({id, name, text, status: "right"}))
         }
     }
