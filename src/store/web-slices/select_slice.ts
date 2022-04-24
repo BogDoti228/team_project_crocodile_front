@@ -4,7 +4,8 @@ import {ROOM_ID_IN_STORAGE} from "./chat_slice";
 interface SelectType {
     currentTimer : string,
     currentStartUser: string,
-    currentEndScore: string
+    currentEndScore: string,
+    currentAdmin: string
     loading?: 'idle' | 'pending' | 'succeeded' | 'failed'
 }
 
@@ -12,13 +13,15 @@ const initialState = {
     currentTimer : "",
     currentStartUser: "",
     currentEndScore: "",
+    currentAdmin: "",
     loading: 'idle',
 } as SelectType
 
 export interface PreStartInfoType {
     currentTimer : string,
     currentStartUser: string,
-    currentEndScore: string
+    currentEndScore: string,
+    currentAdmin?: string
 }
 
 export const getPreStartInfo = createAsyncThunk("getPreStartInfo", async () => {
@@ -56,6 +59,9 @@ export const selectSlice = createSlice({
         },
         setCurrentEndScore : (state, action) => {
             state.currentEndScore = action.payload
+        },
+        setCurrentAdmin : (state, action) => {
+            state.currentAdmin = action.payload
         }
     },
     extraReducers: (builder) => {
@@ -63,6 +69,9 @@ export const selectSlice = createSlice({
             state.currentStartUser = action.payload.currentStartUser;
             state.currentTimer = action.payload.currentTimer
             state.currentEndScore = action.payload.currentEndScore
+            if (action.payload.currentAdmin){
+                state.currentAdmin = action.payload.currentAdmin
+            }
         })
         builder.addCase(postPreStartInfo.fulfilled, () => {
             //console.log("POSTED DATA SURELY")
@@ -71,4 +80,4 @@ export const selectSlice = createSlice({
 })
 
 export const selectSliceReducers = selectSlice.reducer;
-export  const {setCurrentStartUser, setCurrentTimer, setCurrentEndScore} = selectSlice.actions
+export  const {setCurrentStartUser, setCurrentTimer, setCurrentEndScore, setCurrentAdmin} = selectSlice.actions

@@ -6,16 +6,17 @@ import {getGameProcessInfo} from "../../../store/web-slices/game_process_slice";
 import {RootState, useTypeDispatch} from "../../../store/store";
 import {getPreStartInfo} from "../../../store/web-slices/select_slice";
 import {useSelector} from "react-redux";
+import {NICK_IN_STORAGE} from "../../enterWindow/Enter";
 
 const Content : React.FC = () => {
-    const {isAdmin} = useSelector((state : RootState) => state.roleReducer)
+    const {currentAdmin} = useSelector((state : RootState) => state.selectReducer)
 
 
     const dispatch = useTypeDispatch();
 
     useEffect(() => {
         dispatch(getGameProcessInfo())
-        if (!isAdmin) {
+        if (currentAdmin !== sessionStorage.getItem(NICK_IN_STORAGE)) {
             dispatch(getPreStartInfo())
         }
 

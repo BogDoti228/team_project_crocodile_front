@@ -8,6 +8,7 @@
     border: 2px solid $color-green-light;
     display: flex;
     flex-direction: row;
+    position: relative;
 
     .name {
       font-weight: bold;
@@ -16,19 +17,21 @@
     }
 
     .utils {
-      margin: 0 5px 0 auto;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
 
       .admin {
         width: 15px;
         height: 15px;
         object-fit: contain;
+        position: absolute;
+        right: 20px;
+        top: 5px;
       }
 
       .score {
         font-size: 15px;
+        position: absolute;
+        right: 5px;
+        top: 5px;
       }
     }
   }

@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import style from './choiceRoomWindow.module.scss';
 import {useTypeDispatch} from "../../store/store";
 import {useNavigate} from "react-router-dom";
-import {setAdmin} from "../../store/web-slices/role_slice";
 import {ROOM_ID_IN_STORAGE} from "../../store/web-slices/chat_slice";
 import {checkExistingRoom, setAuth} from "../../store/web-slices/profile_slice";
 import {RoomInfo} from "../../store/web-slices/profile_slice";
@@ -18,7 +17,6 @@ function JoinRoom() {
         await dispatch(checkExistingRoom(idRoom)).then( (x,) => {
             if ((x.payload as RoomInfo).isRoomExist) {
                 sessionStorage.setItem(ROOM_ID_IN_STORAGE, idRoom);
-                dispatch(setAdmin(false))
                 dispatch(setAuth(true));
                 navigate('/enter');
             }
