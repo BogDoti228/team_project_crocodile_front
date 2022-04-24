@@ -3,6 +3,8 @@ import styles from "./user.module.scss"
 import {useSelector} from "react-redux";
 import {RootState} from "../../../../../../../store/store";
 import {UserInfoType} from "../../../../../../../store/web-slices/list_users_slice";
+import style from "../../../../../header/header.module.scss";
+import star from "../../../../../../../resources/images/star.svg";
 
 
 const User : React.FC<UserInfoType> = ({name,score}) => {
@@ -24,7 +26,7 @@ const User : React.FC<UserInfoType> = ({name,score}) => {
         <li className={styles.wrap} style={{borderColor : isSelected ? "red" : "rgb(146 244 192)"}}>
             <span className={styles.name}>{name}</span>
             <div className={styles.utils}>
-                <div/>
+                <img className={style.admin} src={star} alt="crocodile"/>
                 <div className={styles.score}>{score}</div>
             </div>
         </li>

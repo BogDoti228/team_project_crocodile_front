@@ -13,6 +13,14 @@
 }
 :local .wrap .utils {
   margin: 0 5px 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+:local .wrap .utils .admin {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
 }
 :local .wrap .utils .score {
   font-size: 15px;
