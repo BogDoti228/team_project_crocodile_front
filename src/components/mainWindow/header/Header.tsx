@@ -9,7 +9,6 @@ import {ROOM_ID_IN_STORAGE} from "../../../store/web-slices/chat_slice";
 const Header : React.FC = () => {
     const {name} = useSelector((state : RootState) => state.profileReducer)
     const {isAdmin} = useSelector((state : RootState) => state.roleReducer)
-    const [gameStart, setGameStart] = useState(false);
     const [showCopied, setShowCopied] = useState(false);
     const {gameState} = useSelector((state : RootState) => state.gameProcessReducer)
     
@@ -19,7 +18,7 @@ const Header : React.FC = () => {
             navigator.clipboard.writeText(text)
                 .then(() => {
                     setShowCopied(true);
-                    setTimeout(() => setShowCopied(false), 3000)
+                    setTimeout(() => setShowCopied(false), 3100)
                 })
                 .catch(console.log);
     }
@@ -33,13 +32,13 @@ const Header : React.FC = () => {
             {isAdmin && gameState === "preStart" && <AdminMenu/>}
             <div className={style.info}>
                 <div className={style.boxWrap}>
-                    <div className={style.copiedText} onClick={handleCopyToClipboard}>Идентификатор комнаты: {sessionStorage.getItem(ROOM_ID_IN_STORAGE)}</div>
+                    {showCopied && <div className={style.copied}>Скопировано!</div>}
+                    <div title={"ЛКМ, чтобы скопировать"} className={style.copiedText} onClick={handleCopyToClipboard}>Идентификатор комнаты: {sessionStorage.getItem(ROOM_ID_IN_STORAGE)}</div>
                 </div>
                 <div className={style.boxWrap}>
                     Имя: {name}
                 </div>
             </div>
-            {showCopied && <div className={style.copied}>Скопировано!</div>}
         </header>
     )
 }
