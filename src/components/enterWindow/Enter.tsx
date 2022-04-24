@@ -1,9 +1,11 @@
 import React, {useState} from "react";
-import {useTypeDispatch} from "../../store/store";
+import {RootState, useTypeDispatch} from "../../store/store";
 import {postName, setAuth, setName} from "../../store/web-slices/profile_slice";
 import style from "./enterWindow.module.scss";
 import {useNavigate} from "react-router-dom";
 import {ROOM_ID_IN_STORAGE} from "../../store/web-slices/chat_slice";
+import {useSelector} from "react-redux";
+import {setCurrentAdmin} from "../../store/web-slices/select_slice";
 export const NICK_IN_STORAGE = "name";
 
 function Enter() {
@@ -11,6 +13,7 @@ function Enter() {
     const [isErrorMaxLen, setIsErrorMaxLenMaxLen] = useState(false);
     const [isErrorZeroInput, setIsErrorZeroInput] = useState(false);
     const [isNickTaken, setIsNickTaken] = useState(false);
+    const {currentAdmin} = useSelector((state: RootState) => state.selectReducer);
     const dispatch = useTypeDispatch();
 
     const onChangeInput = (value: string) => {
@@ -36,6 +39,9 @@ function Enter() {
         dispatch(postName(nick)).then(x => {
                 if (x.payload){
                     dispatch(setAuth(true));
+                    if (currentAdmin === "") {
+                        dispatch(setCurrentAdmin(nick))
+                    }
                     navigate('/game/'+sessionStorage.getItem(ROOM_ID_IN_STORAGE));
                 }
 
@@ -44,6 +50,7 @@ function Enter() {
             }
         );
         sessionStorage.setItem(NICK_IN_STORAGE, nick);
+
     }
 
     const handlePressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {

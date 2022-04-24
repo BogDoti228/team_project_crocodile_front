@@ -5,13 +5,13 @@ import {RootState} from "../../../store/store";
 import style from './header.module.scss';
 import AdminMenu from "./AdminMenu/AdminMenu";
 import {ROOM_ID_IN_STORAGE} from "../../../store/web-slices/chat_slice";
+import {NICK_IN_STORAGE} from "../../enterWindow/Enter";
 
 const Header : React.FC = () => {
     const {name} = useSelector((state : RootState) => state.profileReducer)
-    const {isAdmin} = useSelector((state : RootState) => state.roleReducer)
-    const [gameStart, setGameStart] = useState(false);
     const [showCopied, setShowCopied] = useState(false);
     const {gameState} = useSelector((state : RootState) => state.gameProcessReducer)
+    const {currentAdmin} = useSelector((state : RootState) => state.selectReducer)
     
     const handleCopyToClipboard = () => {
         let text = sessionStorage.getItem(ROOM_ID_IN_STORAGE);
@@ -30,7 +30,7 @@ const Header : React.FC = () => {
                 <img className={style.logo} src={logo} alt="crocodile"/>
                     <h1 className={style.title}>AlligatorZ</h1>
             </div>
-            {isAdmin && gameState === "preStart" && <AdminMenu/>}
+            {currentAdmin === sessionStorage.getItem(NICK_IN_STORAGE) && gameState === "preStart" && <AdminMenu/>}
             <div className={style.info}>
                 <div className={style.boxWrap}>
                     <div className={style.copiedText} onClick={handleCopyToClipboard}>Идентификатор комнаты: {sessionStorage.getItem(ROOM_ID_IN_STORAGE)}</div>
