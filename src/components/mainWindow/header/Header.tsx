@@ -19,7 +19,7 @@ const Header : React.FC = () => {
             navigator.clipboard.writeText(text)
                 .then(() => {
                     setShowCopied(true);
-                    setTimeout(() => setShowCopied(false), 3000)
+                    setTimeout(() => setShowCopied(false), 3100)
                 })
                 .catch(console.log);
     }
@@ -34,13 +34,13 @@ const Header : React.FC = () => {
             {console.log(`${currentAdmin} name: ${sessionStorage.getItem(NICK_IN_STORAGE)}`)}
             <div className={style.info}>
                 <div className={style.boxWrap}>
-                    <div className={style.copiedText} onClick={handleCopyToClipboard}>Идентификатор комнаты: {sessionStorage.getItem(ROOM_ID_IN_STORAGE)}</div>
+                    {showCopied && <div className={style.copied}>Скопировано!</div>}
+                    <div title={"ЛКМ, чтобы скопировать"} className={style.copiedText} onClick={handleCopyToClipboard}>Идентификатор комнаты: {sessionStorage.getItem(ROOM_ID_IN_STORAGE)}</div>
                 </div>
                 <div className={style.boxWrap}>
                     Имя: {name}
                 </div>
             </div>
-            {showCopied && <div className={style.copied}>Скопировано!</div>}
         </header>
     )
 }
