@@ -7,6 +7,7 @@ import {postCanvas} from "../../../../store/web-slices/canvas_slice";
 import ToolPanel from "./toolPanel/ToolPanel";
 import GameResultPanel from "./gameResultPanel/GameResultPanel";
 import {NICK_IN_STORAGE} from "../../../enterWindow/Enter";
+import Settings from "../../settings/Settings";
 
 interface Point {
     x: number,
@@ -27,6 +28,7 @@ const DrawTable: React.FC = () => {
     const {currentStartUser} = useSelector((state : RootState) => state.selectReducer)
     const {gameState} = useSelector((state: RootState) => state.gameProcessReducer)
     const {name} = useSelector((state : RootState) => state.profileReducer)
+    const {settingsShow} = useSelector((state : RootState) => state.usersListReducer)
 
     const {url} = useSelector((state: RootState) => state.canvasReducer);
     const dispatch = useTypeDispatch();
@@ -133,6 +135,7 @@ const DrawTable: React.FC = () => {
             {showToolPanel && <ToolPanel setSize={setPenSize} clear={clearCanvas} activeSize={penSize} activeColor={penColor}
                                          setColor={setPenColor}/>}
             <GameResultPanel/>
+            {settingsShow && <Settings/>}
         </div>
 
     )

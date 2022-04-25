@@ -1,0 +1,37 @@
+:local .settings_wrap_panel {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #92f4c0;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  box-shadow: 1px 1px 5px 5px rgba(0, 0, 0, 0.1);
+}
+:local .settings_wrap_panel .li_block {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+:local .button {
+  padding: 10px;
+  background: #92B4F4;
+  border-radius: 15px;
+  font-size: 20px;
+  transition: background-color 0.3s ease;
+}
+:local .button:hover {
+  background-color: #5E7CE2;
+}
+:local .text {
+  background: #92B4F4;
+  border-radius: 15px;
+  border: 2px solid #92B4F4;
+  padding: 10px;
+  font-size: 20px;
+}
+
+/*# sourceMappingURL=settings.module.css.map */

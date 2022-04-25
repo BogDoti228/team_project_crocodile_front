@@ -1,5 +1,5 @@
 :local .score_window {
-  width: 50%;
+  width: 35%;
   height: 100%;
   border-radius: 15px;
   border: solid 3px #92f4c0;
@@ -8,7 +8,7 @@
 }
 :local .score_window .score {
   position: absolute;
-  font-size: 25px;
+  font-size: 1.5vw;
   font-weight: bold;
   display: block;
   top: 50%;
