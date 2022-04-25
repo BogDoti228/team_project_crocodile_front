@@ -31,6 +31,7 @@ const Header : React.FC = () => {
                     <h1 className={style.title}>AlligatorZ</h1>
             </div>
             {currentAdmin === sessionStorage.getItem(NICK_IN_STORAGE) && gameState === "preStart" && <AdminMenu/>}
+            {console.log(`${currentAdmin} name: ${sessionStorage.getItem(NICK_IN_STORAGE)}`)}
             <div className={style.info}>
                 <div className={style.boxWrap}>
                     <div className={style.copiedText} onClick={handleCopyToClipboard}>Идентификатор комнаты: {sessionStorage.getItem(ROOM_ID_IN_STORAGE)}</div>

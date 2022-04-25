@@ -5,7 +5,7 @@ import style from "./enterWindow.module.scss";
 import {useNavigate} from "react-router-dom";
 import {ROOM_ID_IN_STORAGE} from "../../store/web-slices/chat_slice";
 import {useSelector} from "react-redux";
-import {setCurrentAdmin} from "../../store/web-slices/select_slice";
+import {getPreStartInfo, setCurrentAdmin} from "../../store/web-slices/select_slice";
 export const NICK_IN_STORAGE = "name";
 
 function Enter() {
@@ -39,7 +39,7 @@ function Enter() {
         dispatch(postName(nick)).then(x => {
                 if (x.payload){
                     dispatch(setAuth(true));
-                    if (currentAdmin === "") {
+                    if (currentAdmin === "admin") {
                         dispatch(setCurrentAdmin(nick))
                     }
                     navigate('/game/'+sessionStorage.getItem(ROOM_ID_IN_STORAGE));
