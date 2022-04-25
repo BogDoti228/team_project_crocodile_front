@@ -1,4 +1,4 @@
-:local .timer_window {
+:local .score_window {
   width: 50%;
   height: 100%;
   border-radius: 15px;
@@ -6,7 +6,7 @@
   position: relative;
   background: white;
 }
-:local .timer_window .time {
+:local .score_window .score {
   position: absolute;
   font-size: 25px;
   font-weight: bold;
@@ -16,4 +16,4 @@
   transform: translate(-50%, -50%);
 }
 
-/*# sourceMappingURL=timer.module.css.map */
+/*# sourceMappingURL=score.module.css.map */
