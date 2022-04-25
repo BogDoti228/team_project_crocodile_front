@@ -3,7 +3,7 @@
 :local {
   .user_list_box {
     height: 100%;
-    width: 70%;
+    width: 65%;
     border-radius: $medium-border-radius;
     border: solid 3px $color-green-light;
     background: white;
@@ -13,5 +13,6 @@
     gap: 20px;
     align-items: center;
     padding: 10px;
+    z-index: 0;
   }
 }

@@ -1,7 +1,7 @@
 @import "../../../../../../styles/variables";
 
 :local {
-  .timer_window {
+  .score_window {
     width: 50%;
     height: 100%;
     border-radius: $medium-border-radius;
@@ -9,7 +9,7 @@
     position: relative;
     background: white;
 
-    .time {
+    .score {
       position: absolute;
       font-size: 25px;
       font-weight: bold;

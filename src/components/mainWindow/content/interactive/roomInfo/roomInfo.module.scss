@@ -10,11 +10,19 @@
   align-items: center;
 }
 
-.timer_box_word_wrapper {
+.pre_start_info_wrap {
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 100%;
-  width: 30%;
+  width: 35%;
+}
+
+.bottom_items_wrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 40%;
+  width: 100%;
 }
 
