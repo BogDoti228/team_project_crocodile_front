@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useSelector} from "react-redux";
 import {RootState, useTypeDispatch} from "../../../../../store/store";
-import {clearChat, getStoryMessage, sendMessage} from "../../../../../store/web-slices/chat_slice";
+import {clearChat, sendMessage} from "../../../../../store/web-slices/chat_slice";
 import style from "./chat.module.scss";
 import Message from "./Message";
 
@@ -22,10 +22,6 @@ const Chat : React.FC = () => {
             ulRef.current.scrollTop = ulRef.current.scrollHeight
         }
     }, [messages])
-
-    useEffect(() => {
-        dispatch(getStoryMessage());
-    }, [])
 
     useEffect(() => {
         if (gameState === 'during' && currentStartUser !== name){
