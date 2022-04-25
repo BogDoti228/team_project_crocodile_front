@@ -52,19 +52,6 @@ export const joinToChatRoom = createAsyncThunk("joinToRoom", async (nameRoom: st
         .catch(console.error);
 });
 
-export const getStoryMessage = createAsyncThunk("getStoryMessage", async () => {
-    const response: Promise<string> = fetch('https://localhost:8080/chat/story', {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            "Room-Id" : sessionStorage.getItem(ROOM_ID_IN_STORAGE) as string,
-        }
-    })
-        .then((x) => x.json())
-        .catch(console.error)
-    return await response
-})
-
 export const chatSlice = createSlice({
     name: "chatSlice",
     initialState: initialState,
@@ -81,11 +68,6 @@ export const chatSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(getStoryMessage.fulfilled, (state, action) => {
-            const messages: Array<MessageType> = JSON.parse(action.payload)
-            console.log('get story message', messages);
-            messages.forEach(msg => state.messages.push(msg as MessageType))
-        })
         builder.addCase(sendMessage.fulfilled, (state, action) => {
         })
         builder.addCase(sendChangeMessage.fulfilled, (state, action) => {

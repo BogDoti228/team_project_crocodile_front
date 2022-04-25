@@ -134,8 +134,8 @@ const DrawTable: React.FC = () => {
             />
             {showToolPanel && <ToolPanel setSize={setPenSize} clear={clearCanvas} activeSize={penSize} activeColor={penColor}
                                          setColor={setPenColor}/>}
-            <GameResultPanel/>
             {settingsShow && <Settings/>}
+            {gameState === "betweenRound" && <GameResultPanel/>}
         </div>
 
     )

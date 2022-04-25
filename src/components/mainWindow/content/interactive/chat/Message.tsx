@@ -71,9 +71,13 @@ const Message : React.FC<MessageType> = ({id,name, text, status}) => {
     return (<div  className={style.message}>
         <div className={style.name}>{name}: </div>
         <div className={style.text + ' ' + messageColor}>{text}</div>
-        {visibleBtn && <button className={`${style.button} ${style.buttonDislike}`}  onClick={handleDislike}>no</button>}
-        {visibleBtn && <button className={`${style.button} ${style.buttonLike}`} onClick={handleLike}>yes</button>}
-        {visibleBtn && <button className={`${style.button} ${style.buttonRightAnswer}`} onClick={handleRight}>right</button> }
+        <div className={style.buttons}>
+            {visibleBtn && <button className={`${style.button} ${style.buttonDislike}`}  onClick={handleDislike}>холодно</button>}
+            {visibleBtn && <button className={`${style.button} ${style.buttonLike}`} onClick={handleLike}>тепло</button>}
+        </div>
+        {visibleBtn && <button className={`${style.button} ${style.buttonRightAnswer}`} onClick={handleRight}>Правильно!</button> }
+
+
     </div>)
 }
 

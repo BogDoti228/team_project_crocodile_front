@@ -6,6 +6,7 @@ import {getUsersList} from "../../../../../../store/web-slices/list_users_slice"
 import User from "./user/User";
 import {deleteName} from "../../../../../../store/web-slices/profile_slice";
 import {NICK_IN_STORAGE} from "../../../../../enterWindow/Enter";
+import {ROOM_ID_IN_STORAGE} from "../../../../../../store/web-slices/chat_slice";
 
 
 
@@ -30,8 +31,11 @@ const UserList : React.FC = () => {
             initBeforeUnLoad();
         };
 
+        window.onunload = () => {
+            dispatch(deleteName(name))
+        }
+
         return () => {
-            console.log("UNMOUNT")
             clearInterval(interval)
             dispatch(deleteName(name))
         }

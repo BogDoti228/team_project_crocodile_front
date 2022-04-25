@@ -32,13 +32,15 @@ export const postName = createAsyncThunk("postName", async (name : string) => {
 })
 
 export const deleteName = createAsyncThunk("deleteName", async (name : string) => {
-    await fetch('https://localhost:8080/user/profile', {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({name: name, roomId: sessionStorage.getItem(ROOM_ID_IN_STORAGE)})
-    })
+    const body = {
+        name: name,
+        roomId: sessionStorage.getItem(ROOM_ID_IN_STORAGE)
+    };
+    const headers = {
+        type: 'application/json',
+    };
+    const blob = new Blob([JSON.stringify(body)], headers);
+    navigator.sendBeacon("https://localhost:8080/user/deleteUser", blob)
 })
 
 export const checkExistingRoom = createAsyncThunk("checkExistingRoom", async (roomId : string) => {
