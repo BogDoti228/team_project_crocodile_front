@@ -35,7 +35,7 @@ function JoinRoom() {
     return (
         <div className={style.section + ' ' + style.joinRoom}>
             <div className={style.widget}>
-                    <div>Индефикатор комнаты:</div>
+                    <div>Идентификатор комнаты:</div>
                     {isErrorRoom && <div className={style.errorMessage}>Такой комнаты не существует</div>}
                     <input className={`${style.input} input`}
                            type="text"
