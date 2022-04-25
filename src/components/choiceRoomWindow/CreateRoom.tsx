@@ -2,19 +2,19 @@ import React from "react";
 import style from './choiceRoomWindow.module.scss';
 import {useNavigate} from "react-router-dom";
 import {useTypeDispatch} from "../../store/store";
-import {setAdmin} from "../../store/web-slices/role_slice";
 import {ROOM_ID_IN_STORAGE} from "../../store/web-slices/chat_slice";
 import {nanoid} from "@reduxjs/toolkit";
 import {setAuth} from "../../store/web-slices/profile_slice";
+import {setCurrentAdmin} from "../../store/web-slices/select_slice";
 
 function CreateRoom() {
     const dispatch = useTypeDispatch();
 
     let navigate = useNavigate();
     const handleCreateRoom = () => {
+        dispatch(setCurrentAdmin("admin"))
         const id = nanoid(5);
         sessionStorage.setItem(ROOM_ID_IN_STORAGE, id);
-        dispatch(setAdmin(true))
         dispatch(setAuth(true));
         navigate('/enter');
     }

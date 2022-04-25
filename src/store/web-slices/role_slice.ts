@@ -1,7 +1,5 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {ROOM_ID_IN_STORAGE} from "./chat_slice";
-import {checkExistingRoom, deleteName, postName} from "./profile_slice";
-import {PreStartInfoType} from "./select_slice";
 
 export interface ScoreAddUserType {
     userDraw : string,
@@ -9,15 +7,11 @@ export interface ScoreAddUserType {
 }
 
 interface RoleType {
-    isAdmin : boolean,
-    isDrawMember: boolean,
     scoreAddUsers : ScoreAddUserType
     loading?: 'idle' | 'pending' | 'succeeded' | 'failed'
 }
 
 const initialState = {
-    isAdmin: false,
-    isDrawMember: false,
     scoreAddUsers : {},
     loading: 'idle',
 } as RoleType
@@ -54,9 +48,6 @@ export const roleSlice = createSlice({
     name : "roleSlice",
     initialState : initialState,
     reducers : {
-        setAdmin : (state, action) => {
-            state.isAdmin = action.payload;
-        }
     },
     extraReducers: (builder) => {
         builder.addCase(postScoreToAdd.fulfilled, () => {
@@ -68,4 +59,3 @@ export const roleSlice = createSlice({
 })
 
 export const roleSliceReducers = roleSlice.reducer;
-export const {setAdmin} = roleSlice.actions

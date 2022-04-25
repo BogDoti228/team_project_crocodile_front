@@ -5,11 +5,21 @@ import {useSelector} from "react-redux";
 import {getUsersList} from "../../../../../../store/web-slices/list_users_slice";
 import User from "./user/User";
 import {deleteName} from "../../../../../../store/web-slices/profile_slice";
+import {NICK_IN_STORAGE} from "../../../../../enterWindow/Enter";
+import {ROOM_ID_IN_STORAGE} from "../../../../../../store/web-slices/chat_slice";
+
+
 
 const UserList : React.FC = () => {
     const dispatch = useTypeDispatch();
     const {usersList} = useSelector((state : RootState) => state.usersListReducer)
     const {name} = useSelector((state : RootState) => state.profileReducer)
+
+    const initBeforeUnLoad = () => {
+        window.onbeforeunload = () => {
+            dispatch(deleteName(sessionStorage.getItem(NICK_IN_STORAGE) as string))
+        };
+    };
 
     useEffect(() => {
         dispatch(getUsersList())
@@ -17,9 +27,13 @@ const UserList : React.FC = () => {
             dispatch(getUsersList())
         }, 1000)
 
-        window.onbeforeunload = () => {
-            dispatch(deleteName(name))
+        window.onload = function() {
+            initBeforeUnLoad();
         };
+
+        window.onunload = () => {
+            dispatch(deleteName(name))
+        }
 
         return () => {
             clearInterval(interval)
