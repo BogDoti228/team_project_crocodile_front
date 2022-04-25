@@ -2,7 +2,7 @@
 
 :local {
   .timer_window {
-    width: 50%;
+    width: 65%;
     height: 100%;
     border-radius: $medium-border-radius;
     border: solid 3px $color-green-light;
@@ -11,7 +11,7 @@
 
     .time {
       position: absolute;
-      font-size: 25px;
+      font-size: 1.5vw;
       font-weight: bold;
       display: block;
       top: 50%;

@@ -2,7 +2,7 @@
 
 :local {
   .score_window {
-    width: 50%;
+    width: 35%;
     height: 100%;
     border-radius: $medium-border-radius;
     border: solid 3px $color-green-light;
@@ -11,7 +11,7 @@
 
     .score {
       position: absolute;
-      font-size: 25px;
+      font-size: 1.5vw;
       font-weight: bold;
       display: block;
       top: 50%;

@@ -1,0 +1,44 @@
+@import "../../../styles/variables";
+
+:local {
+  .settings_wrap_panel {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: $color-green-light;
+    border-radius: $medium-border-radius;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    box-shadow: 1px 1px 5px 5px rgba(0, 0, 0, 0.1);
+
+    .li_block {
+      display: flex;
+      flex-direction: row;
+      gap: 20px
+    }
+  }
+
+  .button {
+    padding: 10px;
+    background: $background-color-blue-two;
+    border-radius: $medium-border-radius;
+    font-size: 20px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: $background-blue;
+    }
+  }
+
+  .text {
+    background: $background-color-blue-two;
+    border-radius: $medium-border-radius;
+    border: 2px solid $background-color-blue-two;
+    padding: 10px;
+    font-size: 20px;
+
+  }
+}

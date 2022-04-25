@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import Header from "./header/Header";
 import Content from "./content/Content";
-import Footer from "./footer/Footer";
+import Footer from "./settings/Settings";
 import {RootState, useTypeDispatch} from "../../store/store";
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
@@ -48,7 +48,6 @@ const MainWindow : React.FC = () => {
             <div className={gameStateStyle}>
                 <Header />
                 <Content />
-                <Footer/>
             </div>
             {gameState === "end" && <Statistics/>}
         </>

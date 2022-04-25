@@ -1,5 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {ROOM_ID_IN_STORAGE} from "./chat_slice";
+import {profileSlice} from "./profile_slice";
 
 export interface UserInfoType {
     name : string,
@@ -9,7 +10,8 @@ export interface UserInfoType {
 interface UserListType {
     usersList: Array<UserInfoType>,
     timeList: Array<string>,
-    scoreList: Array<string>
+    scoreList: Array<string>,
+    settingsShow: boolean,
     loading?: 'idle' | 'pending' | 'succeeded' | 'failed'
 }
 
@@ -23,6 +25,7 @@ const initialState = {
     timeList : ["00:10","01:00", "02:00", "03:00", "04:00", "05:00"],
     scoreList : ["5", "10", "15", "20", "25", "30"],
     loading: 'idle',
+    settingsShow: false,
 } as  UserListType
 
 
@@ -53,7 +56,9 @@ export const usersListSlice = createSlice({
     name : "userListSlice",
     initialState : initialState,
     reducers : {
-
+        setSettingsShow : (state, action) => {
+            state.settingsShow = action.payload;
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(getUsersList.fulfilled, (state, action) => {
@@ -74,3 +79,4 @@ export const usersListSlice = createSlice({
 })
 
 export const usersListSliceReducers = usersListSlice.reducer;
+export const {setSettingsShow} = usersListSlice.actions

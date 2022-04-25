@@ -1,0 +1,1 @@
+{"version":3,"sourceRoot":"","sources":["settings.module.scss","../../../styles/_variables.scss"],"names":[],"mappings":"AAGE;EACE;EACA;EACA;EACA;EACA,YCGgB;EDFhB,eCJmB;EDKnB;EACA;EACA;EACA;EACA;;AAEA;EACE;EACA;EACA;;AAIJ;EACE;EACA,YClBwB;EDmBxB,eCrBmB;EDsBnB;EACA;;AAEA;EACE,kBCtBY;;AD0BhB;EACE,YC7BwB;ED8BxB,eChCmB;EDiCnB;EACA;EACA","file":"settings.module.css"}
