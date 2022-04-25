@@ -22,7 +22,7 @@ function CreateRoom() {
     return (
         <div className={style.section + ' ' + style.createRoom}>
             <div className={style.widget}>
-                <div className={style.text}>Создайте комнату, к вам смогут присоединиться ваши друзья по id комнаты</div>
+                <div className={style.text}>Создайте комнату, к вам смогут присоединиться ваши друзья по идентификатору комнаты.</div>
                 <button className={`${style.button} btn`} onClick={handleCreateRoom}>Создать комнату</button>
             </div>
 
