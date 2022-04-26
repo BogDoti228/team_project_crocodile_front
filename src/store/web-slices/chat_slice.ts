@@ -91,6 +91,11 @@ export const { addMessage, changeMessageStatus, clearChat } = chatSlice.actions;
 export type DispatchSignal<Action extends AnyAction = AnyAction> =
   SignalDispatch<RootState, Action>;
 
+export type JointRoomType = {
+  roomName: string;
+  connectionId: string;
+};
+
 export type MessagesListType = {
   messages: Array<MessageType>;
   loading?: "idle" | "pending" | "succeeded" | "failed";
