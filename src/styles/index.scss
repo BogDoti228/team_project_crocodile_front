@@ -9,15 +9,12 @@ html {
   font-family: "Geometria Regular", sans-serif;
   background-color: $background-white;
 
-
   .body {
     height: 100%;
     margin: 0;
     padding: 0;
 
-
     .root {
-
       height: 100%;
       display: flex;
       flex-direction: column;
@@ -27,8 +24,8 @@ html {
 }
 
 @font-face {
-  font-family: 'Geometria Regular';
-  src: url('../resources/fonts/Geometria.ttf') format('truetype');
+  font-family: "Geometria Regular";
+  src: url("../resources/fonts/Geometria.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -38,4 +35,3 @@ html {
   -webkit-user-select: none;
   -ms-user-select: none;
 }
-
