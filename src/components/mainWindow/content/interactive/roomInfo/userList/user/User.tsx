@@ -26,7 +26,7 @@ const User : React.FC<UserInfoType> = ({name,score}) => {
     },[currentStartUser, name])
 
     return (
-        <li className={styleSelected}/*style={{borderColor : isSelected ? "red" : "rgb(146 244 192)"}}*/>
+        <li className={styleSelected}>
             <span className={styles.name}>{name}</span>
             <div className={styles.utils}>
                 {isAdminUser && <img className={styles.admin} src={star} alt="crocodile"/>}

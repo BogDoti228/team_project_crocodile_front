@@ -10,8 +10,6 @@
   align-items: center;
   background-color: $background-white;
 
-
-
   &_content{
     height: 92.2vh;
     max-width: 880px;
@@ -64,6 +62,7 @@
 }
 
 .info{
+  overflow: auto;
   background-color: $background-white-blue;
   width: 50%;
   border-bottom-left-radius: $medium-border-radius;
