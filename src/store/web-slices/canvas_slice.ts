@@ -4,7 +4,6 @@ import { SignalDispatch } from "redux-signalr";
 import { RootState } from "../store";
 import canvasConnection from "../middlewares/canvasMiddleware";
 import { API_PATH, ROOM_ID_IN_STORAGE } from "../../constans";
-import {JointRoomType} from "./chat_slice";
 
 const initialState = {
   url: "",
