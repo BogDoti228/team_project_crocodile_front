@@ -58,6 +58,7 @@
 }
 
 .info {
+  overflow: auto;
   background-color: #92b4f4;
   width: 50%;
   border-bottom-left-radius: 15px;

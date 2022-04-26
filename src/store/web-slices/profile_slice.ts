@@ -2,6 +2,7 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {ROOM_ID_IN_STORAGE} from "./chat_slice";
 import {API_PATH} from "../../constans";
 
+
 interface ProfileType {
     isAuth: boolean,
     name : string,

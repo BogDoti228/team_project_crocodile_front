@@ -19,7 +19,7 @@ const Timer : React.FC = () => {
     },[gameState, currentTimer, timerTick])
 
     return (
-        <div className={styles.timer_window}>
+        <div className={styles.timer_window} title={"Осталось времени"}>
             <span className={styles.time}>{currentValue}</span>
         </div>
     )
