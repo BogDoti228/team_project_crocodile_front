@@ -3,10 +3,8 @@ import {RootState} from "../store";
 import {AnyAction} from 'redux';
 import {SignalDispatch} from "redux-signalr";
 import chatConnection from "../middlewares/chatMiddleware";
-import {NICK_IN_STORAGE} from "../../components/enterWindow/Enter";
-import {API_PATH} from "../../constans";
+import {API_PATH, NICK_IN_STORAGE, ROOM_ID_IN_STORAGE} from "../../constans";
 
-export const ROOM_ID_IN_STORAGE = "roomName";
 
 const initialState = {
     messages: [],

@@ -2,13 +2,13 @@ import React, {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {RootState, useTypeDispatch} from "../../../../../store/store";
 import {postGameProcessInfo} from "../../../../../store/web-slices/game_process_slice";
-import {NICK_IN_STORAGE} from "../../../../enterWindow/Enter";
 import {
     postPreStartInfo,
     PreStartInfoType,
     setCurrentStartUser
 } from "../../../../../store/web-slices/select_slice";
 import styles from "./gameResultPanel.module.scss"
+import {NICK_IN_STORAGE} from "../../../../../constans";
 
 const GameResultPanel : React.FC = () => {
     const {gameState,currentWord, scoreAddUser} = useSelector((state : RootState) => state.gameProcessReducer)

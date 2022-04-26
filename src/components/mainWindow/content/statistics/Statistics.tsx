@@ -4,7 +4,7 @@ import {RootState, useTypeDispatch} from "../../../../store/store";
 import {getStatistics} from "../../../../store/web-slices/statistics_slice";
 import styles from "./statistics.module.scss"
 import {restartGame} from "../../../../store/web-slices/game_process_slice";
-import {NICK_IN_STORAGE} from "../../../enterWindow/Enter";
+import {NICK_IN_STORAGE} from "../../../../constans";
 
 
 const Statistics : React.FC = () => {

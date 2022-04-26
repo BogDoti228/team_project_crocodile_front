@@ -5,8 +5,7 @@ import {useSelector} from "react-redux";
 import {getUsersList} from "../../../../../../store/web-slices/list_users_slice";
 import User from "./user/User";
 import {deleteName} from "../../../../../../store/web-slices/profile_slice";
-import {NICK_IN_STORAGE} from "../../../../../enterWindow/Enter";
-import {ROOM_ID_IN_STORAGE} from "../../../../../../store/web-slices/chat_slice";
+import {NICK_IN_STORAGE} from "../../../../../../constans";
 
 
 

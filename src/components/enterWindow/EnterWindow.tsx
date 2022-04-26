@@ -8,8 +8,9 @@ import {useNavigate} from "react-router-dom";
 import canvasConnection from "../../store/middlewares/canvasMiddleware";
 import {HubConnectionState} from "@microsoft/signalr";
 import {joinToCanvasRoom} from "../../store/web-slices/canvas_slice";
-import {joinToChatRoom, ROOM_ID_IN_STORAGE} from "../../store/web-slices/chat_slice";
+import {joinToChatRoom} from "../../store/web-slices/chat_slice";
 import chatConnection from "../../store/middlewares/chatMiddleware";
+import {ROOM_ID_IN_STORAGE} from "../../constans";
 
 function EnterWindow(){
     const navigate = useNavigate();

@@ -2,9 +2,9 @@ import React, {useState} from "react";
 import style from './choiceRoomWindow.module.scss';
 import {useTypeDispatch} from "../../store/store";
 import {useNavigate} from "react-router-dom";
-import {ROOM_ID_IN_STORAGE} from "../../store/web-slices/chat_slice";
 import {checkExistingRoom, setAuth} from "../../store/web-slices/profile_slice";
 import {RoomInfo} from "../../store/web-slices/profile_slice";
+import {ROOM_ID_IN_STORAGE} from "../../constans";
 
 
 function JoinRoom() {

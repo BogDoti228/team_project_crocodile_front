@@ -3,10 +3,9 @@ import {RootState, useTypeDispatch} from "../../store/store";
 import {postName, setAuth, setName} from "../../store/web-slices/profile_slice";
 import style from "./enterWindow.module.scss";
 import {useNavigate} from "react-router-dom";
-import {ROOM_ID_IN_STORAGE} from "../../store/web-slices/chat_slice";
 import {useSelector} from "react-redux";
-import {getPreStartInfo, setCurrentAdmin} from "../../store/web-slices/select_slice";
-export const NICK_IN_STORAGE = "name";
+import {setCurrentAdmin} from "../../store/web-slices/select_slice";
+import {NICK_IN_STORAGE, ROOM_ID_IN_STORAGE} from "../../constans";
 
 function Enter() {
     const [nick, setNick] = useState('');

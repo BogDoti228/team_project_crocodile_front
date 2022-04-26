@@ -1,15 +1,14 @@
 import React, {useEffect, useState} from "react";
 import Header from "./header/Header";
 import Content from "./content/Content";
-import Footer from "./settings/Settings";
 import {RootState, useTypeDispatch} from "../../store/store";
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
-import {ROOM_ID_IN_STORAGE} from "../../store/web-slices/chat_slice";
 import {useParams} from "react-router-dom";
 import {setAuth} from "../../store/web-slices/profile_slice";
 import style from "./mainWindow.module.scss";
 import Statistics from "./content/statistics/Statistics";
+import {ROOM_ID_IN_STORAGE} from "../../constans";
 
 
 

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import styles from "./boxWord.module.scss"
 import {useSelector} from "react-redux";
 import {RootState} from "../../../../../../store/store";
-import {NICK_IN_STORAGE} from "../../../../../enterWindow/Enter";
+import {NICK_IN_STORAGE} from "../../../../../../constans";
 
 const BoxWord : React.FC = () => {
     const {statusWord, gameState, currentWord} = useSelector((state : RootState) => state.gameProcessReducer)
@@ -11,7 +11,6 @@ const BoxWord : React.FC = () => {
 
     useEffect(() => {
         if (gameState === 'during') {
-            //console.log(currentStartUser + " === "+ sessionStorage.getItem(NICK_IN_STORAGE))
             if (currentStartUser === sessionStorage.getItem(NICK_IN_STORAGE)) {
                 setCurrentValue(currentWord)
             }

@@ -3,13 +3,11 @@ import style from "./message.module.scss";
 import {sendChangeMessage, MessageType} from "../../../../../store/web-slices/chat_slice";
 import {RootState, useTypeDispatch} from "../../../../../store/store";
 import {useSelector} from "react-redux";
-import {NICK_IN_STORAGE} from "../../../../enterWindow/Enter";
-import {GameBooleansType, postGameProcessInfo} from "../../../../../store/web-slices/game_process_slice";
 import {
-    GameFinalResponseType,
     postScoreToAdd,
     ScoreAddUserType,
 } from "../../../../../store/web-slices/role_slice";
+import {NICK_IN_STORAGE} from "../../../../../constans";
 
 const Message : React.FC<MessageType> = ({id,name, text, status}) => {
     const {currentStartUser} = useSelector((state : RootState) => state.selectReducer)

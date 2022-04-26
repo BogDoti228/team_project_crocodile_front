@@ -1,7 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {ROOM_ID_IN_STORAGE} from "./chat_slice";
 import {ScoreAddUserType} from "./role_slice";
-import {API_PATH} from "../../constans";
+import {API_PATH, ROOM_ID_IN_STORAGE} from "../../constans";
 
 type GameStateType = 'during' | 'preStart' | 'betweenRound' | 'end';
 

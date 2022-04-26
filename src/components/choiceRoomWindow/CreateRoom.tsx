@@ -2,10 +2,10 @@ import React from "react";
 import style from './choiceRoomWindow.module.scss';
 import {useNavigate} from "react-router-dom";
 import {useTypeDispatch} from "../../store/store";
-import {ROOM_ID_IN_STORAGE} from "../../store/web-slices/chat_slice";
 import {nanoid} from "@reduxjs/toolkit";
 import {setAuth} from "../../store/web-slices/profile_slice";
 import {setCurrentAdmin} from "../../store/web-slices/select_slice";
+import {ROOM_ID_IN_STORAGE} from "../../constans";
 
 function CreateRoom() {
     const dispatch = useTypeDispatch();

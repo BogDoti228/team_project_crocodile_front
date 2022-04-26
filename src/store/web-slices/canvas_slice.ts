@@ -2,9 +2,8 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {AnyAction} from "redux";
 import {SignalDispatch} from "redux-signalr";
 import {RootState} from "../store";
-import {ROOM_ID_IN_STORAGE} from "./chat_slice";
 import canvasConnection from "../middlewares/canvasMiddleware";
-import {API_PATH} from "../../constans";
+import {API_PATH, ROOM_ID_IN_STORAGE} from "../../constans";
 
 const initialState = {
     url: '',

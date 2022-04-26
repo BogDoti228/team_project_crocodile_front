@@ -6,8 +6,8 @@ import {RootState, useTypeDispatch} from "../../../../store/store";
 import {postCanvas} from "../../../../store/web-slices/canvas_slice";
 import ToolPanel from "./toolPanel/ToolPanel";
 import GameResultPanel from "./gameResultPanel/GameResultPanel";
-import {NICK_IN_STORAGE} from "../../../enterWindow/Enter";
 import Settings from "../../settings/Settings";
+import {NICK_IN_STORAGE} from "../../../../constans";
 
 interface Point {
     x: number,
