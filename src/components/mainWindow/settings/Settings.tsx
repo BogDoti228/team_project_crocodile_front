@@ -35,7 +35,7 @@ const Settings : React.FC = () => {
         <ul className={styles.settings_wrap_panel}>
             <li className={styles.li_block}>
                 <p className={styles.text}>
-                    Выбрать пользователя, начинающего игру:
+                    Выбрать кто начинает игру:
                 </p>
                 <CustomSelect name={"userChoose"} options={usersList.map(x => x.name)} onChangeValue={onChangeValueUser}/>
             </li>
@@ -51,7 +51,7 @@ const Settings : React.FC = () => {
                 </p>
                 <CustomSelect name={"scoreChoose"} options={scoreList} onChangeValue={onChangeValueScore}/>
             </li>
-            <li>
+            <li className={styles.li_block}>
                 <button className={styles.button} onClick={onClose}>Вернуться</button>
             </li>
         </ul>

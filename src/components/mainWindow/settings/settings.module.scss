@@ -6,7 +6,7 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    background: $color-green-light;
+    background: $background-white;
     border-radius: $medium-border-radius;
     display: flex;
     flex-direction: column;
@@ -16,7 +16,6 @@
 
     .li_block {
       display: flex;
-      flex-direction: row;
       gap: 20px
     }
   }
@@ -27,6 +26,9 @@
     border-radius: $medium-border-radius;
     font-size: 20px;
     transition: background-color 0.3s ease;
+    margin-left: auto;
+    flex-basis: 230px;
+//    flex:1;
 
     &:hover {
       background-color: $background-blue;
@@ -34,11 +36,11 @@
   }
 
   .text {
-    background: $background-color-blue-two;
+    //background: $background-color-blue-two;
     border-radius: $medium-border-radius;
-    border: 2px solid $background-color-blue-two;
+    //border: 2px solid $background-color-blue-two;
     padding: 10px;
     font-size: 20px;
-
+    width: 100%;
   }
 }

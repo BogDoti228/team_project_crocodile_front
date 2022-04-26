@@ -3,7 +3,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background: #92f4c0;
+  background: #FBFBFB;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -13,7 +13,6 @@
 }
 :local .settings_wrap_panel .li_block {
   display: flex;
-  flex-direction: row;
   gap: 20px;
 }
 :local .button {
@@ -22,16 +21,17 @@
   border-radius: 15px;
   font-size: 20px;
   transition: background-color 0.3s ease;
+  margin-left: auto;
+  flex-basis: 230px;
 }
 :local .button:hover {
   background-color: #5E7CE2;
 }
 :local .text {
-  background: #92B4F4;
   border-radius: 15px;
-  border: 2px solid #92B4F4;
   padding: 10px;
   font-size: 20px;
+  width: 100%;
 }
 
 /*# sourceMappingURL=settings.module.css.map */
