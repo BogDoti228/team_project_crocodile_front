@@ -6,12 +6,12 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    background: $color-green-light;
+    background: $background-white;
     border-radius: $medium-border-radius;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding: 20px;
+    padding: 30px;
     box-shadow: 1px 1px 5px 5px rgba(0, 0, 0, 0.1);
   }
 
@@ -27,13 +27,22 @@
     }
   }
 
-  .text {
-    background: $background-color-blue-two;
-    border-radius: $medium-border-radius;
-    border: 2px solid $background-color-blue-two;
+  .textWrap{
     padding: 10px;
-    font-size: 20px;
-
+    display: flex;
+    justify-content: space-between;
+    gap: 25px;
+    border-radius: $medium-border-radius;
+    border: 2px solid $background-white-blue;
   }
+
+  .text {
+    font-size: 20px;
+  }
+
+  .user{
+    font-size: 20px;
+  }
+
 
 }

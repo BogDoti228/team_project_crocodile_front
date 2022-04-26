@@ -9,6 +9,7 @@ import {
 import CustomSelect from "../../utils/customSelect/CustomSelect";
 import styles from "./settings.module.scss"
 import {setSettingsShow} from "../../../store/web-slices/list_users_slice";
+import {postGameProcessInfo} from "../../../store/web-slices/game_process_slice";
 
 const Settings : React.FC = () => {
     const {usersList, timeList, scoreList} = useSelector((state : RootState) => state.usersListReducer)
@@ -29,6 +30,11 @@ const Settings : React.FC = () => {
 
     const onClose = () => {
         dispatch(setSettingsShow(false))
+    }
+
+    const handleStart = () => {
+        dispatch(setSettingsShow(false))
+        dispatch(postGameProcessInfo('during'))
     }
 
     return (
@@ -53,6 +59,8 @@ const Settings : React.FC = () => {
             </li>
             <li className={styles.li_block}>
                 <button className={styles.button} onClick={onClose}>Вернуться</button>
+                <button className={styles.button} onClick={handleStart}>Начать</button>
+
             </li>
         </ul>
     )

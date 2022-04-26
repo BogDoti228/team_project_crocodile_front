@@ -1,13 +1,16 @@
 :local .header {
+  width: 95vw;
   display: flex;
   flex-direction: row;
-  width: 100%;
   align-items: center;
-  padding: 20px;
+  padding: 20px 0 20px 0;
 }
 :local .header .info {
   display: flex;
   flex-direction: row;
+}
+:local .header :last-child {
+  margin-right: 0;
 }
 :local .titleBox {
   display: flex;

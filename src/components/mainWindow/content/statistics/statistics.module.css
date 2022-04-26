@@ -3,12 +3,12 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background: #92f4c0;
+  background: #FBFBFB;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 20px;
+  padding: 30px;
   box-shadow: 1px 1px 5px 5px rgba(0, 0, 0, 0.1);
 }
 :local .button {
@@ -21,11 +21,18 @@
 :local .button:hover {
   background-color: #5E7CE2;
 }
-:local .text {
-  background: #92B4F4;
-  border-radius: 15px;
-  border: 2px solid #92B4F4;
+:local .textWrap {
   padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+  border-radius: 15px;
+  border: 2px solid #92b4f4;
+}
+:local .text {
+  font-size: 20px;
+}
+:local .user {
   font-size: 20px;
 }
 

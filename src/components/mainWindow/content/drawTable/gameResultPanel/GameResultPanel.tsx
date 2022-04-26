@@ -51,7 +51,7 @@ const GameResultPanel : React.FC = () => {
 
     return (
         <>
-            {gameState === 'betweenRound' && showForDrawingUser &&
+            {showForDrawingUser &&
             <div className={styles.boxWrapPanelResult}>
                 {isWordGuessed && <p className={styles.text}>Вы смогли нарисовать слово</p>}
                 {isWordGuessed && <p className={styles.text}>Вы получаете 2 очка</p>}
@@ -61,7 +61,7 @@ const GameResultPanel : React.FC = () => {
             </div>
             }
 
-            {gameState === 'betweenRound' && showForGuessedUser &&
+            {showForGuessedUser &&
             <div className={styles.boxWrapPanelResult}>
                 <p className={styles.text}>Загаданное слово: {currentWord}</p>
                 <p className={styles.text}>Вы смогли угадать слово</p>
@@ -70,7 +70,7 @@ const GameResultPanel : React.FC = () => {
             </div>
             }
 
-            {gameState === 'betweenRound' && !showForDrawingUser && !showForGuessedUser &&
+            {!showForDrawingUser && !showForGuessedUser &&
             <div className={styles.boxWrapPanelResult}>
                 <p className={styles.text}>Загаданное слово: {currentWord}</p>
                 {!isWordGuessed && <p className={styles.text}>Никто не угадал слово в этом раунде</p>}

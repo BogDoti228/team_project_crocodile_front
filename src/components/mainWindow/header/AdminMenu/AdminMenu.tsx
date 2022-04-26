@@ -33,17 +33,8 @@ const AdminMenu : React.FC = () => {
         dispatch(postPreStartInfo(preStartInfo))
     }, [currentStartUser, currentTimer, currentEndScore])
 
-    useEffect(() => {
-        const preStartInfo : PreStartInfoType = {
-            currentTimer : currentTimer,
-            currentStartUser: currentStartUser,
-            currentEndScore: currentEndScore
-        }
-        console.log(" POST PRE START INFO WITH + " + currentTimer + " " + currentStartUser)
-        dispatch(postPreStartInfo(preStartInfo))
-    }, [currentStartUser, currentTimer, currentEndScore])
-
     const onStart = () => {
+        dispatch(setSettingsShow(false))
         dispatch(postGameProcessInfo('during'))
     }
 
