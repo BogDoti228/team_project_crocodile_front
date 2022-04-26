@@ -19,7 +19,7 @@ const Statistics: React.FC = () => {
     dispatch(getStatistics());
   }, []);
 
-  const restart = () => {
+  const handleRestart = () => {
     dispatch(restartGame());
   };
 
@@ -38,7 +38,7 @@ const Statistics: React.FC = () => {
         <p className={styles.user}>{mostSuccessGuessing}</p>
       </div>
       {currentAdmin === sessionStorage.getItem(NICK_IN_STORAGE) && (
-        <button className={styles.button} onClick={restart}>
+        <button className={styles.button} onClick={handleRestart}>
           Перезапустить игру
         </button>
       )}

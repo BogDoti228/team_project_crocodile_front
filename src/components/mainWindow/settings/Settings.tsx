@@ -18,15 +18,15 @@ const Settings: React.FC = () => {
 
   const dispatch = useTypeDispatch();
 
-  const onChangeValueUser = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChangeValueUser = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(setCurrentStartUser(e.target.value));
   };
 
-  const onChangeValueTimer = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChangeValueTimer = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(setCurrentTimer(e.target.value));
   };
 
-  const onChangeValueScore = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChangeValueScore = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(setCurrentEndScore(e.target.value));
   };
 
@@ -46,7 +46,7 @@ const Settings: React.FC = () => {
         <CustomSelect
           name={"userChoose"}
           options={usersList.map((x) => x.name)}
-          onChangeValue={onChangeValueUser}
+          onChangeValue={handleChangeValueUser}
         />
       </li>
       <li className={styles.li_block}>
@@ -54,7 +54,7 @@ const Settings: React.FC = () => {
         <CustomSelect
           name={"timeChoose"}
           options={timeList}
-          onChangeValue={onChangeValueTimer}
+          onChangeValue={handleChangeValueTimer}
         />
       </li>
       <li className={styles.li_block}>
@@ -62,7 +62,7 @@ const Settings: React.FC = () => {
         <CustomSelect
           name={"scoreChoose"}
           options={scoreList}
-          onChangeValue={onChangeValueScore}
+          onChangeValue={handleChangeValueScore}
         />
       </li>
       <li className={styles.li_block}>

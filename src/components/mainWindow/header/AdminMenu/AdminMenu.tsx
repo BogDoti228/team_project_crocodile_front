@@ -38,21 +38,21 @@ const AdminMenu: React.FC = () => {
     dispatch(postPreStartInfo(preStartInfo));
   }, [currentStartUser, currentTimer, currentEndScore]);
 
-  const onStart = () => {
+  const handleStart = () => {
     dispatch(setSettingsShow(false));
     dispatch(postGameProcessInfo("during"));
   };
 
-  const onSettingsShow = () => {
+  const handleSettingsShow = () => {
     dispatch(setSettingsShow(true));
   };
 
   return (
     <div className={styles.admin_panel_wrap}>
-      <button className={styles.button} onClick={onSettingsShow}>
+      <button className={styles.button} onClick={handleSettingsShow}>
         Настройки
       </button>
-      <button className={styles.button} onClick={onStart}>
+      <button className={styles.button} onClick={handleStart}>
         Начать
       </button>
     </div>

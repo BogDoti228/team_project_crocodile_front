@@ -39,7 +39,7 @@ const GameResultPanel: React.FC = () => {
     setIsWordGuessed(scoreAddUser.userGuessed !== "");
   }, [gameState]);
 
-  const onGameContinue = async () => {
+  const handleGameContinue = async () => {
     setCssOpacity({ opacity: 0 });
 
     const nextUser = getNextUser();
@@ -75,7 +75,7 @@ const GameResultPanel: React.FC = () => {
           {!isWordGuessed && (
             <p className={styles.text}>Вы получаете 0 очков</p>
           )}
-          <button className={styles.button} onClick={onGameContinue}>
+          <button className={styles.button} onClick={handleGameContinue}>
             Передать ход
           </button>
         </div>

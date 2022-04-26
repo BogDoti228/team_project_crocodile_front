@@ -34,7 +34,7 @@ function Enter() {
 
   let navigate = useNavigate();
 
-  const handleClickBtn = () => {
+  const handleEnter = () => {
     if (nick.length === 0) {
       setIsErrorZeroInput(true);
       return;
@@ -55,7 +55,7 @@ function Enter() {
 
   const handlePressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      handleClickBtn();
+      handleEnter();
     }
   };
 
@@ -78,7 +78,7 @@ function Enter() {
           handlePressEnter(e);
         }}
       />
-      <button className={style.btn + " btn"} onClick={handleClickBtn}>
+      <button className={style.btn + " btn"} onClick={handleEnter}>
         Войти
       </button>
     </div>
