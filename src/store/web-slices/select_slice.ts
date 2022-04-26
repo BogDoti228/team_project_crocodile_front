@@ -1,5 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {ROOM_ID_IN_STORAGE} from "./chat_slice";
+import {API_PATH} from "../../constans";
 
 interface SelectType {
     currentTimer : string,
@@ -25,7 +26,7 @@ export interface PreStartInfoType {
 }
 
 export const getPreStartInfo = createAsyncThunk("getPreStartInfo", async () => {
-    const response : Promise<PreStartInfoType> = fetch('https://localhost:8080/game/startInfo', {
+    const response : Promise<PreStartInfoType> = fetch(API_PATH + 'game/startInfo', {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -38,7 +39,7 @@ export const getPreStartInfo = createAsyncThunk("getPreStartInfo", async () => {
 })
 
 export const postPreStartInfo = createAsyncThunk("postPreStartInfo", async (currentData : PreStartInfoType) => {
-    await fetch('https://localhost:8080/game/startInfo', {
+    await fetch(API_PATH + 'game/startInfo', {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {ROOM_ID_IN_STORAGE} from "./chat_slice";
 import {RoomInfo} from "./profile_slice";
+import {API_PATH} from "../../constans";
 
 interface StatisticsType {
     winner : string,
@@ -15,7 +16,7 @@ const initialState = {
 } as StatisticsType
 
 export const getStatistics = createAsyncThunk("getStatistics", async () => {
-    const response : Promise<StatisticsType> = await fetch('https://localhost:8080/game/gameStatistics', {
+    const response : Promise<StatisticsType> = await fetch(API_PATH + 'game/gameStatistics', {
         method: "GET",
         headers: {
             "Content-Type": "application/json",

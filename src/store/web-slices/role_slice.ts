@@ -1,5 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {ROOM_ID_IN_STORAGE} from "./chat_slice";
+import {API_PATH} from "../../constans";
 
 export interface ScoreAddUserType {
     userDraw : string,
@@ -21,7 +22,7 @@ export interface GameFinalResponseType {
 }
 
 export const postScoreToAdd = createAsyncThunk("postScoreToAdd", async (scoreAddUser : ScoreAddUserType) => {
-    await fetch('https://localhost:8080/game/gameScore', {
+    await fetch(API_PATH + 'game/gameScore', {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -32,7 +33,7 @@ export const postScoreToAdd = createAsyncThunk("postScoreToAdd", async (scoreAdd
 })
 
 export const getScoreToAddUsers = createAsyncThunk("getScoreToAddUsers", async () => {
-    const response : Promise<ScoreAddUserType> = fetch('https://localhost:8080/game/gameScore', {
+    const response : Promise<ScoreAddUserType> = fetch(API_PATH + 'game/gameScore', {
         method: "GET",
         headers: {
             "Content-Type": "application/json",

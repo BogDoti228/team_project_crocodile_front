@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {ROOM_ID_IN_STORAGE} from "./chat_slice";
-import {profileSlice} from "./profile_slice";
+import {API_PATH} from "../../constans";
 
 export interface UserInfoType {
     name : string,
@@ -34,7 +34,7 @@ interface ObjectList {
 }
 
 export const getUsersList = createAsyncThunk("getUsersList", async () => {
-    const response : Promise<string> = fetch('https://localhost:8080/users/list', {
+    const response : Promise<string> = fetch(API_PATH + 'users/list', {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
