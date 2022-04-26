@@ -41,7 +41,7 @@ export const deleteName = createAsyncThunk("deleteName", async (name : string) =
         type: 'application/json',
     };
     const blob = new Blob([JSON.stringify(body)], headers);
-    navigator.sendBeacon("https://localhost:8080/user/deleteUser", blob)
+    navigator.sendBeacon(API_PATH + 'user/deleteUser', blob)
 })
 
 export const checkExistingRoom = createAsyncThunk("checkExistingRoom", async (roomId : string) => {
