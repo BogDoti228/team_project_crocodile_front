@@ -2,7 +2,6 @@ import React, {SetStateAction, useEffect, useRef, useState} from "react";
 import styles from "./adminMenu.module.scss"
 import {useSelector} from "react-redux";
 import {RootState, useTypeDispatch} from "../../../../store/store";
-import CustomSelect from "../../../utils/customSelect/CustomSelect";
 import {
     postPreStartInfo, PreStartInfoType, setCurrentEndScore,
     setCurrentStartUser,
@@ -10,20 +9,18 @@ import {
 } from "../../../../store/web-slices/select_slice";
 import {postGameProcessInfo} from "../../../../store/web-slices/game_process_slice";
 import {NICK_IN_STORAGE} from "../../../enterWindow/Enter";
+import {setSettingsShow} from "../../../../store/web-slices/list_users_slice";
 
 const AdminMenu : React.FC = () => {
-    const {usersList, timeList, scoreList} = useSelector((state : RootState) => state.usersListReducer)
+    const {timeList, scoreList} = useSelector((state : RootState) => state.usersListReducer)
     const {currentStartUser, currentTimer, currentEndScore} = useSelector((state : RootState) => state.selectReducer)
-    const [user, setUser] = useState(sessionStorage.getItem(NICK_IN_STORAGE))
-    const [time, setTime] = useState(timeList[0])
-    const [endScore, setEndScore] = useState(scoreList[0])
 
     const dispatch = useTypeDispatch()
 
     useEffect(()=> {
-        dispatch(setCurrentStartUser(user))
-        dispatch(setCurrentTimer(time))
-        dispatch(setCurrentEndScore(endScore))
+        dispatch(setCurrentStartUser(sessionStorage.getItem(NICK_IN_STORAGE)))
+        dispatch(setCurrentTimer(timeList[0]))
+        dispatch(setCurrentEndScore(scoreList[0]))
     },[])
 
     useEffect(() => {
@@ -36,39 +33,29 @@ const AdminMenu : React.FC = () => {
         dispatch(postPreStartInfo(preStartInfo))
     }, [currentStartUser, currentTimer, currentEndScore])
 
-    const onChangeValueUser = (e : React.ChangeEvent<HTMLSelectElement>) => {
-        setUser(e.target.value)
-        dispatch(setCurrentStartUser(e.target.value))
-    }
-
-    const onChangeValueTimer = (e : React.ChangeEvent<HTMLSelectElement>) => {
-        setTime(e.target.value)
-        dispatch(setCurrentTimer(e.target.value))
-    }
-
-    const onChangeValueScore = (e : React.ChangeEvent<HTMLSelectElement>) => {
-        setEndScore(e.target.value)
-        dispatch(setCurrentEndScore(e.target.value))
-    }
+    useEffect(() => {
+        const preStartInfo : PreStartInfoType = {
+            currentTimer : currentTimer,
+            currentStartUser: currentStartUser,
+            currentEndScore: currentEndScore
+        }
+        console.log(" POST PRE START INFO WITH + " + currentTimer + " " + currentStartUser)
+        dispatch(postPreStartInfo(preStartInfo))
+    }, [currentStartUser, currentTimer, currentEndScore])
 
     const onStart = () => {
         dispatch(postGameProcessInfo('during'))
-    
+    }
+
+    const onSettingsShow = () => {
+        dispatch(setSettingsShow(true))
     }
 
     return (
-        <ul className={styles.menuBar}>
-            <li>
-                <CustomSelect name={"userChoose"} options={usersList.map(x => x.name)} onChangeValue={onChangeValueUser}/>
-            </li>
-            <li>
-                <CustomSelect name={"timeChoose"} options={timeList} onChangeValue={onChangeValueTimer}/>
-            </li>
-            <li>
-                <CustomSelect name={"scoreChoose"} options={scoreList} onChangeValue={onChangeValueScore}/>
-            </li>
-            <li className={styles.play} onMouseUp={onStart}/>
-        </ul>
+        <div className={styles.admin_panel_wrap}>
+            <button className={styles.button} onClick={onSettingsShow}>Настройки</button>
+            <button className={styles.button} onClick={onStart}>Начать</button>
+        </div>
     )
 }
 
