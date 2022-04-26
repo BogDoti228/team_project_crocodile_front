@@ -4,6 +4,7 @@ import {SignalDispatch} from "redux-signalr";
 import {RootState} from "../store";
 import {ROOM_ID_IN_STORAGE} from "./chat_slice";
 import canvasConnection from "../middlewares/canvasMiddleware";
+import {API_PATH} from "../../constans";
 
 const initialState = {
     url: '',
@@ -12,7 +13,7 @@ const initialState = {
 
 export const postCanvas = createAsyncThunk("postCanvas", async (url: string) => {
     //console.log('Post Canvas!');
-    await fetch('https://localhost:8080/canvas/post', {
+    await fetch(API_PATH + 'canvas/post', {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -26,7 +27,7 @@ export const postCanvas = createAsyncThunk("postCanvas", async (url: string) => 
 })
 
 export const joinToCanvasRoom = createAsyncThunk("joinToRoom", async (nameRoom: string) => {
-    await fetch('https://localhost:8080/canvas/joinRoom', {
+    await fetch(API_PATH + 'canvas/joinRoom', {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

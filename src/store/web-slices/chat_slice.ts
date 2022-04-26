@@ -4,6 +4,7 @@ import {AnyAction} from 'redux';
 import {SignalDispatch} from "redux-signalr";
 import chatConnection from "../middlewares/chatMiddleware";
 import {NICK_IN_STORAGE} from "../../components/enterWindow/Enter";
+import {API_PATH} from "../../constans";
 
 export const ROOM_ID_IN_STORAGE = "roomName";
 
@@ -13,7 +14,7 @@ const initialState = {
 } as MessagesListType
 
 export const sendMessage = createAsyncThunk("sendMessage", async (text: string) => {
-    await fetch('https://localhost:8080/chat/message', {
+    await fetch(API_PATH + 'chat/message', {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -30,7 +31,7 @@ export const sendMessage = createAsyncThunk("sendMessage", async (text: string) 
 })
 
 export const sendChangeMessage = createAsyncThunk("changeMessageStatus", async (msg: MessageType) => {
-    await fetch('https://localhost:8080/chat/changeStatus', {
+    await fetch(API_PATH + 'chat/changeStatus', {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -42,7 +43,7 @@ export const sendChangeMessage = createAsyncThunk("changeMessageStatus", async (
 
 export const joinToChatRoom = createAsyncThunk("joinToRoom", async (nameRoom: string) => {
     console.log(nameRoom)
-    await fetch('https://localhost:8080/chat/joinRoom', {
+    await fetch(API_PATH + 'chat/joinRoom', {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

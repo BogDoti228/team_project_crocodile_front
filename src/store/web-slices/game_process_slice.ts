@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {ROOM_ID_IN_STORAGE} from "./chat_slice";
 import {ScoreAddUserType} from "./role_slice";
+import {API_PATH} from "../../constans";
 
 type GameStateType = 'during' | 'preStart' | 'betweenRound' | 'end';
 
@@ -32,7 +33,7 @@ interface GameProcessData {
 }
 
 export const getGameProcessInfo = createAsyncThunk("getGameProcessInfo", async () => {
-    const response : Promise<GameProcessData> = fetch('https://localhost:8080/game/gameProcess', {
+    const response : Promise<GameProcessData> = fetch(API_PATH + 'game/gameProcess', {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -51,7 +52,7 @@ export interface GameBooleansType {
 
 
 export const postGameProcessInfo = createAsyncThunk("postGameProcessInfo", async (gameState : GameStateType) => {
-    await fetch('https://localhost:8080/game/gameProcess', {
+    await fetch(API_PATH + 'game/gameProcess', {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -62,7 +63,7 @@ export const postGameProcessInfo = createAsyncThunk("postGameProcessInfo", async
 })
 
 export const restartGame = createAsyncThunk("restartGame", async () => {
-    await fetch('https://localhost:8080/game/restart', {
+    await fetch(API_PATH + 'game/restart', {
         method: "GET",
         headers: {
             "Content-Type": "application/json",

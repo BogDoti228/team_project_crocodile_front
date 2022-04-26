@@ -1,5 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {ROOM_ID_IN_STORAGE} from "./chat_slice";
+import {API_PATH} from "../../constans";
 
 interface ProfileType {
     isAuth: boolean,
@@ -20,7 +21,7 @@ export type RoomInfo = {
 }
 
 export const postName = createAsyncThunk("postName", async (name : string) => {
-    return await fetch('https://localhost:8080/user/profile', {
+    return await fetch(API_PATH + 'user/profile', {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -44,7 +45,7 @@ export const deleteName = createAsyncThunk("deleteName", async (name : string) =
 })
 
 export const checkExistingRoom = createAsyncThunk("checkExistingRoom", async (roomId : string) => {
-    const response : Promise<RoomInfo> = await fetch('https://localhost:8080/user/rooms', {
+    const response : Promise<RoomInfo> = await fetch(API_PATH + 'user/rooms', {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

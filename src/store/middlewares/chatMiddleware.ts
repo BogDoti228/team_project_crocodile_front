@@ -2,9 +2,10 @@ import {HubConnectionBuilder} from "@microsoft/signalr";
 import {signalMiddleware, withCallbacks} from "redux-signalr";
 import {ChatDispatchSignal, addMessage, changeMessageStatus, MessageType} from "../web-slices/chat_slice";
 import {RootState} from "../store";
+import {API_PATH} from "../../constans";
 
 const chatConnection = new HubConnectionBuilder()
-    .withUrl('https://localhost:8080/chat')
+    .withUrl(API_PATH + 'chat')
     .withAutomaticReconnect()
     .build();
 
