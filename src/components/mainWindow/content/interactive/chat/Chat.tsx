@@ -4,6 +4,8 @@ import {RootState, useTypeDispatch} from "../../../../../store/store";
 import {clearChat, sendMessage} from "../../../../../store/web-slices/chat_slice";
 import style from "./chat.module.scss";
 import Message from "./Message";
+import send from "../../../../../resources/images/send.svg"
+
 
 const Chat : React.FC = () => {
     const [message, setMessage] = useState<string>("")
@@ -42,18 +44,14 @@ const Chat : React.FC = () => {
     const applyMessage = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
             if (message.length === 0) return;
-
-            await Promise.resolve().then(() => {
-                dispatch(sendMessage(message))
-            })
-
-            setMessage('');
-            if (inputRef.current)
-                inputRef.current.value = ""
+            handleSendMessage();
         }
     }
 
-
+    const handleSendMessage = () => {
+        dispatch(sendMessage(message))
+        setMessage('');
+    }
 
     return (
         <div className={style.chat}>
@@ -69,8 +67,9 @@ const Chat : React.FC = () => {
                        placeholder={"Написать сообщение..."}
                        className={style.input} type="text"
                        onKeyPress={(e) => applyMessage(e)}
+                       value={message}
                        onChange={e => setMessage(e.target.value)}/>
-                <button className={style.button}>1</button>
+                <button className={style.button} onClick={handleSendMessage}><img src={send} alt="go" className={style.img}/></button>
             </div>
         </div>
     )
