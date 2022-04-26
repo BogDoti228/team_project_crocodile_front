@@ -48,7 +48,6 @@ export const sendChangeMessage = createAsyncThunk(
 export const joinToChatRoom = createAsyncThunk(
   "joinToRoom",
   async (nameRoom: string) => {
-    console.log(nameRoom);
     await fetch(API_PATH + "chat/joinRoom", {
       method: "POST",
       headers: {
@@ -89,7 +88,7 @@ export const chatSlice = createSlice({
 export const chatSliceReducers = chatSlice.reducer;
 export const { addMessage, changeMessageStatus, clearChat } = chatSlice.actions;
 
-export type ChatDispatchSignal<Action extends AnyAction = AnyAction> =
+export type DispatchSignal<Action extends AnyAction = AnyAction> =
   SignalDispatch<RootState, Action>;
 
 export type MessagesListType = {

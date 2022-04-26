@@ -83,7 +83,6 @@ export const selectSlice = createSlice({
       }
     });
     builder.addCase(postPreStartInfo.fulfilled, () => {
-      //console.log("POSTED DATA SURELY")
     });
   },
 });

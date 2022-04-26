@@ -50,11 +50,6 @@ export const getGameProcessInfo = createAsyncThunk(
   }
 );
 
-export interface GameBooleansType {
-  isGameStarted: boolean;
-  isGameEnded: boolean;
-}
-
 export const postGameProcessInfo = createAsyncThunk(
   "postGameProcessInfo",
   async (gameState: GameStateType) => {
@@ -86,11 +81,6 @@ export const gameProcessSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(postGameProcessInfo.fulfilled, () => {});
     builder.addCase(getGameProcessInfo.fulfilled, (state, action) => {
-      /*console.log(`GAME PROCESS INFO
-             status word: ${action.payload.statusWord}
-             word: ${action.payload.currentWord} 
-             game state: ${action.payload.gameState}
-             timer: ${action.payload.timerTick}`);*/
       state.statusWord = action.payload.statusWord;
       state.currentWord = action.payload.currentWord;
       state.gameState = action.payload.gameState;

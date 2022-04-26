@@ -35,9 +35,6 @@ const AdminMenu: React.FC = () => {
       currentStartUser: currentStartUser,
       currentEndScore: currentEndScore,
     };
-    console.log(
-      " POST PRE START INFO WITH + " + currentTimer + " " + currentStartUser
-    );
     dispatch(postPreStartInfo(preStartInfo));
   }, [currentStartUser, currentTimer, currentEndScore]);
 

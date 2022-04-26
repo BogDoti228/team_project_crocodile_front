@@ -59,9 +59,6 @@ export const canvasSliceReducers = canvasSlice.reducer;
 
 export const { setUrlImg } = canvasSlice.actions;
 
-export type CanvasDispatchSignal<Action extends AnyAction = AnyAction> =
-  SignalDispatch<RootState, Action>;
-
 export type CanvasType = {
   url: string;
   connectionId?: string;

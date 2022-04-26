@@ -1,7 +1,7 @@
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import { signalMiddleware, withCallbacks } from "redux-signalr";
 import {
-  ChatDispatchSignal,
+  DispatchSignal,
   addMessage,
   changeMessageStatus,
   MessageType,
@@ -14,13 +14,11 @@ const chatConnection = new HubConnectionBuilder()
   .withAutomaticReconnect()
   .build();
 
-const callbacks = withCallbacks<ChatDispatchSignal, RootState>()
+const callbacks = withCallbacks<DispatchSignal, RootState>()
   .add("ReceiveMessage", (msg: MessageType) => (dispatch) => {
-    console.log("Receive message", msg.text);
     dispatch(addMessage(msg));
   })
   .add("ReceiveChangedMessageStatus", (msg: MessageType) => (dispatch) => {
-    console.log("Change message", msg.text);
     dispatch(changeMessageStatus(msg));
   });
 
