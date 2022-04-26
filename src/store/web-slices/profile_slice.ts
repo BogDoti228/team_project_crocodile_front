@@ -1,83 +1,89 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {ROOM_ID_IN_STORAGE} from "./chat_slice";
-import {API_PATH} from "../../constans";
-
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { API_PATH, ROOM_ID_IN_STORAGE } from "../../constans";
 
 interface ProfileType {
-    isAuth: boolean,
-    name : string,
-    loading?: 'idle' | 'pending' | 'succeeded' | 'failed',
-    isRoomExist : boolean
+  isAuth: boolean;
+  name: string;
+  loading?: "idle" | "pending" | "succeeded" | "failed";
+  isRoomExist: boolean;
 }
 
 const initialState = {
-    isAuth: false,
-    name: "none",
-    loading: 'idle',
-    isRoomExist : false
-} as ProfileType
+  isAuth: false,
+  name: "none",
+  loading: "idle",
+  isRoomExist: false,
+} as ProfileType;
 
 export type RoomInfo = {
-    isRoomExist : boolean
-}
+  isRoomExist: boolean;
+};
 
-export const postName = createAsyncThunk("postName", async (name : string) => {
-    return await fetch(API_PATH + 'user/profile', {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({name: name, roomId: sessionStorage.getItem(ROOM_ID_IN_STORAGE)})
-    }).then(x => {
-        return x.status !== 409;
-    })
-})
+export const postName = createAsyncThunk("postName", async (name: string) => {
+  return await fetch(API_PATH + "user/profile", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: name,
+      roomId: sessionStorage.getItem(ROOM_ID_IN_STORAGE),
+    }),
+  }).then((x) => {
+    return x.status !== 409;
+  });
+});
 
-export const deleteName = createAsyncThunk("deleteName", async (name : string) => {
+export const deleteName = createAsyncThunk(
+  "deleteName",
+  async (name: string) => {
     const body = {
-        name: name,
-        roomId: sessionStorage.getItem(ROOM_ID_IN_STORAGE)
+      name: name,
+      roomId: sessionStorage.getItem(ROOM_ID_IN_STORAGE),
     };
     const headers = {
-        type: 'application/json',
+      type: "application/json",
     };
     const blob = new Blob([JSON.stringify(body)], headers);
-    navigator.sendBeacon(API_PATH + 'user/deleteUser', blob)
-})
+    navigator.sendBeacon(API_PATH + "user/deleteUser", blob);
+  }
+);
 
-export const checkExistingRoom = createAsyncThunk("checkExistingRoom", async (roomId : string) => {
-    const response : Promise<RoomInfo> = await fetch(API_PATH + 'user/rooms', {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({roomId: roomId})
-    }).then((x) => x.json())
-        .catch(console.error)
-    return await response
-})
+export const checkExistingRoom = createAsyncThunk(
+  "checkExistingRoom",
+  async (roomId: string) => {
+    const response: Promise<RoomInfo> = await fetch(API_PATH + "user/rooms", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ roomId: roomId }),
+    })
+      .then((x) => x.json())
+      .catch(console.error);
+    return await response;
+  }
+);
 
 export const profileSlice = createSlice({
-    name : "profileSlice",
-    initialState : initialState,
-    reducers : {
-        setName : (state, action) => {
-            state.name = action.payload;
-        },
-        setAuth : (state, action) => {
-            state.isAuth = action.payload;
-        }
+  name: "profileSlice",
+  initialState: initialState,
+  reducers: {
+    setName: (state, action) => {
+      state.name = action.payload;
     },
-    extraReducers: (builder) => {
-        builder.addCase(postName.fulfilled, () => {
-        })
-        builder.addCase(deleteName.fulfilled, () => {
-        })
-        builder.addCase(checkExistingRoom.fulfilled, (state, action) => {
-            state.isRoomExist = action.payload.isRoomExist
-        })
-    }
-})
+    setAuth: (state, action) => {
+      state.isAuth = action.payload;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(postName.fulfilled, () => {});
+    builder.addCase(deleteName.fulfilled, () => {});
+    builder.addCase(checkExistingRoom.fulfilled, (state, action) => {
+      state.isRoomExist = action.payload.isRoomExist;
+    });
+  },
+});
 
 export const profileSliceReducers = profileSlice.reducer;
-export const {setName, setAuth} = profileSlice.actions
+export const { setName, setAuth } = profileSlice.actions;

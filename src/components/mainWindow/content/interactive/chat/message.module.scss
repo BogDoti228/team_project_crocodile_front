@@ -7,7 +7,7 @@
   overflow-wrap: anywhere;
 }
 
-.name{
+.name {
   color: $background-white-blue;
   font-size: 20px;
   margin-bottom: 5px;
@@ -15,7 +15,7 @@
   font-weight: 600;
 }
 
-.text{
+.text {
   background: $background-white;
   border: 5px solid $background-white-blue;
   display: flex;
@@ -26,7 +26,7 @@
   min-height: 47px;
 }
 
-.button{
+.button {
   flex-basis: 50%;
   margin-top: 2px;
   height: 20px;
@@ -37,49 +37,48 @@
   transition: background-color 0.3s ease;
 }
 
-.buttons{
+.buttons {
   display: flex;
 }
 
-.buttonRightAnswer{
+.buttonRightAnswer {
   background-color: #00dc09;
   width: 100%;
-  &:hover{
+  &:hover {
     background-color: #00ab06;
   }
 }
 
-.buttonLike{
+.buttonLike {
   margin-left: 5px;
   background: $background-white-blue;
-  &:hover{
-  background: $background-blue;
+  &:hover {
+    background: $background-blue;
   }
 }
 
-
-.buttonDislike{
+.buttonDislike {
   background: #ff441a;
-  &:hover{
+  &:hover {
     background: #d24545;
   }
 }
 
-.positive{
+.positive {
   border-color: $background-white-blue;
   background-color: #b6cbfa;
 }
 
-.negative{
-  border-color: #FF0000;
+.negative {
+  border-color: #ff0000;
   background-color: #ffb0b0;
 }
 
-.neutral{
-  background-color: #FBFBFB;
+.neutral {
+  background-color: #fbfbfb;
 }
 
-.right{
+.right {
   border-color: #00ab06;
   background-color: #00dc09;
 }

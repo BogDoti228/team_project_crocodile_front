@@ -11,7 +11,7 @@
 }
 
 .btn:hover {
-  background-color: #5E7CE2;
+  background-color: #5e7ce2;
 }
 
 .input {
@@ -27,7 +27,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background: #FBFBFB;
+  background: #fbfbfb;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -46,17 +46,17 @@
 }
 :local .button {
   padding: 10px;
-  background: #92B4F4;
+  background: #92b4f4;
   border-radius: 15px;
   font-size: 20px;
   transition: background-color 0.3s ease;
 }
 :local .button:hover {
-  background-color: #5E7CE2;
+  background-color: #5e7ce2;
 }
 :local .text {
   border-radius: 15px;
-  border: 2px solid #92B4F4;
+  border: 2px solid #92b4f4;
   padding: 10px;
   font-size: 20px;
 }

@@ -1,6 +1,6 @@
 @import "variables";
 
-.btn{
+.btn {
   width: 166px;
   height: 40px;
   display: flex;
@@ -12,14 +12,14 @@
   transition: background-color 0.3s ease;
 }
 
-.btn:hover{
+.btn:hover {
   background-color: $background-blue;
 }
 
-.input{
-    border: 5px solid $background-white-blue;
-    font-size: 24px;
-    padding: 5px;
-    height: 60px;
-    border-radius: $little-border-radius;
+.input {
+  border: 5px solid $background-white-blue;
+  font-size: 24px;
+  padding: 5px;
+  height: 60px;
+  border-radius: $little-border-radius;
 }

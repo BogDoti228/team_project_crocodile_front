@@ -1,13 +1,13 @@
 @import "../../../../styles/variables";
 
 .canvas {
-  background-color: #FBFBFB;
+  background-color: #fbfbfb;
   height: 100%;
   width: 100%;
   border-radius: $medium-border-radius;
 }
 
-.canvasWrapper{
+.canvasWrapper {
   display: flex;
   flex-direction: column;
   height: 100%;
