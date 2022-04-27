@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/react-gh-pages/team_project_crocodile_front/static/css/main.1f39d228.css",
-    "main.js": "/react-gh-pages/team_project_crocodile_front/static/js/main.4d29536e.js",
-    "static/media/Geometria.ttf": "/react-gh-pages/team_project_crocodile_front/static/media/Geometria.8f177d24d33171dfc518.ttf",
-    "static/media/logo.svg": "/react-gh-pages/team_project_crocodile_front/static/media/logo.0ce652783cb4a86908a22946512434c8.svg",
-    "static/media/star.svg": "/react-gh-pages/team_project_crocodile_front/static/media/star.fb287237e160af2fa2ccca230fb8700b.svg",
-    "index.html": "/react-gh-pages/team_project_crocodile_front/index.html",
-    "static/media/send.svg": "/react-gh-pages/team_project_crocodile_front/static/media/send.040cc9ae5b542ca301996b375faa6c46.svg",
-    "main.1f39d228.css.map": "/react-gh-pages/team_project_crocodile_front/static/css/main.1f39d228.css.map",
-    "main.4d29536e.js.map": "/react-gh-pages/team_project_crocodile_front/static/js/main.4d29536e.js.map"
+    "main.css": "/team_project_crocodile_front/static/css/main.d515ce60.css",
+    "main.js": "/team_project_crocodile_front/static/js/main.0ef0aaf9.js",
+    "static/media/Geometria.ttf": "/team_project_crocodile_front/static/media/Geometria.8f177d24d33171dfc518.ttf",
+    "static/media/logo.svg": "/team_project_crocodile_front/static/media/logo.0ce652783cb4a86908a22946512434c8.svg",
+    "static/media/star.svg": "/team_project_crocodile_front/static/media/star.fb287237e160af2fa2ccca230fb8700b.svg",
+    "index.html": "/team_project_crocodile_front/index.html",
+    "static/media/send.svg": "/team_project_crocodile_front/static/media/send.040cc9ae5b542ca301996b375faa6c46.svg",
+    "main.d515ce60.css.map": "/team_project_crocodile_front/static/css/main.d515ce60.css.map",
+    "main.0ef0aaf9.js.map": "/team_project_crocodile_front/static/js/main.0ef0aaf9.js.map"
   },
   "entrypoints": [
-    "static/css/main.1f39d228.css",
-    "static/js/main.4d29536e.js"
+    "static/css/main.d515ce60.css",
+    "static/js/main.0ef0aaf9.js"
   ]
 }
