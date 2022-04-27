@@ -1,12 +1,14 @@
 @import "../../styles/variables";
 
-.window_container {
+.window_container{
   height: 100%;
   display: flex;
   align-items: center;
 }
 
-.window {
+.window{
+  width: 60%;
+  margin: 0 auto;
   height: 688px;
   display: flex;
   justify-content: space-around;
@@ -15,7 +17,7 @@
   box-shadow: 2px 6px 10px 1px rgba(0, 0, 0, 0.3);
 }
 
-.section {
+.section{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,12 +29,12 @@
   padding: 25px;
 }
 
-.widget {
+.widget{
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 24.703125vw;
+  width: 100%;
   height: 50vh;
   font-size: 24px;
   padding: 110px 25px 25px 25px;
@@ -40,7 +42,7 @@
   border-radius: 15px;
 }
 
-.button {
+.button{
   font-size: 24px;
   width: 100%;
   height: 56px;
@@ -48,21 +50,21 @@
   padding: 5px;
 }
 
-.input {
+.input{
   width: 100%;
   margin-bottom: auto;
   margin-top: 15px;
 }
 
-.joinRoom {
+.joinRoom{
   background-color: $background-white-blue;
 }
 
-.createRoom {
+.createRoom{
   background-color: $background-blue;
 }
 
-.errorMessage {
+.errorMessage{
   position: absolute;
   top: 10px;
   margin-top: 15px;

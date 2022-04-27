@@ -1,6 +1,6 @@
 @import "../../styles/variables";
 
-.window {
+.window{
   margin: 0 20px 0 20px;
   position: absolute;
   width: 100%;
@@ -10,7 +10,7 @@
   align-items: center;
   background-color: $background-white;
 
-  &_content {
+  &_content{
     height: 92.2vh;
     max-width: 880px;
     background-color: $background-blue;
@@ -19,10 +19,11 @@
     flex-direction: row-reverse;
     justify-content: flex-end;
     box-shadow: 2px 6px 10px 1px rgba(0, 0, 0, 0.3);
+
   }
 }
 
-.enter {
+.enter{
   padding: 45px;
   height: 348px;
   max-width: 370px;
@@ -38,7 +39,7 @@
   position: relative;
 }
 
-.errorMessage {
+.errorMessage{
   position: absolute;
   top: 15px;
   left: 27px;
@@ -52,15 +53,15 @@
   border-radius: 5px;
 }
 
-.input {
+.input{
   max-width: 318px;
 }
 
-.btn {
+.btn{
   align-self: flex-end;
 }
 
-.info {
+.info{
   overflow: auto;
   background-color: $background-white-blue;
   width: 50%;
@@ -68,7 +69,10 @@
   border-top-left-radius: $medium-border-radius;
   font-size: 24px;
   padding: 40px;
-  span {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  span{
     color: $background-white;
   }
 }
