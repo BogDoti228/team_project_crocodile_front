@@ -4,8 +4,7 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
 import style from './header.module.scss';
 import AdminMenu from "./AdminMenu/AdminMenu";
-import {ROOM_ID_IN_STORAGE} from "../../../store/web-slices/chat_slice";
-import {NICK_IN_STORAGE} from "../../enterWindow/Enter";
+import {NICK_IN_STORAGE, ROOM_ID_IN_STORAGE} from "../../../constans";
 
 const Header : React.FC = () => {
     const {name} = useSelector((state : RootState) => state.profileReducer)
