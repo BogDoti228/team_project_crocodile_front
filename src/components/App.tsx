@@ -6,7 +6,6 @@ import { Routes, BrowserRouter, Route } from "react-router-dom";
 
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
       <Routes>
         <Route path="/" element={<ChoiceRoomWindow />} />
         <Route path="enter" element={<EnterWindow />} />
@@ -30,7 +29,6 @@ const App: React.FC = () => {
           }
         />
       </Routes>
-    </BrowserRouter>
   );
 };
 
