@@ -57,23 +57,26 @@ const DrawTable: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    let img = new Image();
-    img.onload = () => {
-      ctxRef.current?.clearRect(
-        0,
-        0,
-        ctxRef.current?.canvas.width,
-        ctxRef.current?.canvas.height
-      );
-      ctxRef.current?.drawImage(
-        img,
-        0,
-        0,
-        ctxRef.current?.canvas.width,
-        ctxRef.current?.canvas.height
-      );
-    };
-    img.src = url;
+    if (currentStartUser !== sessionStorage.getItem(NICK_IN_STORAGE))
+    {
+      let img = new Image();
+      img.onload = () => {
+        ctxRef.current?.clearRect(
+            0,
+            0,
+            ctxRef.current?.canvas.width,
+            ctxRef.current?.canvas.height
+        );
+        ctxRef.current?.drawImage(
+            img,
+            0,
+            0,
+            ctxRef.current?.canvas.width,
+            ctxRef.current?.canvas.height
+        );
+      };
+      img.src = url;
+    }
   }, [url]);
 
   useEffect(() => {

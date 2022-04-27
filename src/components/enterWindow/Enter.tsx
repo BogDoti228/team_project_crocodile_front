@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { RootState, useTypeDispatch } from "../../store/store";
 import {
   postName,
@@ -16,6 +16,7 @@ function Enter() {
   const [isErrorMaxLen, setIsErrorMaxLenMaxLen] = useState(false);
   const [isErrorZeroInput, setIsErrorZeroInput] = useState(false);
   const [isNickTaken, setIsNickTaken] = useState(false);
+  const [isForbiddenNick, setIsForbiddenNick] = useState(false);
   const { currentAdmin } = useSelector(
     (state: RootState) => state.selectReducer
   );
@@ -23,6 +24,7 @@ function Enter() {
 
   const onChangeInput = (value: string) => {
     setIsNickTaken(false);
+    setIsForbiddenNick(false);
     setIsErrorZeroInput(false);
     if (value.length > 15) {
       setIsErrorMaxLenMaxLen(true);
@@ -32,9 +34,20 @@ function Enter() {
     }
   };
 
-  let navigate = useNavigate();
+  useEffect(() => {
+    sessionStorage.setItem(NICK_IN_STORAGE, "")
+    if (currentAdmin !== "admin") {
+      dispatch(setCurrentAdmin(""));
+    }
+  },[])
+
+  const navigate = useNavigate();
 
   const handleEnter = () => {
+    if (nick === "admin") {
+      setIsForbiddenNick(true)
+      return;
+    }
     if (nick.length === 0) {
       setIsErrorZeroInput(true);
       return;
@@ -43,14 +56,15 @@ function Enter() {
     dispatch(setName(nick));
     dispatch(postName(nick)).then((x) => {
       if (x.payload) {
+        sessionStorage.setItem(NICK_IN_STORAGE, nick);
         dispatch(setAuth(true));
         if (currentAdmin === "admin") {
           dispatch(setCurrentAdmin(nick));
         }
         navigate("/game/" + sessionStorage.getItem(ROOM_ID_IN_STORAGE));
+
       } else setIsNickTaken(true);
     });
-    sessionStorage.setItem(NICK_IN_STORAGE, nick);
   };
 
   const handlePressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -66,6 +80,7 @@ function Enter() {
       )}
       {isErrorZeroInput && <div className={style.errorMessage}>Пустой ник</div>}
       {isNickTaken && <div className={style.errorMessage}>Ник занят</div>}
+      {isForbiddenNick && <div className={style.errorMessage}>Запрещенный ник</div>}
       <input
         placeholder="Введите свой ник"
         className={style.input + " input"}

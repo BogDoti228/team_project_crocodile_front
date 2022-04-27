@@ -1,4 +1,4 @@
-import React, {SetStateAction, useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import styles from "./adminMenu.module.scss"
 import {useSelector} from "react-redux";
 import {RootState, useTypeDispatch} from "../../../../store/store";
@@ -8,9 +8,8 @@ import {
     setCurrentTimer
 } from "../../../../store/web-slices/select_slice";
 import {postGameProcessInfo} from "../../../../store/web-slices/game_process_slice";
-import {NICK_IN_STORAGE} from "../../../enterWindow/Enter";
 import {setSettingsShow} from "../../../../store/web-slices/list_users_slice";
-import Settings from "../../settings/Settings";
+import {NICK_IN_STORAGE} from "../../../../constans";
 
 const AdminMenu : React.FC = () => {
     const {timeList, scoreList} = useSelector((state : RootState) => state.usersListReducer)
