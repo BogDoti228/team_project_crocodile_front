@@ -8,6 +8,7 @@
   box-shadow: 1px 1px 4px 2px rgba(0, 0, 0, 0.1);
   height: 70px;
   margin-right: 50px;
+  transition: opacity 1s ease;
 }
 :local .button {
   width: 130px;

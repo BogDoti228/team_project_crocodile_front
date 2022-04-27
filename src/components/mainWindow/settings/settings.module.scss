@@ -13,6 +13,8 @@
     gap: 20px;
     padding: 20px;
     box-shadow: 1px 1px 5px 5px rgba(0, 0, 0, 0.1);
+    transition: opacity 1s ease;
+
 
     .li_block {
       display: flex;

@@ -10,10 +10,12 @@ import {
 import {postGameProcessInfo} from "../../../../store/web-slices/game_process_slice";
 import {NICK_IN_STORAGE} from "../../../enterWindow/Enter";
 import {setSettingsShow} from "../../../../store/web-slices/list_users_slice";
+import Settings from "../../settings/Settings";
 
 const AdminMenu : React.FC = () => {
     const {timeList, scoreList} = useSelector((state : RootState) => state.usersListReducer)
     const {currentStartUser, currentTimer, currentEndScore} = useSelector((state : RootState) => state.selectReducer)
+    const [cssOpacity, setCssOpacity] = useState<React.CSSProperties>({opacity: 1})
 
     const dispatch = useTypeDispatch()
 
@@ -34,6 +36,7 @@ const AdminMenu : React.FC = () => {
     }, [currentStartUser, currentTimer, currentEndScore])
 
     const onStart = () => {
+        setCssOpacity({opacity: 0})
         dispatch(setSettingsShow(false))
         dispatch(postGameProcessInfo('during'))
     }
@@ -43,7 +46,7 @@ const AdminMenu : React.FC = () => {
     }
 
     return (
-        <div className={styles.admin_panel_wrap}>
+        <div className={styles.admin_panel_wrap} style={cssOpacity}>
             <button className={styles.button} onClick={onSettingsShow}>Настройки</button>
             <button className={styles.button} onClick={onStart}>Начать</button>
         </div>

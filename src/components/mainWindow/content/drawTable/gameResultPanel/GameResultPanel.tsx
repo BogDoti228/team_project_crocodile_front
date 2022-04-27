@@ -25,7 +25,6 @@ const GameResultPanel : React.FC = () => {
         setShowForDrawingUser(currentStartUser === sessionStorage.getItem(NICK_IN_STORAGE))
         setShowForGuessed(scoreAddUser.userGuessed === sessionStorage.getItem(NICK_IN_STORAGE))
         setIsWordGuessed(scoreAddUser.userGuessed !== "")
-
     }, [gameState]);
 
     const onGameContinue = async () => {

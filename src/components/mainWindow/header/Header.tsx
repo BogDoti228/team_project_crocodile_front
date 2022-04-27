@@ -34,7 +34,7 @@ const Header : React.FC = () => {
             <div className={style.info}>
                 <div className={style.boxWrap}>
                     {showCopied && <div className={style.copied}>Скопировано!</div>}
-                    <div title={"ЛКМ, чтобы скопировать"} className={style.copiedText} onClick={handleCopyToClipboard}>Идентификатор комнаты: {sessionStorage.getItem(ROOM_ID_IN_STORAGE)}</div>
+                    <div title={"ЛКМ, чтобы скопировать"} className={style.copiedText} onClick={handleCopyToClipboard}>Идентификатор: {sessionStorage.getItem(ROOM_ID_IN_STORAGE)}</div>
                 </div>
                 <div className={style.boxWrap}>
                     Имя: {name}

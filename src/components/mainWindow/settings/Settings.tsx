@@ -13,6 +13,12 @@ import {postGameProcessInfo} from "../../../store/web-slices/game_process_slice"
 
 const Settings : React.FC = () => {
     const {usersList, timeList, scoreList} = useSelector((state : RootState) => state.usersListReducer)
+    const {currentStartUser, currentTimer, currentEndScore} = useSelector((state : RootState) => state.selectReducer)
+    const [cssOpacity, setCssOpacity] = useState<React.CSSProperties>({opacity: 0})
+
+    useEffect(() => {
+        setCssOpacity({opacity: 1})
+    }, [])
 
     const dispatch = useTypeDispatch()
 
@@ -29,33 +35,40 @@ const Settings : React.FC = () => {
     }
 
     const onClose = () => {
-        dispatch(setSettingsShow(false))
+        setCssOpacity({opacity: 0})
+        setTimeout(() => {
+            dispatch(setSettingsShow(false))
+        }, 1000)
     }
 
     const handleStart = () => {
-        dispatch(setSettingsShow(false))
+        setCssOpacity({opacity: 0})
+        setTimeout(() => {
+            dispatch(setSettingsShow(false))
+        }, 1000)
         dispatch(postGameProcessInfo('during'))
     }
 
+
     return (
-        <ul className={styles.settings_wrap_panel}>
+        <ul className={styles.settings_wrap_panel} style={cssOpacity}>
             <li className={styles.li_block}>
                 <p className={styles.text}>
                     Выбрать кто начинает игру:
                 </p>
-                <CustomSelect name={"userChoose"} options={usersList.map(x => x.name)} onChangeValue={onChangeValueUser}/>
+                <CustomSelect isSelected={value => value === currentStartUser} name={"userChoose"} options={usersList.map(x => x.name)} onChangeValue={onChangeValueUser}/>
             </li>
             <li className={styles.li_block}>
                 <p className={styles.text}>
                     Выбрать время раунда:
                 </p>
-                <CustomSelect name={"timeChoose"} options={timeList} onChangeValue={onChangeValueTimer}/>
+                <CustomSelect isSelected={value => value === currentTimer} name={"timeChoose"} options={timeList} onChangeValue={onChangeValueTimer}/>
             </li>
             <li className={styles.li_block}>
                 <p className={styles.text}>
                     Выбрать победное количество очков:
                 </p>
-                <CustomSelect name={"scoreChoose"} options={scoreList} onChangeValue={onChangeValueScore}/>
+                <CustomSelect isSelected={value => value === currentEndScore} name={"scoreChoose"} options={scoreList} onChangeValue={onChangeValueScore}/>
             </li>
             <li className={styles.li_block}>
                 <button className={styles.button} onClick={onClose}>Вернуться</button>

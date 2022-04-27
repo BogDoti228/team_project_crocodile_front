@@ -28,11 +28,6 @@ const initialState = {
     settingsShow: false,
 } as  UserListType
 
-
-interface ObjectList {
-    [index: string] : string
-}
-
 export const getUsersList = createAsyncThunk("getUsersList", async () => {
     const response : Promise<string> = fetch(API_PATH + 'users/list', {
         method: "GET",
