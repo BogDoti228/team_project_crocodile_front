@@ -1,6 +1,6 @@
 :local .chat {
   margin-top: 20px;
-  background-color: #FBFBFB;
+  background-color: #fbfbfb;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -29,7 +29,7 @@
   transition: background-color 0.3s ease;
 }
 :local .button:hover {
-  background-color: #5E7CE2;
+  background-color: #5e7ce2;
 }
 :local .nonActive {
   pointer-events: none;
